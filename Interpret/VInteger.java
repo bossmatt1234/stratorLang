@@ -1,0 +1,23 @@
+package lang.Interpret;
+
+
+public class VInteger extends Val{
+    int val;
+    Type type;
+    public VInteger(Integer x){
+        this.val = x;
+        setType(Type.TInt);
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "" + val;
+    }
+
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+}

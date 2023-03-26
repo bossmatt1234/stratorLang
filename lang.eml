@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" jdk="openjdk-19" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<packagePrefix url="file://$MODULE_DIR$" value="lang"/>
+	</contentEntry>
+	<lib name="java-cup-11b-runtime" scope="RUNTIME"/>
+	<levels>
+		<level name="java-cup-11b" value="project"/>
+		<level name="java-cup-11b-runtime" value="project"/>
+	</levels>
+</component>
