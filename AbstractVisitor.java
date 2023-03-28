@@ -31,7 +31,6 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.SObjInit p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SConstInit p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.IfS p, A arg) { return visitDefault(p, arg); }
-    public R visit(lang.Absyn.STryCatchFinally p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.Block p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(lang.Absyn.Stm p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
@@ -99,6 +98,8 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.EList p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListSize p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EInput p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EStrLength p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.ERand p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ETypeCast p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ELambda p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EMapIdent p, A arg) { return visitDefault(p, arg); }
@@ -114,6 +115,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.EPow p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EMul p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EDiv p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EMod p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EAdd p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ESub p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ELt p, A arg) { return visitDefault(p, arg); }
@@ -124,7 +126,6 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.ENEq p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EAnd p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EOr p, A arg) { return visitDefault(p, arg); }
-    public R visit(lang.Absyn.EAssign p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(lang.Absyn.Exp p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }

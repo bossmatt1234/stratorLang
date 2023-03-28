@@ -24,7 +24,6 @@ public abstract class Stm implements java.io.Serializable {
     public R visit(lang.Absyn.SObjInit p, A arg);
     public R visit(lang.Absyn.SConstInit p, A arg);
     public R visit(lang.Absyn.IfS p, A arg);
-    public R visit(lang.Absyn.STryCatchFinally p, A arg);
     public R visit(lang.Absyn.Block p, A arg);
 
   }

@@ -152,20 +152,6 @@ public class VisitSkel
       p.if_stm_.accept(new If_StmVisitor<R,A>(), arg);
       return null;
     }
-    public R visit(lang.Absyn.STryCatchFinally p, A arg)
-    { /* Code for STryCatchFinally goes here */
-      for (lang.Absyn.Stm x: p.liststm_1) {
-        x.accept(new StmVisitor<R,A>(), arg);
-      }
-      //p.ident_;
-      for (lang.Absyn.Stm x: p.liststm_2) {
-        x.accept(new StmVisitor<R,A>(), arg);
-      }
-      for (lang.Absyn.Stm x: p.liststm_3) {
-        x.accept(new StmVisitor<R,A>(), arg);
-      }
-      return null;
-    }
     public R visit(lang.Absyn.Block p, A arg)
     { /* Code for Block goes here */
       for (lang.Absyn.Stm x: p.liststm_) {
@@ -408,6 +394,16 @@ public class VisitSkel
     { /* Code for EInput goes here */
       return null;
     }
+    public R visit(lang.Absyn.EStrLength p, A arg)
+    { /* Code for EStrLength goes here */
+      //p.ident_;
+      return null;
+    }
+    public R visit(lang.Absyn.ERand p, A arg)
+    { /* Code for ERand goes here */
+      //p.integer_;
+      return null;
+    }
     public R visit(lang.Absyn.ETypeCast p, A arg)
     { /* Code for ETypeCast goes here */
       //p.ident_;
@@ -514,6 +510,12 @@ public class VisitSkel
       p.exp_2.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }
+    public R visit(lang.Absyn.EMod p, A arg)
+    { /* Code for EMod goes here */
+      p.exp_1.accept(new ExpVisitor<R,A>(), arg);
+      p.exp_2.accept(new ExpVisitor<R,A>(), arg);
+      return null;
+    }
     public R visit(lang.Absyn.EAdd p, A arg)
     { /* Code for EAdd goes here */
       p.exp_1.accept(new ExpVisitor<R,A>(), arg);
@@ -571,13 +573,6 @@ public class VisitSkel
     public R visit(lang.Absyn.EOr p, A arg)
     { /* Code for EOr goes here */
       p.exp_1.accept(new ExpVisitor<R,A>(), arg);
-      p.exp_2.accept(new ExpVisitor<R,A>(), arg);
-      return null;
-    }
-    public R visit(lang.Absyn.EAssign p, A arg)
-    { /* Code for EAssign goes here */
-      p.exp_1.accept(new ExpVisitor<R,A>(), arg);
-      p.assign_op_.accept(new Assign_OpVisitor<R,A>(), arg);
       p.exp_2.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }

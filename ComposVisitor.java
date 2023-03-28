@@ -178,26 +178,6 @@ public class ComposVisitor<A> implements
       lang.Absyn.If_Stm if_stm_ = p.if_stm_.accept(this, arg);
       return new lang.Absyn.IfS(if_stm_);
     }
-    public lang.Absyn.Stm visit(lang.Absyn.STryCatchFinally p, A arg)
-    {
-      lang.Absyn.ListStm liststm_1 = new lang.Absyn.ListStm();
-      for (lang.Absyn.Stm x : p.liststm_1)
-      {
-        liststm_1.add(x.accept(this,arg));
-      }
-      String ident_ = p.ident_;
-      lang.Absyn.ListStm liststm_2 = new lang.Absyn.ListStm();
-      for (lang.Absyn.Stm x : p.liststm_2)
-      {
-        liststm_2.add(x.accept(this,arg));
-      }
-      lang.Absyn.ListStm liststm_3 = new lang.Absyn.ListStm();
-      for (lang.Absyn.Stm x : p.liststm_3)
-      {
-        liststm_3.add(x.accept(this,arg));
-      }
-      return new lang.Absyn.STryCatchFinally(liststm_1, ident_, liststm_2, liststm_3);
-    }
     public lang.Absyn.Stm visit(lang.Absyn.Block p, A arg)
     {
       lang.Absyn.ListStm liststm_ = new lang.Absyn.ListStm();
@@ -461,6 +441,16 @@ public class ComposVisitor<A> implements
     {
       return new lang.Absyn.EInput();
     }
+    public lang.Absyn.Exp visit(lang.Absyn.EStrLength p, A arg)
+    {
+      String ident_ = p.ident_;
+      return new lang.Absyn.EStrLength(ident_);
+    }
+    public lang.Absyn.Exp visit(lang.Absyn.ERand p, A arg)
+    {
+      Integer integer_ = p.integer_;
+      return new lang.Absyn.ERand(integer_);
+    }
     public lang.Absyn.Exp visit(lang.Absyn.ETypeCast p, A arg)
     {
       String ident_ = p.ident_;
@@ -581,6 +571,12 @@ public class ComposVisitor<A> implements
       lang.Absyn.Exp exp_2 = p.exp_2.accept(this, arg);
       return new lang.Absyn.EDiv(exp_1, exp_2);
     }
+    public lang.Absyn.Exp visit(lang.Absyn.EMod p, A arg)
+    {
+      lang.Absyn.Exp exp_1 = p.exp_1.accept(this, arg);
+      lang.Absyn.Exp exp_2 = p.exp_2.accept(this, arg);
+      return new lang.Absyn.EMod(exp_1, exp_2);
+    }
     public lang.Absyn.Exp visit(lang.Absyn.EAdd p, A arg)
     {
       lang.Absyn.Exp exp_1 = p.exp_1.accept(this, arg);
@@ -640,13 +636,6 @@ public class ComposVisitor<A> implements
       lang.Absyn.Exp exp_1 = p.exp_1.accept(this, arg);
       lang.Absyn.Exp exp_2 = p.exp_2.accept(this, arg);
       return new lang.Absyn.EOr(exp_1, exp_2);
-    }
-    public lang.Absyn.Exp visit(lang.Absyn.EAssign p, A arg)
-    {
-      lang.Absyn.Exp exp_1 = p.exp_1.accept(this, arg);
-      lang.Absyn.Assign_Op assign_op_ = p.assign_op_.accept(this, arg);
-      lang.Absyn.Exp exp_2 = p.exp_2.accept(this, arg);
-      return new lang.Absyn.EAssign(exp_1, assign_op_, exp_2);
     }
 
     /* Assign_Op */

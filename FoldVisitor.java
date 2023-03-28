@@ -144,22 +144,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.if_stm_.accept(this, arg), r, arg);
       return r;
     }
-    public R visit(lang.Absyn.STryCatchFinally p, A arg) {
-      R r = leaf(arg);
-      for (lang.Absyn.Stm x : p.liststm_1)
-      {
-        r = combine(x.accept(this, arg), r, arg);
-      }
-      for (lang.Absyn.Stm x : p.liststm_2)
-      {
-        r = combine(x.accept(this, arg), r, arg);
-      }
-      for (lang.Absyn.Stm x : p.liststm_3)
-      {
-        r = combine(x.accept(this, arg), r, arg);
-      }
-      return r;
-    }
     public R visit(lang.Absyn.Block p, A arg) {
       R r = leaf(arg);
       for (lang.Absyn.Stm x : p.liststm_)
@@ -388,6 +372,14 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       return r;
     }
+    public R visit(lang.Absyn.EStrLength p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+    public R visit(lang.Absyn.ERand p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
     public R visit(lang.Absyn.ETypeCast p, A arg) {
       R r = leaf(arg);
       r = combine(p.typecast_.accept(this, arg), r, arg);
@@ -490,6 +482,12 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.exp_2.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(lang.Absyn.EMod p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.exp_1.accept(this, arg), r, arg);
+      r = combine(p.exp_2.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(lang.Absyn.EAdd p, A arg) {
       R r = leaf(arg);
       r = combine(p.exp_1.accept(this, arg), r, arg);
@@ -547,13 +545,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.EOr p, A arg) {
       R r = leaf(arg);
       r = combine(p.exp_1.accept(this, arg), r, arg);
-      r = combine(p.exp_2.accept(this, arg), r, arg);
-      return r;
-    }
-    public R visit(lang.Absyn.EAssign p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.exp_1.accept(this, arg), r, arg);
-      r = combine(p.assign_op_.accept(this, arg), r, arg);
       r = combine(p.exp_2.accept(this, arg), r, arg);
       return r;
     }

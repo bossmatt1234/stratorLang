@@ -122,10 +122,7 @@ public class TypeCheck {
             return null;
         }
 
-        @Override
-        public Object visit(STryCatchFinally p, TypeEnv arg) {
-            return null;
-        }
+
 
         @Override
         public Object visit(Block p, TypeEnv arg) {
@@ -213,6 +210,16 @@ public class TypeCheck {
         }
 
         @Override
+        public Type visit(EStrLength p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
+        public Type visit(ERand p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
         public Type visit(ETypeCast p, TypeEnv arg) {
             return null;
         }
@@ -288,6 +295,11 @@ public class TypeCheck {
         }
 
         @Override
+        public Type visit(EMod p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
         public Type visit(EAdd p, TypeEnv arg) {
             return null;
         }
@@ -337,10 +349,6 @@ public class TypeCheck {
             return null;
         }
 
-        @Override
-        public Type visit(EAssign p, TypeEnv arg) {
-            return null;
-        }
 
     }
     public static class FuncTypeVisitor implements FuncType.Visitor<Type,Object>

@@ -18,6 +18,8 @@ public abstract class Exp implements java.io.Serializable {
     public R visit(lang.Absyn.EList p, A arg);
     public R visit(lang.Absyn.EListSize p, A arg);
     public R visit(lang.Absyn.EInput p, A arg);
+    public R visit(lang.Absyn.EStrLength p, A arg);
+    public R visit(lang.Absyn.ERand p, A arg);
     public R visit(lang.Absyn.ETypeCast p, A arg);
     public R visit(lang.Absyn.ELambda p, A arg);
     public R visit(lang.Absyn.EMapIdent p, A arg);
@@ -33,6 +35,7 @@ public abstract class Exp implements java.io.Serializable {
     public R visit(lang.Absyn.EPow p, A arg);
     public R visit(lang.Absyn.EMul p, A arg);
     public R visit(lang.Absyn.EDiv p, A arg);
+    public R visit(lang.Absyn.EMod p, A arg);
     public R visit(lang.Absyn.EAdd p, A arg);
     public R visit(lang.Absyn.ESub p, A arg);
     public R visit(lang.Absyn.ELt p, A arg);
@@ -43,7 +46,6 @@ public abstract class Exp implements java.io.Serializable {
     public R visit(lang.Absyn.ENEq p, A arg);
     public R visit(lang.Absyn.EAnd p, A arg);
     public R visit(lang.Absyn.EOr p, A arg);
-    public R visit(lang.Absyn.EAssign p, A arg);
 
   }
 

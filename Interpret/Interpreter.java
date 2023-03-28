@@ -95,6 +95,16 @@ public class Interpreter
         return returnVal;
     }
 
+    public Val execObjectSelectListItem(ObjectVar objectVar, Env env, String objectVars, VInteger index){
+        env.newBlock();
+        env.contexts.getLast().putAll(objectVar.objectVars);
+        VList list = (VList) env.lookupVar(objectVars);
+        Val returnVal = Iterables.get(list.listVal,index.val);
+        env.emptyBlock();
+        return returnVal;
+    }
+
+
     public Val doBinaryOperation (Val x, Val y, Operator op){
         String leftRight = x.getClass().getSimpleName() + y.getClass().getSimpleName();
         Val result = BinaryOperation.checkInstance(x,y,op, leftRight);
@@ -327,21 +337,6 @@ public class Interpreter
       return p.if_stm_.accept(new If_StmVisitor(), env);
     }
 
-
-    public Object visit(lang.Absyn.STryCatchFinally p, Env env)
-    { /* Code for STryCatchFinally goes here */
-      for (lang.Absyn.Stm x: p.liststm_1) {
-        x.accept(new StmVisitor(), env);
-      }
-      //p.ident_;
-      for (lang.Absyn.Stm x: p.liststm_2) {
-        x.accept(new StmVisitor(), env);
-      }
-      for (lang.Absyn.Stm x: p.liststm_3) {
-        x.accept(new StmVisitor(), env);
-      }
-      return null;
-    }
     public Object visit(lang.Absyn.Block p, Env env)
     { /* Code for Block goes here */
         env.newBlock();
@@ -749,9 +744,6 @@ public class Interpreter
       VInteger index = (VInteger) p.exp_.accept(new ExpVisitor(), env);
       VList val = (VList) env.lookupVar(p.ident_);
       ArrayList<Val> list = val.listVal ;
-      if(index.val == -1 ){
-          return Iterables.getLast(list);
-      }
       return Iterables.get(list,index.val);
     }
 
@@ -779,6 +771,18 @@ public class Interpreter
       public Val visit(EInput p, Env arg) {
           Scanner prompt = new Scanner(System.in);
           return TypeChecker.inferInput(prompt);
+      }
+
+      @Override
+      public Val visit(EStrLength p, Env env) {
+          VString string = (VString) env.lookupVar(p.ident_);
+          return new VInteger(string.val.length());
+      }
+
+      @Override
+      public Val visit(ERand p, Env arg) {
+          Random rand = new Random();
+          return new VInteger(rand.nextInt(p.integer_));
       }
 
       @Override
@@ -935,8 +939,13 @@ public class Interpreter
               env, p.ident_2);
     }
       @Override
-      public Val visit(ESelectListItem p, Env arg) {
-          return null;
+      public Val visit(ESelectListItem p, Env env) {
+          VObject val = (VObject) env.lookupVar(p.ident_1);
+          ObjectVar objectVar = val.val;
+          return execObjectSelectListItem(
+                  objectVar,
+                  env, p.ident_2,
+                  (VInteger) p.exp_.accept(new ExpVisitor(),env));
       }
 
       public Val visit(lang.Absyn.ECall p, Env env)
@@ -1001,7 +1010,15 @@ public class Interpreter
         Val y = p.exp_2.accept(new ExpVisitor(), env);
         return doBinaryOperation(x, y, DIVIDE);
     }
-    public Val visit(lang.Absyn.EAdd p, Env env)
+
+      @Override
+      public Val visit(EMod p, Env env) {
+          Val x = p.exp_1.accept(new ExpVisitor(), env);
+          Val y = p.exp_2.accept(new ExpVisitor(), env);
+          return doBinaryOperation(x, y, MOD);
+      }
+
+      public Val visit(lang.Absyn.EAdd p, Env env)
     { /* Code for EAdd goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
@@ -1060,13 +1077,6 @@ public class Interpreter
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
         return doBinaryOperation(x, y, OR);
-    }
-    public Val visit(lang.Absyn.EAssign p, Env env)
-    { /* Code for EAssign goes here */
-      p.exp_1.accept(new ExpVisitor(), env);
-      p.assign_op_.accept(new Assign_OpVisitor(), env);
-      p.exp_2.accept(new ExpVisitor(), env);
-      return null;
     }
 
   }

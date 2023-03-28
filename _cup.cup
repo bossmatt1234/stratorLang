@@ -56,11 +56,11 @@ nonterminal lang.Absyn.Exp Exp9;
 nonterminal lang.Absyn.Exp Exp8;
 nonterminal lang.Absyn.Exp Exp4;
 nonterminal lang.Absyn.Exp Exp3;
-nonterminal lang.Absyn.Exp Exp2;
 nonterminal lang.Absyn.Assign_Op Assign_Op;
 nonterminal lang.Absyn.IncrmDecrm_Op IncrmDecrm_Op;
 nonterminal lang.Absyn.Exp Exp;
 nonterminal lang.Absyn.Exp Exp1;
+nonterminal lang.Absyn.Exp Exp2;
 nonterminal lang.Absyn.Exp Exp5;
 nonterminal lang.Absyn.Exp Exp6;
 nonterminal lang.Absyn.Exp Exp7;
@@ -85,27 +85,27 @@ terminal _SYMB_10;    //   -
 terminal _SYMB_11;    //   **
 terminal _SYMB_12;    //   *
 terminal _SYMB_13;    //   /
-terminal _SYMB_14;    //   +
-terminal _SYMB_15;    //   <
-terminal _SYMB_16;    //   >
-terminal _SYMB_17;    //   <=
-terminal _SYMB_18;    //   >=
-terminal _SYMB_19;    //   ==
-terminal _SYMB_20;    //   !=
-terminal _SYMB_21;    //   *=
-terminal _SYMB_22;    //   /=
-terminal _SYMB_23;    //   %=
-terminal _SYMB_24;    //   +=
-terminal _SYMB_25;    //   -=
-terminal _SYMB_26;    //   ++
-terminal _SYMB_27;    //   --
-terminal _SYMB_28;    //   AND
-terminal _SYMB_29;    //   OR
-terminal _SYMB_30;    //   append
-terminal _SYMB_31;    //   auto
-terminal _SYMB_32;    //   bool
-terminal _SYMB_33;    //   break
-terminal _SYMB_34;    //   catch
+terminal _SYMB_14;    //   %
+terminal _SYMB_15;    //   +
+terminal _SYMB_16;    //   <
+terminal _SYMB_17;    //   >
+terminal _SYMB_18;    //   <=
+terminal _SYMB_19;    //   >=
+terminal _SYMB_20;    //   ==
+terminal _SYMB_21;    //   !=
+terminal _SYMB_22;    //   *=
+terminal _SYMB_23;    //   /=
+terminal _SYMB_24;    //   %=
+terminal _SYMB_25;    //   +=
+terminal _SYMB_26;    //   -=
+terminal _SYMB_27;    //   ++
+terminal _SYMB_28;    //   --
+terminal _SYMB_29;    //   AND
+terminal _SYMB_30;    //   OR
+terminal _SYMB_31;    //   append
+terminal _SYMB_32;    //   auto
+terminal _SYMB_33;    //   bool
+terminal _SYMB_34;    //   break
 terminal _SYMB_35;    //   char
 terminal _SYMB_36;    //   class
 terminal _SYMB_37;    //   const
@@ -115,35 +115,35 @@ terminal _SYMB_40;    //   double
 terminal _SYMB_41;    //   else
 terminal _SYMB_42;    //   false
 terminal _SYMB_43;    //   filter
-terminal _SYMB_44;    //   finally
-terminal _SYMB_45;    //   func
-terminal _SYMB_46;    //   function
-terminal _SYMB_47;    //   functional
-terminal _SYMB_48;    //   if
-terminal _SYMB_49;    //   in
-terminal _SYMB_50;    //   inherits
-terminal _SYMB_51;    //   input
-terminal _SYMB_52;    //   int
-terminal _SYMB_53;    //   lambda
+terminal _SYMB_44;    //   func
+terminal _SYMB_45;    //   function
+terminal _SYMB_46;    //   functional
+terminal _SYMB_47;    //   if
+terminal _SYMB_48;    //   in
+terminal _SYMB_49;    //   inherits
+terminal _SYMB_50;    //   input
+terminal _SYMB_51;    //   int
+terminal _SYMB_52;    //   lambda
+terminal _SYMB_53;    //   length
 terminal _SYMB_54;    //   map
 terminal _SYMB_55;    //   new
 terminal _SYMB_56;    //   object
 terminal _SYMB_57;    //   paradigm
 terminal _SYMB_58;    //   print
-terminal _SYMB_59;    //   range
-terminal _SYMB_60;    //   reduce
-terminal _SYMB_61;    //   remove
-terminal _SYMB_62;    //   repeat
-terminal _SYMB_63;    //   return
-terminal _SYMB_64;    //   size
-terminal _SYMB_65;    //   string
-terminal _SYMB_66;    //   toBool
-terminal _SYMB_67;    //   toChar
-terminal _SYMB_68;    //   toDouble
-terminal _SYMB_69;    //   toInt
-terminal _SYMB_70;    //   toString
-terminal _SYMB_71;    //   true
-terminal _SYMB_72;    //   try
+terminal _SYMB_59;    //   randomInt
+terminal _SYMB_60;    //   range
+terminal _SYMB_61;    //   reduce
+terminal _SYMB_62;    //   remove
+terminal _SYMB_63;    //   repeat
+terminal _SYMB_64;    //   return
+terminal _SYMB_65;    //   size
+terminal _SYMB_66;    //   string
+terminal _SYMB_67;    //   toBool
+terminal _SYMB_68;    //   toChar
+terminal _SYMB_69;    //   toDouble
+terminal _SYMB_70;    //   toInt
+terminal _SYMB_71;    //   toString
+terminal _SYMB_72;    //   true
 terminal _SYMB_73;    //   void
 terminal _SYMB_74;    //   while
 
@@ -169,7 +169,7 @@ if (leftLoc != null) {
   ((lang.Absyn.PStms)RESULT).col_num = -1;
   ((lang.Absyn.PStms)RESULT).offset = -1;
 } :}
-  | _SYMB_57:p_1 _SYMB_0:p_2 _SYMB_47:p_3 ListStm:p_4  {: RESULT = new lang.Absyn.PFunctionalModeStms(p_4);
+  | _SYMB_57:p_1 _SYMB_0:p_2 _SYMB_46:p_3 ListStm:p_4  {: RESULT = new lang.Absyn.PFunctionalModeStms(p_4);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_4xleft);
 if (leftLoc != null) {
   ((lang.Absyn.PFunctionalModeStms)RESULT).line_num = leftLoc.getLine();
@@ -181,7 +181,7 @@ if (leftLoc != null) {
   ((lang.Absyn.PFunctionalModeStms)RESULT).offset = -1;
 } :}
 ;
-Stm ::= _SYMB_46:p_1 FuncType:p_2 _IDENT_:p_3 _SYMB_1:p_4 ListArg:p_5 _SYMB_2:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.DefFun(p_2,p_3,p_5,p_8);
+Stm ::= _SYMB_45:p_1 FuncType:p_2 _IDENT_:p_3 _SYMB_1:p_4 ListArg:p_5 _SYMB_2:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.DefFun(p_2,p_3,p_5,p_8);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_3xleft,p_5xleft,p_8xleft);
 if (leftLoc != null) {
   ((lang.Absyn.DefFun)RESULT).line_num = leftLoc.getLine();
@@ -214,7 +214,7 @@ if (leftLoc != null) {
   ((lang.Absyn.DefClass)RESULT).col_num = -1;
   ((lang.Absyn.DefClass)RESULT).offset = -1;
 } :}
-  | _SYMB_36:p_1 _IDENT_:p_2 _SYMB_50:p_3 _IDENT_:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.DefClassInherits(p_2,p_4,p_6);
+  | _SYMB_36:p_1 _IDENT_:p_2 _SYMB_49:p_3 _IDENT_:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.DefClassInherits(p_2,p_4,p_6);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_6xleft);
 if (leftLoc != null) {
   ((lang.Absyn.DefClassInherits)RESULT).line_num = leftLoc.getLine();
@@ -236,7 +236,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPrint)RESULT).col_num = -1;
   ((lang.Absyn.SPrint)RESULT).offset = -1;
 } :}
-  | _SYMB_33:p_1  {: RESULT = new lang.Absyn.SBreak();
+  | _SYMB_34:p_1  {: RESULT = new lang.Absyn.SBreak();
 ((lang.Absyn.SBreak)RESULT).line_num = -1;
 ((lang.Absyn.SBreak)RESULT).col_num = -1;
 ((lang.Absyn.SBreak)RESULT).offset = -1; :}
@@ -310,7 +310,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SCall)RESULT).col_num = -1;
   ((lang.Absyn.SCall)RESULT).offset = -1;
 } :}
-  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_30:p_3 _SYMB_1:p_4 Exp:p_5 _SYMB_2:p_6  {: RESULT = new lang.Absyn.SAppend(p_1,p_5);
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_31:p_3 _SYMB_1:p_4 Exp:p_5 _SYMB_2:p_6  {: RESULT = new lang.Absyn.SAppend(p_1,p_5);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_5xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SAppend)RESULT).line_num = leftLoc.getLine();
@@ -321,7 +321,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SAppend)RESULT).col_num = -1;
   ((lang.Absyn.SAppend)RESULT).offset = -1;
 } :}
-  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_61:p_3 _SYMB_7:p_4 Exp:p_5 _SYMB_8:p_6  {: RESULT = new lang.Absyn.SRemove(p_1,p_5);
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_62:p_3 _SYMB_7:p_4 Exp:p_5 _SYMB_8:p_6  {: RESULT = new lang.Absyn.SRemove(p_1,p_5);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_5xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SRemove)RESULT).line_num = leftLoc.getLine();
@@ -332,7 +332,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SRemove)RESULT).col_num = -1;
   ((lang.Absyn.SRemove)RESULT).offset = -1;
 } :}
-  | _SYMB_63:p_1 Exp:p_2  {: RESULT = new lang.Absyn.SReturn(p_2);
+  | _SYMB_64:p_1 Exp:p_2  {: RESULT = new lang.Absyn.SReturn(p_2);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SReturn)RESULT).line_num = leftLoc.getLine();
@@ -375,17 +375,6 @@ if (leftLoc != null) {
   ((lang.Absyn.IfS)RESULT).line_num = -1;
   ((lang.Absyn.IfS)RESULT).col_num = -1;
   ((lang.Absyn.IfS)RESULT).offset = -1;
-} :}
-  | _SYMB_72:p_1 _SYMB_3:p_2 ListStm:p_3 _SYMB_4:p_4 _SYMB_34:p_5 _SYMB_1:p_6 _IDENT_:p_7 _SYMB_2:p_8 _SYMB_3:p_9 ListStm:p_10 _SYMB_4:p_11 _SYMB_44:p_12 _SYMB_3:p_13 ListStm:p_14 _SYMB_4:p_15  {: RESULT = new lang.Absyn.STryCatchFinally(p_3,p_7,p_10,p_14);
-java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_3xleft,p_7xleft,p_10xleft,p_14xleft);
-if (leftLoc != null) {
-  ((lang.Absyn.STryCatchFinally)RESULT).line_num = leftLoc.getLine();
-  ((lang.Absyn.STryCatchFinally)RESULT).col_num = leftLoc.getColumn();
-  ((lang.Absyn.STryCatchFinally)RESULT).offset = leftLoc.getOffset();
-} else {
-  ((lang.Absyn.STryCatchFinally)RESULT).line_num = -1;
-  ((lang.Absyn.STryCatchFinally)RESULT).col_num = -1;
-  ((lang.Absyn.STryCatchFinally)RESULT).offset = -1;
 } :}
   | _SYMB_3:p_1 ListStm:p_2 _SYMB_4:p_3  {: RESULT = new lang.Absyn.Block(p_2);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft);
@@ -474,7 +463,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SWhile)RESULT).col_num = -1;
   ((lang.Absyn.SWhile)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 _IDENT_:p_2 _SYMB_49:p_3 _IDENT_:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.SPLoopIdent(p_2,p_4,p_6);
+  | _SYMB_63:p_1 _IDENT_:p_2 _SYMB_48:p_3 _IDENT_:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.SPLoopIdent(p_2,p_4,p_6);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_6xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SPLoopIdent)RESULT).line_num = leftLoc.getLine();
@@ -485,7 +474,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPLoopIdent)RESULT).col_num = -1;
   ((lang.Absyn.SPLoopIdent)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 _IDENT_:p_2 _SYMB_49:p_3 _SYMB_7:p_4 ListItem:p_5 _SYMB_8:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SPLoopList(p_2,p_5,p_8);
+  | _SYMB_63:p_1 _IDENT_:p_2 _SYMB_48:p_3 _SYMB_7:p_4 ListItem:p_5 _SYMB_8:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SPLoopList(p_2,p_5,p_8);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_5xleft,p_8xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SPLoopList)RESULT).line_num = leftLoc.getLine();
@@ -496,7 +485,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPLoopList)RESULT).col_num = -1;
   ((lang.Absyn.SPLoopList)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 _IDENT_:p_2 _SYMB_49:p_3 _SYMB_59:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_2:p_7 _SYMB_3:p_8 ListStm:p_9 _SYMB_4:p_10  {: RESULT = new lang.Absyn.SPLoopRangeStart(p_2,p_6,p_9);
+  | _SYMB_63:p_1 _IDENT_:p_2 _SYMB_48:p_3 _SYMB_60:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_2:p_7 _SYMB_3:p_8 ListStm:p_9 _SYMB_4:p_10  {: RESULT = new lang.Absyn.SPLoopRangeStart(p_2,p_6,p_9);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_6xleft,p_9xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStart)RESULT).line_num = leftLoc.getLine();
@@ -507,7 +496,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStart)RESULT).col_num = -1;
   ((lang.Absyn.SPLoopRangeStart)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 _IDENT_:p_2 _SYMB_49:p_3 _SYMB_59:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_5:p_7 Exp:p_8 _SYMB_2:p_9 _SYMB_3:p_10 ListStm:p_11 _SYMB_4:p_12  {: RESULT = new lang.Absyn.SPLoopRangeStartStop(p_2,p_6,p_8,p_11);
+  | _SYMB_63:p_1 _IDENT_:p_2 _SYMB_48:p_3 _SYMB_60:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_5:p_7 Exp:p_8 _SYMB_2:p_9 _SYMB_3:p_10 ListStm:p_11 _SYMB_4:p_12  {: RESULT = new lang.Absyn.SPLoopRangeStartStop(p_2,p_6,p_8,p_11);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_6xleft,p_8xleft,p_11xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStartStop)RESULT).line_num = leftLoc.getLine();
@@ -518,7 +507,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStartStop)RESULT).col_num = -1;
   ((lang.Absyn.SPLoopRangeStartStop)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 _IDENT_:p_2 _SYMB_49:p_3 _SYMB_59:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_5:p_7 Exp:p_8 _SYMB_5:p_9 Exp:p_10 _SYMB_2:p_11 _SYMB_3:p_12 ListStm:p_13 _SYMB_4:p_14  {: RESULT = new lang.Absyn.SPLoopRangeStartStopEnd(p_2,p_6,p_8,p_10,p_13);
+  | _SYMB_63:p_1 _IDENT_:p_2 _SYMB_48:p_3 _SYMB_60:p_4 _SYMB_1:p_5 Exp:p_6 _SYMB_5:p_7 Exp:p_8 _SYMB_5:p_9 Exp:p_10 _SYMB_2:p_11 _SYMB_3:p_12 ListStm:p_13 _SYMB_4:p_14  {: RESULT = new lang.Absyn.SPLoopRangeStartStopEnd(p_2,p_6,p_8,p_10,p_13);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_6xleft,p_8xleft,p_10xleft,p_13xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStartStopEnd)RESULT).line_num = leftLoc.getLine();
@@ -529,7 +518,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SPLoopRangeStartStopEnd)RESULT).col_num = -1;
   ((lang.Absyn.SPLoopRangeStartStopEnd)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 Stm_Initialise:p_2 _SYMB_5:p_3 Exp:p_4 _SYMB_5:p_5 Stm_IncrmDecrm:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SCLoop(p_2,p_4,p_6,p_8);
+  | _SYMB_63:p_1 Stm_Initialise:p_2 _SYMB_5:p_3 Exp:p_4 _SYMB_5:p_5 Stm_IncrmDecrm:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SCLoop(p_2,p_4,p_6,p_8);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_6xleft,p_8xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SCLoop)RESULT).line_num = leftLoc.getLine();
@@ -540,7 +529,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SCLoop)RESULT).col_num = -1;
   ((lang.Absyn.SCLoop)RESULT).offset = -1;
 } :}
-  | _SYMB_62:p_1 Stm_Initialise:p_2 _SYMB_5:p_3 Exp:p_4 _SYMB_5:p_5 Stm_Assign:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SCLoopAssign(p_2,p_4,p_6,p_8);
+  | _SYMB_63:p_1 Stm_Initialise:p_2 _SYMB_5:p_3 Exp:p_4 _SYMB_5:p_5 Stm_Assign:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SCLoopAssign(p_2,p_4,p_6,p_8);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_6xleft,p_8xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SCLoopAssign)RESULT).line_num = leftLoc.getLine();
@@ -552,7 +541,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SCLoopAssign)RESULT).offset = -1;
 } :}
 ;
-If_Stm ::= _SYMB_48:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5  {: RESULT = new lang.Absyn.SIf(p_2,p_4);
+If_Stm ::= _SYMB_47:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5  {: RESULT = new lang.Absyn.SIf(p_2,p_4);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SIf)RESULT).line_num = leftLoc.getLine();
@@ -563,7 +552,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SIf)RESULT).col_num = -1;
   ((lang.Absyn.SIf)RESULT).offset = -1;
 } :}
-  | _SYMB_48:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5 _SYMB_41:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SIfElse(p_2,p_4,p_8);
+  | _SYMB_47:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5 _SYMB_41:p_6 _SYMB_3:p_7 ListStm:p_8 _SYMB_4:p_9  {: RESULT = new lang.Absyn.SIfElse(p_2,p_4,p_8);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_8xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SIfElse)RESULT).line_num = leftLoc.getLine();
@@ -574,7 +563,7 @@ if (leftLoc != null) {
   ((lang.Absyn.SIfElse)RESULT).col_num = -1;
   ((lang.Absyn.SIfElse)RESULT).offset = -1;
 } :}
-  | _SYMB_48:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5 _SYMB_41:p_6 If_Stm:p_7  {: RESULT = new lang.Absyn.SIfElseIf(p_2,p_4,p_7);
+  | _SYMB_47:p_1 Exp:p_2 _SYMB_3:p_3 ListStm:p_4 _SYMB_4:p_5 _SYMB_41:p_6 If_Stm:p_7  {: RESULT = new lang.Absyn.SIfElseIf(p_2,p_4,p_7);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft,p_4xleft,p_7xleft);
 if (leftLoc != null) {
   ((lang.Absyn.SIfElseIf)RESULT).line_num = leftLoc.getLine();
@@ -671,7 +660,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EString)RESULT).col_num = -1;
   ((lang.Absyn.EString)RESULT).offset = -1;
 } :}
-  | _SYMB_71:p_1  {: RESULT = new lang.Absyn.ETrue();
+  | _SYMB_72:p_1  {: RESULT = new lang.Absyn.ETrue();
 ((lang.Absyn.ETrue)RESULT).line_num = -1;
 ((lang.Absyn.ETrue)RESULT).col_num = -1;
 ((lang.Absyn.ETrue)RESULT).offset = -1; :}
@@ -712,7 +701,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EList)RESULT).col_num = -1;
   ((lang.Absyn.EList)RESULT).offset = -1;
 } :}
-  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_64:p_3  {: RESULT = new lang.Absyn.EListSize(p_1);
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_65:p_3  {: RESULT = new lang.Absyn.EListSize(p_1);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EListSize)RESULT).line_num = leftLoc.getLine();
@@ -723,10 +712,32 @@ if (leftLoc != null) {
   ((lang.Absyn.EListSize)RESULT).col_num = -1;
   ((lang.Absyn.EListSize)RESULT).offset = -1;
 } :}
-  | _SYMB_51:p_1 _SYMB_1:p_2 _SYMB_2:p_3  {: RESULT = new lang.Absyn.EInput();
+  | _SYMB_50:p_1 _SYMB_1:p_2 _SYMB_2:p_3  {: RESULT = new lang.Absyn.EInput();
 ((lang.Absyn.EInput)RESULT).line_num = -1;
 ((lang.Absyn.EInput)RESULT).col_num = -1;
 ((lang.Absyn.EInput)RESULT).offset = -1; :}
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_53:p_3  {: RESULT = new lang.Absyn.EStrLength(p_1);
+java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft);
+if (leftLoc != null) {
+  ((lang.Absyn.EStrLength)RESULT).line_num = leftLoc.getLine();
+  ((lang.Absyn.EStrLength)RESULT).col_num = leftLoc.getColumn();
+  ((lang.Absyn.EStrLength)RESULT).offset = leftLoc.getOffset();
+} else {
+  ((lang.Absyn.EStrLength)RESULT).line_num = -1;
+  ((lang.Absyn.EStrLength)RESULT).col_num = -1;
+  ((lang.Absyn.EStrLength)RESULT).offset = -1;
+} :}
+  | _SYMB_59:p_1 _SYMB_1:p_2 _INTEGER_:p_3 _SYMB_2:p_4  {: RESULT = new lang.Absyn.ERand(p_3);
+java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_3xleft);
+if (leftLoc != null) {
+  ((lang.Absyn.ERand)RESULT).line_num = leftLoc.getLine();
+  ((lang.Absyn.ERand)RESULT).col_num = leftLoc.getColumn();
+  ((lang.Absyn.ERand)RESULT).offset = leftLoc.getOffset();
+} else {
+  ((lang.Absyn.ERand)RESULT).line_num = -1;
+  ((lang.Absyn.ERand)RESULT).col_num = -1;
+  ((lang.Absyn.ERand)RESULT).offset = -1;
+} :}
   | Exp16:p_1  {: RESULT = p_1; :}
 ;
 ListIdent ::=  /* empty */  {: RESULT = new lang.Absyn.ListIdent(); :}
@@ -744,7 +755,7 @@ if (leftLoc != null) {
   ((lang.Absyn.ETypeCast)RESULT).col_num = -1;
   ((lang.Absyn.ETypeCast)RESULT).offset = -1;
 } :}
-  | _SYMB_53:p_1 _SYMB_1:p_2 ListArg:p_3 _SYMB_2:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.ELambda(p_3,p_6);
+  | _SYMB_52:p_1 _SYMB_1:p_2 ListArg:p_3 _SYMB_2:p_4 _SYMB_3:p_5 ListStm:p_6 _SYMB_4:p_7  {: RESULT = new lang.Absyn.ELambda(p_3,p_6);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_3xleft,p_6xleft);
 if (leftLoc != null) {
   ((lang.Absyn.ELambda)RESULT).line_num = leftLoc.getLine();
@@ -799,7 +810,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EFilterList)RESULT).col_num = -1;
   ((lang.Absyn.EFilterList)RESULT).offset = -1;
 } :}
-  | _SYMB_60:p_1 _SYMB_1:p_2 Exp:p_3 _SYMB_5:p_4 _IDENT_:p_5 _SYMB_2:p_6  {: RESULT = new lang.Absyn.EReduceIdent(p_3,p_5);
+  | _SYMB_61:p_1 _SYMB_1:p_2 Exp:p_3 _SYMB_5:p_4 _IDENT_:p_5 _SYMB_2:p_6  {: RESULT = new lang.Absyn.EReduceIdent(p_3,p_5);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_3xleft,p_5xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EReduceIdent)RESULT).line_num = leftLoc.getLine();
@@ -810,7 +821,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EReduceIdent)RESULT).col_num = -1;
   ((lang.Absyn.EReduceIdent)RESULT).offset = -1;
 } :}
-  | _SYMB_60:p_1 _SYMB_1:p_2 Exp:p_3 _SYMB_5:p_4 _SYMB_7:p_5 ListItem:p_6 _SYMB_8:p_7 _SYMB_2:p_8  {: RESULT = new lang.Absyn.EReduceList(p_3,p_6);
+  | _SYMB_61:p_1 _SYMB_1:p_2 Exp:p_3 _SYMB_5:p_4 _SYMB_7:p_5 ListItem:p_6 _SYMB_8:p_7 _SYMB_2:p_8  {: RESULT = new lang.Absyn.EReduceList(p_3,p_6);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_3xleft,p_6xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EReduceList)RESULT).line_num = leftLoc.getLine();
@@ -902,9 +913,20 @@ if (leftLoc != null) {
   ((lang.Absyn.EDiv)RESULT).col_num = -1;
   ((lang.Absyn.EDiv)RESULT).offset = -1;
 } :}
+  | Exp12:p_1 _SYMB_14:p_2 Exp13:p_3  {: RESULT = new lang.Absyn.EMod(p_1,p_3);
+java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
+if (leftLoc != null) {
+  ((lang.Absyn.EMod)RESULT).line_num = leftLoc.getLine();
+  ((lang.Absyn.EMod)RESULT).col_num = leftLoc.getColumn();
+  ((lang.Absyn.EMod)RESULT).offset = leftLoc.getOffset();
+} else {
+  ((lang.Absyn.EMod)RESULT).line_num = -1;
+  ((lang.Absyn.EMod)RESULT).col_num = -1;
+  ((lang.Absyn.EMod)RESULT).offset = -1;
+} :}
   | Exp13:p_1  {: RESULT = p_1; :}
 ;
-Exp11 ::= Exp11:p_1 _SYMB_14:p_2 Exp12:p_3  {: RESULT = new lang.Absyn.EAdd(p_1,p_3);
+Exp11 ::= Exp11:p_1 _SYMB_15:p_2 Exp12:p_3  {: RESULT = new lang.Absyn.EAdd(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EAdd)RESULT).line_num = leftLoc.getLine();
@@ -928,7 +950,7 @@ if (leftLoc != null) {
 } :}
   | Exp12:p_1  {: RESULT = p_1; :}
 ;
-Exp9 ::= Exp9:p_1 _SYMB_15:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.ELt(p_1,p_3);
+Exp9 ::= Exp9:p_1 _SYMB_16:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.ELt(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.ELt)RESULT).line_num = leftLoc.getLine();
@@ -939,7 +961,7 @@ if (leftLoc != null) {
   ((lang.Absyn.ELt)RESULT).col_num = -1;
   ((lang.Absyn.ELt)RESULT).offset = -1;
 } :}
-  | Exp9:p_1 _SYMB_16:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.EGt(p_1,p_3);
+  | Exp9:p_1 _SYMB_17:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.EGt(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EGt)RESULT).line_num = leftLoc.getLine();
@@ -950,7 +972,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EGt)RESULT).col_num = -1;
   ((lang.Absyn.EGt)RESULT).offset = -1;
 } :}
-  | Exp9:p_1 _SYMB_17:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.ELEq(p_1,p_3);
+  | Exp9:p_1 _SYMB_18:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.ELEq(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.ELEq)RESULT).line_num = leftLoc.getLine();
@@ -961,7 +983,7 @@ if (leftLoc != null) {
   ((lang.Absyn.ELEq)RESULT).col_num = -1;
   ((lang.Absyn.ELEq)RESULT).offset = -1;
 } :}
-  | Exp9:p_1 _SYMB_18:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.EGEq(p_1,p_3);
+  | Exp9:p_1 _SYMB_19:p_2 Exp10:p_3  {: RESULT = new lang.Absyn.EGEq(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EGEq)RESULT).line_num = leftLoc.getLine();
@@ -974,7 +996,7 @@ if (leftLoc != null) {
 } :}
   | Exp10:p_1  {: RESULT = p_1; :}
 ;
-Exp8 ::= Exp8:p_1 _SYMB_19:p_2 Exp9:p_3  {: RESULT = new lang.Absyn.EEq(p_1,p_3);
+Exp8 ::= Exp8:p_1 _SYMB_20:p_2 Exp9:p_3  {: RESULT = new lang.Absyn.EEq(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EEq)RESULT).line_num = leftLoc.getLine();
@@ -985,7 +1007,7 @@ if (leftLoc != null) {
   ((lang.Absyn.EEq)RESULT).col_num = -1;
   ((lang.Absyn.EEq)RESULT).offset = -1;
 } :}
-  | Exp8:p_1 _SYMB_20:p_2 Exp9:p_3  {: RESULT = new lang.Absyn.ENEq(p_1,p_3);
+  | Exp8:p_1 _SYMB_21:p_2 Exp9:p_3  {: RESULT = new lang.Absyn.ENEq(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.ENEq)RESULT).line_num = leftLoc.getLine();
@@ -998,7 +1020,7 @@ if (leftLoc != null) {
 } :}
   | Exp9:p_1  {: RESULT = p_1; :}
 ;
-Exp4 ::= Exp4:p_1 _SYMB_28:p_2 Exp5:p_3  {: RESULT = new lang.Absyn.EAnd(p_1,p_3);
+Exp4 ::= Exp4:p_1 _SYMB_29:p_2 Exp5:p_3  {: RESULT = new lang.Absyn.EAnd(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EAnd)RESULT).line_num = leftLoc.getLine();
@@ -1011,7 +1033,7 @@ if (leftLoc != null) {
 } :}
   | Exp5:p_1  {: RESULT = p_1; :}
 ;
-Exp3 ::= Exp3:p_1 _SYMB_29:p_2 Exp4:p_3  {: RESULT = new lang.Absyn.EOr(p_1,p_3);
+Exp3 ::= Exp3:p_1 _SYMB_30:p_2 Exp4:p_3  {: RESULT = new lang.Absyn.EOr(p_1,p_3);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_3xleft);
 if (leftLoc != null) {
   ((lang.Absyn.EOr)RESULT).line_num = leftLoc.getLine();
@@ -1024,49 +1046,36 @@ if (leftLoc != null) {
 } :}
   | Exp4:p_1  {: RESULT = p_1; :}
 ;
-Exp2 ::= Exp3:p_1 Assign_Op:p_2 Exp2:p_3  {: RESULT = new lang.Absyn.EAssign(p_1,p_2,p_3);
-java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_2xleft,p_3xleft);
-if (leftLoc != null) {
-  ((lang.Absyn.EAssign)RESULT).line_num = leftLoc.getLine();
-  ((lang.Absyn.EAssign)RESULT).col_num = leftLoc.getColumn();
-  ((lang.Absyn.EAssign)RESULT).offset = leftLoc.getOffset();
-} else {
-  ((lang.Absyn.EAssign)RESULT).line_num = -1;
-  ((lang.Absyn.EAssign)RESULT).col_num = -1;
-  ((lang.Absyn.EAssign)RESULT).offset = -1;
-} :}
-  | Exp3:p_1  {: RESULT = p_1; :}
-;
 Assign_Op ::= _SYMB_9:p_1  {: RESULT = new lang.Absyn.Assign();
 ((lang.Absyn.Assign)RESULT).line_num = -1;
 ((lang.Absyn.Assign)RESULT).col_num = -1;
 ((lang.Absyn.Assign)RESULT).offset = -1; :}
-  | _SYMB_21:p_1  {: RESULT = new lang.Absyn.AssignMul();
+  | _SYMB_22:p_1  {: RESULT = new lang.Absyn.AssignMul();
 ((lang.Absyn.AssignMul)RESULT).line_num = -1;
 ((lang.Absyn.AssignMul)RESULT).col_num = -1;
 ((lang.Absyn.AssignMul)RESULT).offset = -1; :}
-  | _SYMB_22:p_1  {: RESULT = new lang.Absyn.AssignDiv();
+  | _SYMB_23:p_1  {: RESULT = new lang.Absyn.AssignDiv();
 ((lang.Absyn.AssignDiv)RESULT).line_num = -1;
 ((lang.Absyn.AssignDiv)RESULT).col_num = -1;
 ((lang.Absyn.AssignDiv)RESULT).offset = -1; :}
-  | _SYMB_23:p_1  {: RESULT = new lang.Absyn.AssignMod();
+  | _SYMB_24:p_1  {: RESULT = new lang.Absyn.AssignMod();
 ((lang.Absyn.AssignMod)RESULT).line_num = -1;
 ((lang.Absyn.AssignMod)RESULT).col_num = -1;
 ((lang.Absyn.AssignMod)RESULT).offset = -1; :}
-  | _SYMB_24:p_1  {: RESULT = new lang.Absyn.AssignAdd();
+  | _SYMB_25:p_1  {: RESULT = new lang.Absyn.AssignAdd();
 ((lang.Absyn.AssignAdd)RESULT).line_num = -1;
 ((lang.Absyn.AssignAdd)RESULT).col_num = -1;
 ((lang.Absyn.AssignAdd)RESULT).offset = -1; :}
-  | _SYMB_25:p_1  {: RESULT = new lang.Absyn.AssignSub();
+  | _SYMB_26:p_1  {: RESULT = new lang.Absyn.AssignSub();
 ((lang.Absyn.AssignSub)RESULT).line_num = -1;
 ((lang.Absyn.AssignSub)RESULT).col_num = -1;
 ((lang.Absyn.AssignSub)RESULT).offset = -1; :}
 ;
-IncrmDecrm_Op ::= _SYMB_26:p_1  {: RESULT = new lang.Absyn.Increment();
+IncrmDecrm_Op ::= _SYMB_27:p_1  {: RESULT = new lang.Absyn.Increment();
 ((lang.Absyn.Increment)RESULT).line_num = -1;
 ((lang.Absyn.Increment)RESULT).col_num = -1;
 ((lang.Absyn.Increment)RESULT).offset = -1; :}
-  | _SYMB_27:p_1  {: RESULT = new lang.Absyn.Decrement();
+  | _SYMB_28:p_1  {: RESULT = new lang.Absyn.Decrement();
 ((lang.Absyn.Decrement)RESULT).line_num = -1;
 ((lang.Absyn.Decrement)RESULT).col_num = -1;
 ((lang.Absyn.Decrement)RESULT).offset = -1; :}
@@ -1074,6 +1083,8 @@ IncrmDecrm_Op ::= _SYMB_26:p_1  {: RESULT = new lang.Absyn.Increment();
 Exp ::= Exp1:p_1  {: RESULT = p_1; :}
 ;
 Exp1 ::= Exp2:p_1  {: RESULT = p_1; :}
+;
+Exp2 ::= Exp3:p_1  {: RESULT = p_1; :}
 ;
 Exp5 ::= Exp6:p_1  {: RESULT = p_1; :}
 ;
@@ -1105,7 +1116,7 @@ if (leftLoc != null) {
   ((lang.Absyn.FuncTypeVarType)RESULT).offset = -1;
 } :}
 ;
-VarType ::= _SYMB_52:p_1  {: RESULT = new lang.Absyn.VarType_int();
+VarType ::= _SYMB_51:p_1  {: RESULT = new lang.Absyn.VarType_int();
 ((lang.Absyn.VarType_int)RESULT).line_num = -1;
 ((lang.Absyn.VarType_int)RESULT).col_num = -1;
 ((lang.Absyn.VarType_int)RESULT).offset = -1; :}
@@ -1113,7 +1124,7 @@ VarType ::= _SYMB_52:p_1  {: RESULT = new lang.Absyn.VarType_int();
 ((lang.Absyn.VarType_double)RESULT).line_num = -1;
 ((lang.Absyn.VarType_double)RESULT).col_num = -1;
 ((lang.Absyn.VarType_double)RESULT).offset = -1; :}
-  | _SYMB_32:p_1  {: RESULT = new lang.Absyn.VarType_bool();
+  | _SYMB_33:p_1  {: RESULT = new lang.Absyn.VarType_bool();
 ((lang.Absyn.VarType_bool)RESULT).line_num = -1;
 ((lang.Absyn.VarType_bool)RESULT).col_num = -1;
 ((lang.Absyn.VarType_bool)RESULT).offset = -1; :}
@@ -1121,15 +1132,15 @@ VarType ::= _SYMB_52:p_1  {: RESULT = new lang.Absyn.VarType_int();
 ((lang.Absyn.VarType_char)RESULT).line_num = -1;
 ((lang.Absyn.VarType_char)RESULT).col_num = -1;
 ((lang.Absyn.VarType_char)RESULT).offset = -1; :}
-  | _SYMB_65:p_1  {: RESULT = new lang.Absyn.VarType_string();
+  | _SYMB_66:p_1  {: RESULT = new lang.Absyn.VarType_string();
 ((lang.Absyn.VarType_string)RESULT).line_num = -1;
 ((lang.Absyn.VarType_string)RESULT).col_num = -1;
 ((lang.Absyn.VarType_string)RESULT).offset = -1; :}
-  | _SYMB_31:p_1  {: RESULT = new lang.Absyn.VarType_auto();
+  | _SYMB_32:p_1  {: RESULT = new lang.Absyn.VarType_auto();
 ((lang.Absyn.VarType_auto)RESULT).line_num = -1;
 ((lang.Absyn.VarType_auto)RESULT).col_num = -1;
 ((lang.Absyn.VarType_auto)RESULT).offset = -1; :}
-  | _SYMB_45:p_1  {: RESULT = new lang.Absyn.VarType_func();
+  | _SYMB_44:p_1  {: RESULT = new lang.Absyn.VarType_func();
 ((lang.Absyn.VarType_func)RESULT).line_num = -1;
 ((lang.Absyn.VarType_func)RESULT).col_num = -1;
 ((lang.Absyn.VarType_func)RESULT).offset = -1; :}
@@ -1138,23 +1149,23 @@ VarType ::= _SYMB_52:p_1  {: RESULT = new lang.Absyn.VarType_int();
 ((lang.Absyn.VarType_object)RESULT).col_num = -1;
 ((lang.Absyn.VarType_object)RESULT).offset = -1; :}
 ;
-TypeCast ::= _SYMB_69:p_1  {: RESULT = new lang.Absyn.TypeCast_toInt();
+TypeCast ::= _SYMB_70:p_1  {: RESULT = new lang.Absyn.TypeCast_toInt();
 ((lang.Absyn.TypeCast_toInt)RESULT).line_num = -1;
 ((lang.Absyn.TypeCast_toInt)RESULT).col_num = -1;
 ((lang.Absyn.TypeCast_toInt)RESULT).offset = -1; :}
-  | _SYMB_68:p_1  {: RESULT = new lang.Absyn.TypeCast_toDouble();
+  | _SYMB_69:p_1  {: RESULT = new lang.Absyn.TypeCast_toDouble();
 ((lang.Absyn.TypeCast_toDouble)RESULT).line_num = -1;
 ((lang.Absyn.TypeCast_toDouble)RESULT).col_num = -1;
 ((lang.Absyn.TypeCast_toDouble)RESULT).offset = -1; :}
-  | _SYMB_66:p_1  {: RESULT = new lang.Absyn.TypeCast_toBool();
+  | _SYMB_67:p_1  {: RESULT = new lang.Absyn.TypeCast_toBool();
 ((lang.Absyn.TypeCast_toBool)RESULT).line_num = -1;
 ((lang.Absyn.TypeCast_toBool)RESULT).col_num = -1;
 ((lang.Absyn.TypeCast_toBool)RESULT).offset = -1; :}
-  | _SYMB_67:p_1  {: RESULT = new lang.Absyn.TypeCast_toChar();
+  | _SYMB_68:p_1  {: RESULT = new lang.Absyn.TypeCast_toChar();
 ((lang.Absyn.TypeCast_toChar)RESULT).line_num = -1;
 ((lang.Absyn.TypeCast_toChar)RESULT).col_num = -1;
 ((lang.Absyn.TypeCast_toChar)RESULT).offset = -1; :}
-  | _SYMB_70:p_1  {: RESULT = new lang.Absyn.TypeCast_toString();
+  | _SYMB_71:p_1  {: RESULT = new lang.Absyn.TypeCast_toString();
 ((lang.Absyn.TypeCast_toString)RESULT).line_num = -1;
 ((lang.Absyn.TypeCast_toString)RESULT).col_num = -1;
 ((lang.Absyn.TypeCast_toString)RESULT).offset = -1; :}
