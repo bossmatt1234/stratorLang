@@ -20,4 +20,7 @@ public interface Eval {
 
     Val eval(VString x, VBool  y, Operator op);
     Val eval(VBool  x, VString y, Operator op);
+
+    Val eval(VList  x, VList y, Operator op);
+
 }

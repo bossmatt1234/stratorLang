@@ -370,6 +370,9 @@ public class Interpreter
            //p.ident_;
           Val val =p.exp_.accept(new ExpVisitor(), env);
           if(TypeChecker.check(t,val)){
+              if(val instanceof VList list){
+                  return env.extendEnvVar(p.ident_, new VList(new ArrayList<>(list.listVal)) );
+              }
               return env.extendEnvVar(p.ident_, val );
           }else{
               throw new RuntimeException("Type error at line " + p.line_num);

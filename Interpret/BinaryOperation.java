@@ -2,9 +2,11 @@ package lang.Interpret;
 
 import com.google.common.math.IntMath;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static lang.Interpret.Operator.ADD;
+import static lang.Interpret.Operator.ASSIGN;
 
 
 public class BinaryOperation implements Eval {
@@ -53,6 +55,9 @@ public class BinaryOperation implements Eval {
             }
             case "VBoolVString" ->{
                 return eval((VBool) leftVal, (VString) rightVal,op);
+            }
+            case "VListVList" ->{
+                return eval((VList) leftVal, (VList) rightVal,op);
             }
             default ->{return null;}
         }
@@ -286,6 +291,15 @@ public class BinaryOperation implements Eval {
     public Val eval(VBool x, VString y, Operator op) {
         if(op == ADD){
             return new VString(String.valueOf(x.val).concat(String.valueOf(y.val)));
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public Val eval(VList x, VList y, Operator op) {
+        if(op == ASSIGN){
+            return new VList(new ArrayList<>(y.listVal));
         }else{
             return null;
         }
