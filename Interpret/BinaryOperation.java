@@ -61,9 +61,7 @@ public class BinaryOperation implements Eval {
             }
             default ->{return null;}
         }
-
     }
-
     @Override
     public Val eval(VInteger x, VInteger y, Operator op) {
         switch (op) {

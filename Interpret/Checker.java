@@ -1,7 +1,8 @@
 package lang.Interpret;
 
 public interface Checker {
-    public boolean check(Type t,Val val);
+
+    public boolean check(Type t,Val val, int lineNum, int columnNum);
 
     public boolean isType(Type t, VInteger val );
     public boolean isType(Type type, VDouble val);

@@ -1,5 +1,7 @@
 package lang.Interpret;
 
+import lang.Interpret.Exceptions.ErrorThrow;
+
 public class UnaryOperation {
 
     public Val checkInstance(Val leftVal, Operator op) {

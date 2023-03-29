@@ -1,4 +1,4 @@
-package lang.Interpret;
+package lang.Interpret.Exceptions;
 
 public class ErrorThrow extends RuntimeException{
     public ErrorThrow(){

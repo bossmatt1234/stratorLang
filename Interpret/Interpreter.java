@@ -53,7 +53,7 @@ public class Interpreter
         int i=0;
         for (lang.Absyn.Exp x: listExp) {
             Val newval = x.accept(new ExpVisitor(), env);
-            if(!TypeChecker.check(funcToExec.args.get(i).type, newval)){
+            if(!TypeChecker.check(funcToExec.args.get(i).type, newval,lineNum,columnNum)){
                 throw new TypeArgException(lineNum,columnNum,funcToExec.args.get(i).type,newval.getClass().getSimpleName());
             }
             args.put(funcToExec.args.get(i).ident, newval);
@@ -362,7 +362,7 @@ public class Interpreter
           Type t = p.vartype_.accept(new VarTypeVisitor(), env);
            //p.ident_;
           Val val =p.exp_.accept(new ExpVisitor(), env);
-          if(TypeChecker.check(t,val)){
+          if(TypeChecker.check(t,val, p.line_num, p.col_num)){
               if(val instanceof VList list){
                   return env.extendEnvVar(p.ident_, new VList(new ArrayList<>(list.listVal)) );
               }
@@ -968,7 +968,7 @@ public class Interpreter
       for (lang.Absyn.Exp x: p.listexp_) {
         Val newval = x.accept(new ExpVisitor(), env);
 
-        if(!TypeChecker.check(funcToExec.args.get(i).type, newval)){
+        if(!TypeChecker.check(funcToExec.args.get(i).type, newval, p.line_num, p.col_num)){
             throw new TypeArgException(p.line_num, p.col_num,funcToExec.args.get(i).type, newval.getClass().getSimpleName() );
         }
         args.put(funcToExec.args.get(i).ident, newval);

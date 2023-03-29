@@ -1,11 +1,17 @@
 package lang.Interpret;
 
+import lang.Interpret.Exceptions.InferAutoException;
+import lang.Interpret.Exceptions.ReturnTypeException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TypeChecker implements Checker{
-
-    public boolean check(Type type, Val val){
+    int lineNum;
+    int columnNum;
+    public boolean check(Type type, Val val, int lineNum, int columnNum){
+        this.lineNum = lineNum;
+        this.columnNum = columnNum;
         if(type != Type.TAuto){
             if (val instanceof VInteger)
                 return isType(type, (VInteger) val);
@@ -87,11 +93,9 @@ public class TypeChecker implements Checker{
             case TString -> {return new VString("");}
             case TChar -> {return new VChar('0');}
             case TAuto -> {
-                VChar dynamicVal = new VChar('0');
-                dynamicVal.setDynamic(true);
-                return dynamicVal;
+                throw new InferAutoException(lineNum,columnNum);
             }
-            case TList -> {return new VList(new ArrayList<Val>());}
+            case TList -> {return new VList(new ArrayList<>());}
             default -> {throw new RuntimeException("Error in returning type");}
             }
 
@@ -115,7 +119,7 @@ public class TypeChecker implements Checker{
         else if (val instanceof VList) {
             return Type.TList;
         } else
-            return Type.TAuto;
+            throw new ReturnTypeException(lineNum,columnNum);
     }
 
     public Val inferInput(Scanner x){
