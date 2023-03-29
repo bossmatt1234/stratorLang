@@ -1,6 +1,7 @@
 package lang.Interpret;
 
 import lang.Interpret.Exceptions.InferAutoException;
+import lang.Interpret.Exceptions.InferInputException;
 import lang.Interpret.Exceptions.ReturnTypeException;
 
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class TypeChecker implements Checker{
     }
 
     @Override
-    public Val returnValOfType(Type t) {
+    public Val returnValOfType(Type t, int lineNum, int columnNum) {
         switch (t){
             case TInt -> {return new VInteger(0);}
             case TDouble -> {return new VDouble(0.0);}
@@ -101,7 +102,7 @@ public class TypeChecker implements Checker{
 
         }
     @Override
-    public Type returnType(Val val){
+    public Type returnType(Val val, int lineNum, int columnNum){
         if (val instanceof VInteger)
             return Type.TInt;
         else if(val instanceof VDouble)
@@ -122,7 +123,7 @@ public class TypeChecker implements Checker{
             throw new ReturnTypeException(lineNum,columnNum);
     }
 
-    public Val inferInput(Scanner x){
+    public Val inferInput(Scanner x, int lineNum, int columnNum){
         if (x.hasNextInt()){
             return new VInteger(x.nextInt());
         } else if (x.hasNextDouble()) {
@@ -132,7 +133,7 @@ public class TypeChecker implements Checker{
         } else if (x.hasNextBoolean()) {
             return new VBool(x.nextBoolean());
         } else{
-            throw new RuntimeException("Infer error");
+            throw new InferInputException(lineNum,columnNum);
         }
 
     }

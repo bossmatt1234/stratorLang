@@ -14,7 +14,6 @@ import static lang.Interpret.Operator.*;
 public class Interpreter
 {
 
-    TypeChecker TypeChecker = new TypeChecker();
     BinaryOperation BinaryOperation = new BinaryOperation();
     UnaryOperation UnaryOperation = new UnaryOperation();
 
@@ -53,7 +52,7 @@ public class Interpreter
         int i=0;
         for (lang.Absyn.Exp x: listExp) {
             Val newval = x.accept(new ExpVisitor(), env);
-            if(!TypeChecker.check(funcToExec.args.get(i).type, newval,lineNum,columnNum)){
+            if(!new TypeChecker().check(funcToExec.args.get(i).type, newval,lineNum,columnNum)){
                 throw new TypeArgException(lineNum,columnNum,funcToExec.args.get(i).type,newval.getClass().getSimpleName());
             }
             args.put(funcToExec.args.get(i).ident, newval);
@@ -362,7 +361,7 @@ public class Interpreter
           Type t = p.vartype_.accept(new VarTypeVisitor(), env);
            //p.ident_;
           Val val =p.exp_.accept(new ExpVisitor(), env);
-          if(TypeChecker.check(t,val, p.line_num, p.col_num)){
+          if(new TypeChecker().check(t,val, p.line_num, p.col_num)){
               if(val instanceof VList list){
                   return env.extendEnvVar(p.ident_, new VList(new ArrayList<>(list.listVal)) );
               }
@@ -383,7 +382,7 @@ public class Interpreter
       Type t = p.vartype_.accept(new VarTypeVisitor(), env);
       //p.ident_;
         try{
-            return env.extendEnvVar(p.ident_, TypeChecker.returnValOfType(t));
+            return env.extendEnvVar(p.ident_, new TypeChecker().returnValOfType(t,p.line_num,p.col_num));
         }catch (ExtendEnvThrow err){
             throw new ExtendEnvException(p.line_num, p.col_num, err.ident);
         }
@@ -470,7 +469,7 @@ public class Interpreter
           if(p.listitem_.size() != 0){
               for(lang.Absyn.Item item: p.listitem_){
                   Val val = item.accept(new ItemVisitor(),env);
-                  val.type = TypeChecker.returnType(val);
+                  val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
                   listArr.add(val);
               }
           }
@@ -760,7 +759,7 @@ public class Interpreter
           if(p.listitem_.size() != 0){
               for(lang.Absyn.Item item: p.listitem_){
                   Val val = item.accept(new ItemVisitor(),env);
-                  val.type = TypeChecker.returnType(val);
+                  val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
                   list.add(val);
               }
           }
@@ -776,7 +775,7 @@ public class Interpreter
       @Override
       public Val visit(EInput p, Env arg) {
           Scanner prompt = new Scanner(System.in);
-          return TypeChecker.inferInput(prompt);
+          return new TypeChecker().inferInput(prompt, p.line_num, p.col_num);
       }
 
       @Override
@@ -835,7 +834,7 @@ public class Interpreter
           ArrayList<Val> list = new ArrayList<>();
           for(lang.Absyn.Item item: p.listitem_){
               Val val = item.accept(new ItemVisitor(),env);
-              val.type = TypeChecker.returnType(val);
+              val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
               list.add(val);
 
           }
@@ -867,7 +866,7 @@ public class Interpreter
               env.newBlock();
 
               env.extendEnvVar(func.val.args.get(0).ident, val);
-              execFunc(func.val.listStm, env,func.val, TypeChecker.returnType(val));
+              execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
               VBool condition = (VBool)func.val.returnVal;
               if(condition.val){
                   returnList.add(val);
@@ -882,7 +881,7 @@ public class Interpreter
           ArrayList<Val> list = new ArrayList<>();
           for(lang.Absyn.Item item: p.listitem_){
               Val val = item.accept(new ItemVisitor(),env);
-              val.type = TypeChecker.returnType(val);
+              val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
               list.add(val);
 
           }
@@ -894,7 +893,7 @@ public class Interpreter
           for(Val val: new VList(list).listVal){
               env.newBlock();
               env.extendEnvVar(func.val.args.get(0).ident, val);
-              execFunc(func.val.listStm, env,func.val, TypeChecker.returnType(val));
+              execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
               VBool condition = (VBool)func.val.returnVal;
               if(condition.val){
                   returnList.add(val);
@@ -911,8 +910,8 @@ public class Interpreter
               throw new ReduceErrException(p.line_num, p.col_num);
           }
           VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
-          Val newVal = TypeChecker.returnValOfType(list.listVal.get(0).type);
-          newVal.type = TypeChecker.returnType(list.listVal.get(0));
+          Val newVal = new TypeChecker().returnValOfType(list.listVal.get(0).type, p.line_num, p.col_num);
+          newVal.type = new TypeChecker().returnType(list.listVal.get(0),p.line_num, p.col_num);
           return list.listVal.stream().reduce(newVal,((val, val2) -> executeReduce(val,val2,env,func) ));
       }
 
@@ -921,7 +920,7 @@ public class Interpreter
           ArrayList<Val> listArr = new ArrayList<>();
           for(lang.Absyn.Item item: p.listitem_){
               Val val = item.accept(new ItemVisitor(),env);
-              val.type = TypeChecker.returnType(val);
+              val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
               listArr.add(val);
           }
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
@@ -929,8 +928,8 @@ public class Interpreter
               throw new ReduceErrException(p.line_num, p.col_num);
           }
           VList list = new VList(listArr);
-          Val newVal = TypeChecker.returnValOfType(list.listVal.get(0).type);
-          newVal.type = TypeChecker.returnType(list.listVal.get(0));
+          Val newVal = new TypeChecker().returnValOfType(list.listVal.get(0).type,p.line_num, p.col_num);
+          newVal.type = new TypeChecker().returnType(list.listVal.get(0),p.line_num, p.col_num);
           return list.listVal.stream().reduce(newVal,((val, val2) -> executeReduce(val,val2,env,func) ));
       }
 
@@ -968,7 +967,7 @@ public class Interpreter
       for (lang.Absyn.Exp x: p.listexp_) {
         Val newval = x.accept(new ExpVisitor(), env);
 
-        if(!TypeChecker.check(funcToExec.args.get(i).type, newval, p.line_num, p.col_num)){
+        if(!new TypeChecker().check(funcToExec.args.get(i).type, newval, p.line_num, p.col_num)){
             throw new TypeArgException(p.line_num, p.col_num,funcToExec.args.get(i).type, newval.getClass().getSimpleName() );
         }
         args.put(funcToExec.args.get(i).ident, newval);
