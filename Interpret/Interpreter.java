@@ -5,18 +5,11 @@ package lang.Interpret;
 
 import com.google.common.collect.Iterables;
 import lang.Absyn.*;
+import lang.Interpret.Exceptions.*;
 
 import java.util.*;
 
 import static lang.Interpret.Operator.*;
-
-/*** Visitor Design Pattern Skeleton. ***/
-
-/* This implements the common visitor design pattern.
-   Tests show it to be slightly less efficient than the
-   instanceof method, but easier to use.
-   Replace the R and A parameters with the desired return
-   and context types.*/
 
 public class Interpreter
 {
@@ -46,7 +39,7 @@ public class Interpreter
     }
 
     public Val execObjectMethod(Val method, ObjectVar objectVar, Env env,
-                                ListExp listExp){
+                                ListExp listExp, int lineNum, int columnNum){
 
 
         //  Block 1 - object variables
@@ -61,13 +54,13 @@ public class Interpreter
         for (lang.Absyn.Exp x: listExp) {
             Val newval = x.accept(new ExpVisitor(), env);
             if(!TypeChecker.check(funcToExec.args.get(i).type, newval)){
-                throw new RuntimeException("Type mismatch in given arguments to function");
+                throw new TypeArgException(lineNum,columnNum,funcToExec.args.get(i).type,newval.getClass().getSimpleName());
             }
             args.put(funcToExec.args.get(i).ident, newval);
             i++;
         }
         if(funcToExec.args.size() != i){
-            throw new RuntimeException("Mismatch in the given number of arguments");}
+            throw new ArgNumError(lineNum,columnNum,funcToExec.args.size(),i);}
 
         // Block 3 - object call parameters
 
@@ -87,40 +80,40 @@ public class Interpreter
         return funcToExec.returnVal;
     }
 
-    public Val execObjectSelect(ObjectVar objectVar, Env env, String objectVars){
+    public Val execObjectSelect(ObjectVar objectVar, Env env, String objectVars, int lineNum, int columnNum){
         env.newBlock();
         env.contexts.getLast().putAll(objectVar.objectVars);
-        Val returnVal = env.lookupVar(objectVars);
+        Val returnVal = env.lookupVar(objectVars,lineNum,columnNum);
         env.emptyBlock();
         return returnVal;
     }
 
-    public Val execObjectSelectListItem(ObjectVar objectVar, Env env, String objectVars, VInteger index){
+    public Val execObjectSelectListItem(ObjectVar objectVar, Env env, String objectVars, VInteger index, int lineNum, int columnNum){
         env.newBlock();
         env.contexts.getLast().putAll(objectVar.objectVars);
-        VList list = (VList) env.lookupVar(objectVars);
+        VList list = (VList) env.lookupVar(objectVars,lineNum,columnNum);
         Val returnVal = Iterables.get(list.listVal,index.val);
         env.emptyBlock();
         return returnVal;
     }
 
 
-    public Val doBinaryOperation (Val x, Val y, Operator op){
+    public Val doBinaryOperation (Val x, Val y, Operator op, int lineNum, int columnNum){
         String leftRight = x.getClass().getSimpleName() + y.getClass().getSimpleName();
-        Val result = BinaryOperation.checkInstance(x,y,op, leftRight);
-        if(result == null){
-            System.out.println(y);
-            throw new RuntimeException("Binary Operation Error");
+        Val returnVal = BinaryOperation.checkInstance(x,y,op, leftRight);
+        if(returnVal == null){
+            throw new BinaryOpException(lineNum,columnNum,x.getClass().getSimpleName(),y.getClass().getSimpleName(),op);
         }
-        return result;
+        return returnVal;
+
     }
 
-    public Val doUnaryOperation (Val x,Operator op){
-        Val result = UnaryOperation.checkInstance(x,op);
-        if(result == null){
-            throw new RuntimeException("Unary Operation Error");
+    public Val doUnaryOperation (Val x,Operator op, int lineNum, int columnNum){
+        Val returnVal = UnaryOperation.checkInstance(x,op);
+        if(returnVal == null){
+            throw new UnaryOpException(lineNum,columnNum,x.getClass().getSimpleName(),op);
         }
-        return result;
+        return returnVal;
     }
 
     /* Program Start */
@@ -163,7 +156,12 @@ public class Interpreter
           newFunc.closure.putAll(new HashMap<>(env.contexts.get(i)));
       }
       VFunc val = new VFunc(newFunc, funcType);
-      return env.extendEnvVar(p.ident_, val);
+      try{
+          return env.extendEnvVar(p.ident_, val);
+      }catch (ExtendEnvThrow err){
+          throw new ExtendEnvException(p.line_num, p.col_num, err.ident);
+      }
+
     }
 
 
@@ -186,13 +184,13 @@ public class Interpreter
       for (lang.Absyn.Stm x: p.liststm_) {
           env.newBlock();
           if(x instanceof SPrint)
-              throw new RuntimeException("SPrint - Class init failed");
+              throw new ClassInitErrorException(p.line_num,p.col_num,"Print");
           else if(x instanceof IfS)
-              throw new RuntimeException("IfS - Class init failed");
+              throw new ClassInitErrorException(p.line_num,p.col_num,"If/Else");
           else if(x instanceof LoopStm)
-              throw new RuntimeException("LoopStm - Class init failed");
+              throw new ClassInitErrorException(p.line_num,p.col_num,"Loop");
           else if(x instanceof Block)
-              throw new RuntimeException("Block - Class init failed");
+              throw new ClassInitErrorException(p.line_num,p.col_num,"Block");
           else if(x instanceof DefFun){
               x.accept(new StmVisitor(), env);
               objectDef.defMethods.putAll(env.contexts.getLast());
@@ -214,7 +212,7 @@ public class Interpreter
       //p.ident_1;
       //p.ident_2;
         ObjectDef objectDef = new ObjectDef(p.ident_1);
-        ObjectDef fromClass = env.lookupDef(p.ident_2);
+        ObjectDef fromClass = env.lookupDef(p.ident_2,p.line_num, p.col_num);
         objectDef.defVals.putAll(fromClass.defVals);
         objectDef.defMethods.putAll(fromClass.defMethods);
         if(fromClass.isConstructorSet){
@@ -224,13 +222,13 @@ public class Interpreter
         for (lang.Absyn.Stm x: p.liststm_) {
             env.newBlock();
             if(x instanceof SPrint)
-                throw new RuntimeException("SPrint - Class init failed");
+                throw new ClassInitErrorException(p.line_num,p.col_num,"Print");
             else if(x instanceof IfS)
-                throw new RuntimeException("IfS - Class init failed");
+                throw new ClassInitErrorException(p.line_num,p.col_num,"If/Else");
             else if(x instanceof LoopStm)
-                throw new RuntimeException("LoopStm - Class init failed");
+                throw new ClassInitErrorException(p.line_num,p.col_num,"Loop");
             else if(x instanceof Block)
-                throw new RuntimeException("Block - Class init failed");
+                throw new ClassInitErrorException(p.line_num,p.col_num,"Block");
             else if(x instanceof DefFun){
                 x.accept(new StmVisitor(), env);
                 objectDef.defMethods.putAll(env.contexts.getLast());
@@ -286,13 +284,13 @@ public class Interpreter
     public Object visit(lang.Absyn.SAppend p, Env env)
     { /* Code for SAppend goes here */
       //p.ident_;
-      return ((VList) env.lookupVar(p.ident_)).listVal.add(p.exp_.accept(new ExpVisitor(), env));
+      return ((VList) env.lookupVar(p.ident_,p.line_num, p.col_num)).listVal.add(p.exp_.accept(new ExpVisitor(), env));
     }
 
       @Override
       public Object visit(SRemove p, Env env) {
           VInteger val = (VInteger) p.exp_.accept(new ExpVisitor(), env);
-          return ((VList) env.lookupVar(p.ident_)).listVal.remove(val.val);
+          return ((VList) env.lookupVar(p.ident_,p.line_num, p.col_num)).listVal.remove(val.val);
       }
 
       public Object visit(lang.Absyn.SReturn p, Env env)
@@ -305,11 +303,11 @@ public class Interpreter
       //p.ident_1;
       //p.ident_2;
       ObjectVar newObject = new ObjectVar();
-      ObjectDef objectDef = env.lookupDef(p.ident_2);
+      ObjectDef objectDef = env.lookupDef(p.ident_2, p.line_num, p.col_num);
       newObject.ofClass = objectDef.className;
       newObject.objectVars.putAll(objectDef.defVals);
       if(objectDef.isConstructorSet){
-          execObjectMethod(objectDef.constructor,newObject,env, p.listexp_);
+          execObjectMethod(objectDef.constructor,newObject,env, p.listexp_,p.line_num,p.col_num);
       }
       return env.extendEnvVar(p.ident_1, new VObject(newObject));
     }
@@ -368,9 +366,13 @@ public class Interpreter
               if(val instanceof VList list){
                   return env.extendEnvVar(p.ident_, new VList(new ArrayList<>(list.listVal)) );
               }
-              return env.extendEnvVar(p.ident_, val );
+              try{
+                  return env.extendEnvVar(p.ident_, val);
+              }catch (ExtendEnvThrow err){
+                  throw new ExtendEnvException(p.line_num, p.col_num, err.ident);
+              }
           }else{
-              throw new RuntimeException("Type error at line " + p.line_num);
+              throw new TypeErrException(p.line_num, p.col_num,t,val.getClass().getSimpleName());
           }
         }
     }
@@ -380,7 +382,11 @@ public class Interpreter
     { /* Code for SDecl goes here */
       Type t = p.vartype_.accept(new VarTypeVisitor(), env);
       //p.ident_;
-      return env.extendEnvVar(p.ident_, TypeChecker.returnValOfType(t));
+        try{
+            return env.extendEnvVar(p.ident_, TypeChecker.returnValOfType(t));
+        }catch (ExtendEnvThrow err){
+            throw new ExtendEnvException(p.line_num, p.col_num, err.ident);
+        }
     }
   }
   public class Stm_AssignVisitor implements lang.Absyn.Stm_Assign.Visitor<Object,Env>
@@ -388,19 +394,19 @@ public class Interpreter
     public Object visit(lang.Absyn.SAssign p, Env env)
     { /* Code for SAssign goes here */
       //p.ident_;
-      Val x = env.lookupVar(p.ident_);
+      Val x = env.lookupVar(p.ident_,p.line_num, p.col_num);
       Operator op = p.assign_op_.accept(new Assign_OpVisitor(), env);
       Val y = p.exp_.accept(new ExpVisitor(), env);
-      return env.updateVar(p.ident_, doBinaryOperation(x, y, op));
+      return env.updateVar(p.ident_, doBinaryOperation(x, y, op,p.line_num, p.col_num));
     }
   }
   public class Stm_IncrmDecrmVisitor implements lang.Absyn.Stm_IncrmDecrm.Visitor<Object,Env>
   {
     public Object visit(lang.Absyn.SIncrmDecrm p, Env env)
     { /* Code for SIncrmDecrm goes here */
-      Val x = env.lookupVar(p.ident_);
+      Val x = env.lookupVar(p.ident_,p.line_num, p.col_num);
       Operator op = p.incrmdecrm_op_.accept(new IncrmDecrm_OpVisitor(), env);
-        return env.updateVar(p.ident_, doUnaryOperation(x,op));
+        return env.updateVar(p.ident_, doUnaryOperation(x,op, p.line_num,p.col_num));
      }
   }
 
@@ -433,7 +439,7 @@ public class Interpreter
       public Env visit(SPLoopIdent p, Env env) {
           //p.ident_1;
           //p.ident_2;
-          VList list = (VList) env.lookupVar(p.ident_2);
+          VList list = (VList) env.lookupVar(p.ident_2,p.line_num, p.col_num);
           try{
               for(int i = 0; i < list.listVal.size();i++){
                   env.newBlock();
@@ -737,12 +743,12 @@ public class Interpreter
     public Val visit(lang.Absyn.EId p, Env env)
     { /* Code for EId goes here */
       //p.ident_;
-      return env.lookupVar(p.ident_);
+      return env.lookupVar(p.ident_,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EListItem p, Env env)
     { /* Code for EListItem goes here */
       VInteger index = (VInteger) p.exp_.accept(new ExpVisitor(), env);
-      VList val = (VList) env.lookupVar(p.ident_);
+      VList val = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
       ArrayList<Val> list = val.listVal ;
       return Iterables.get(list,index.val);
     }
@@ -763,7 +769,7 @@ public class Interpreter
 
       @Override
       public Val visit(EListSize p, Env env) {
-        VList list = (VList) env.lookupVar(p.ident_);
+        VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
         return new VInteger(list.listVal.size());
       }
 
@@ -775,7 +781,7 @@ public class Interpreter
 
       @Override
       public Val visit(EStrLength p, Env env) {
-          VString string = (VString) env.lookupVar(p.ident_);
+          VString string = (VString) env.lookupVar(p.ident_,p.line_num, p.col_num);
           return new VInteger(string.val.length());
       }
 
@@ -787,7 +793,7 @@ public class Interpreter
 
       @Override
       public Val visit(ETypeCast p, Env env) {
-          Val val =  env.lookupVar(p.ident_);
+          Val val =  env.lookupVar(p.ident_,p.line_num, p.col_num);
           return p.typecast_.accept(new TypeCastVisitor(),val);
       }
 
@@ -809,9 +815,9 @@ public class Interpreter
       public Val visit(EMapIdent p, Env env) {
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 1){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new MapErrException(p.line_num, p.col_num);
           }
-          VList list = (VList) env.lookupVar(p.ident_);
+          VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
           ArrayList<Val> returnList = new ArrayList<>();
           for(Val val: list.listVal){
               env.newBlock();
@@ -835,7 +841,7 @@ public class Interpreter
           }
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 1){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new MapErrException(p.line_num, p.col_num);
           }
           ArrayList<Val> returnList = new ArrayList<>();
           for(Val val: new VList(list).listVal){
@@ -853,9 +859,9 @@ public class Interpreter
       public Val visit(EFilterIdent p, Env env) {
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 1){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new FilterErrException(p.line_num, p.col_num);
           }
-          VList list = (VList) env.lookupVar(p.ident_);
+          VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
           ArrayList<Val> returnList = new ArrayList<>();
           for(Val val: list.listVal){
               env.newBlock();
@@ -882,7 +888,7 @@ public class Interpreter
           }
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 1){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new FilterErrException(p.line_num, p.col_num);
           }
           ArrayList<Val> returnList = new ArrayList<>();
           for(Val val: new VList(list).listVal){
@@ -902,9 +908,9 @@ public class Interpreter
       public Val visit(EReduceIdent p, Env env) {
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 2){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new ReduceErrException(p.line_num, p.col_num);
           }
-          VList list = (VList) env.lookupVar(p.ident_);
+          VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
           Val newVal = TypeChecker.returnValOfType(list.listVal.get(0).type);
           newVal.type = TypeChecker.returnType(list.listVal.get(0));
           return list.listVal.stream().reduce(newVal,((val, val2) -> executeReduce(val,val2,env,func) ));
@@ -920,7 +926,7 @@ public class Interpreter
           }
           VFunc func = (VFunc) p.exp_.accept(new ExpVisitor(),env);
           if (func.val.args.size() != 2){
-              throw new RuntimeException("only functions with 1 parameter allowed");
+              throw new ReduceErrException(p.line_num, p.col_num);
           }
           VList list = new VList(listArr);
           Val newVal = TypeChecker.returnValOfType(list.listVal.get(0).type);
@@ -932,26 +938,28 @@ public class Interpreter
     { /* Code for ESelect goes here */
       //p.ident_1;
       //p.ident_2;
-      VObject val = (VObject) env.lookupVar(p.ident_1);
+      VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
       ObjectVar objectVar = val.val;
       return execObjectSelect(
               objectVar,
-              env, p.ident_2);
+              env, p.ident_2,
+              p.line_num, p.col_num);
     }
       @Override
       public Val visit(ESelectListItem p, Env env) {
-          VObject val = (VObject) env.lookupVar(p.ident_1);
+          VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
           ObjectVar objectVar = val.val;
           return execObjectSelectListItem(
                   objectVar,
                   env, p.ident_2,
-                  (VInteger) p.exp_.accept(new ExpVisitor(),env));
+                  (VInteger) p.exp_.accept(new ExpVisitor(),env),
+                  p.line_num, p.col_num);
       }
 
       public Val visit(lang.Absyn.ECall p, Env env)
     { /* Code for ECall goes here */
       //p.ident_;
-      VFunc val = (VFunc) env.lookupVar(p.ident_);
+      VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
       Function funcToExec = val.val;
       // Block 1 - Function variables
       env.contexts.addLast(funcToExec.closure);
@@ -959,15 +967,17 @@ public class Interpreter
       int i=0;
       for (lang.Absyn.Exp x: p.listexp_) {
         Val newval = x.accept(new ExpVisitor(), env);
+
         if(!TypeChecker.check(funcToExec.args.get(i).type, newval)){
-            throw new RuntimeException("Type mismatch in given arguments to function");
+            throw new TypeArgException(p.line_num, p.col_num,funcToExec.args.get(i).type, newval.getClass().getSimpleName() );
         }
         args.put(funcToExec.args.get(i).ident, newval);
         i++;
       }
 
       if(funcToExec.args.size() != i){
-          throw new RuntimeException("Mismatch in the given number of arguments");}
+          throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),i);
+      }
 
       // Block 2 - function call parameters
       env.newBlock();
@@ -986,97 +996,101 @@ public class Interpreter
     { /* Code for EObjCall goes here */
       //p.ident_1;
       //p.ident_2;
-      VObject val = (VObject) env.lookupVar(p.ident_1);
+      VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
       ObjectVar objectVar = val.val;
+      Val method = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2);
+      if(method == null){
+          throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass);
+      }
       return execObjectMethod(
-              env.lookupDef(objectVar.ofClass).lookUpMethod(p.ident_2), objectVar,
-              env, p.listexp_);
+              env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar,
+              env, p.listexp_, p.line_num,p.col_num);
     }
     public Val visit(lang.Absyn.EPow p, Env env)
     { /* Code for EPow goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, EXPONENT);
+        return doBinaryOperation(x, y, EXPONENT, p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EMul p, Env env)
     { /* Code for EMul goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, MULTIPLY);
+        return doBinaryOperation(x, y, MULTIPLY,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EDiv p, Env env)
     { /* Code for EDiv goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, DIVIDE);
+        return doBinaryOperation(x, y, DIVIDE,p.line_num, p.col_num);
     }
 
       @Override
       public Val visit(EMod p, Env env) {
           Val x = p.exp_1.accept(new ExpVisitor(), env);
           Val y = p.exp_2.accept(new ExpVisitor(), env);
-          return doBinaryOperation(x, y, MOD);
+          return doBinaryOperation(x, y, MOD,p.line_num, p.col_num);
       }
 
       public Val visit(lang.Absyn.EAdd p, Env env)
     { /* Code for EAdd goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, ADD);
+        return doBinaryOperation(x, y, ADD,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.ESub p, Env env)
     { /* Code for ESub goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, SUBTRACT);
+        return doBinaryOperation(x, y, SUBTRACT,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.ELt p, Env env)
     { /* Code for ELt goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, LESS_THAN);
+        return doBinaryOperation(x, y, LESS_THAN,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EGt p, Env env)
     { /* Code for EGt goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, GREATER_THAN);
+        return doBinaryOperation(x, y, GREATER_THAN,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.ELEq p, Env env)
     { /* Code for ELEq goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, LESS_THAN_EQUALS);
+        return doBinaryOperation(x, y, LESS_THAN_EQUALS,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EGEq p, Env env)
     { /* Code for EGEq goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, GREATER_THAN_EQUALS);
+        return doBinaryOperation(x, y, GREATER_THAN_EQUALS,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EEq p, Env env)
     { /* Code for EEq goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, EQUALS);
+        return doBinaryOperation(x, y, EQUALS,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.ENEq p, Env env)
     { /* Code for ENEq goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, NOT_EQUALS);
+        return doBinaryOperation(x, y, NOT_EQUALS,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EAnd p, Env env)
     { /* Code for EAnd goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, AND);
+        return doBinaryOperation(x, y, AND,p.line_num, p.col_num);
     }
     public Val visit(lang.Absyn.EOr p, Env env)
     { /* Code for EOr goes here */
         Val x = p.exp_1.accept(new ExpVisitor(), env);
         Val y = p.exp_2.accept(new ExpVisitor(), env);
-        return doBinaryOperation(x, y, OR);
+        return doBinaryOperation(x, y, OR,p.line_num, p.col_num);
     }
 
   }

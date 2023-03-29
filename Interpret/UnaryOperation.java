@@ -11,7 +11,7 @@ public class UnaryOperation {
             return eval((VDouble) leftVal, op);
         }
         else{
-            return null;
+            throw new ErrorThrow();
         }
     }
 
@@ -24,7 +24,7 @@ public class UnaryOperation {
                 return new VInteger(x.val-1);
             }
             default -> {
-                return null;
+                throw new ErrorThrow();
             }
         }
     }
@@ -38,7 +38,7 @@ public class UnaryOperation {
                 return new VDouble(x.val-1.0);
             }
             default -> {
-                return null;
+                throw new ErrorThrow();
             }
         }
     }

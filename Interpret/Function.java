@@ -1,7 +1,5 @@
 package lang.Interpret;
 
-import lang.Absyn.Exp;
-import lang.Absyn.ListExp;
 import lang.Absyn.ListStm;
 
 import java.util.HashMap;

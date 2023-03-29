@@ -59,7 +59,7 @@ public class BinaryOperation implements Eval {
             case "VListVList" ->{
                 return eval((VList) leftVal, (VList) rightVal,op);
             }
-            default ->{return null;}
+            default ->{throw new ErrorThrow();}
         }
 
     }
@@ -110,7 +110,7 @@ public class BinaryOperation implements Eval {
                 return new VInteger(x.val % y.val);
             }
             default -> {
-                return null;
+                throw new ErrorThrow();
             }
         }
 

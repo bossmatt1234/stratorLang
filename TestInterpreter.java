@@ -2,15 +2,13 @@
 
 package lang;
 
+import lang.Interpret.Exceptions.CommonError;
 import lang.Interpret.Interpreter;
-import lang.Interpret.LangError;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.sql.SQLOutput;
-import java.util.Arrays;
 
 
 public class TestInterpreter
@@ -49,11 +47,15 @@ public class TestInterpreter
     {
       t.interpret();
     }
-    catch(Throwable e)
+    catch(CommonError e)
     {
-      System.err.println("\nAt line " + t.l.line_num() + ", near \"" + t.l.buff() + "\" :");
-      System.err.println("     " + e.getMessage() + "\n");
+      System.err.println(" \n " + e.getMessage() + "\n");
       System.exit(1);
+    }
+    catch (Throwable e){
+        System.err.println(" \n Java error:");
+        System.err.println("        " + e.getMessage());
+        System.exit(1);
     }
   }
 }

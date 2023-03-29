@@ -1,5 +1,9 @@
 package lang.Interpret;
 
+import lang.Interpret.Exceptions.ExtendEnvException;
+import lang.Interpret.Exceptions.LookUpDefException;
+import lang.Interpret.Exceptions.LookUpVarException;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,18 +21,34 @@ public class Env {
         this.objectDefs.add(new HashMap<>());
     }
 
-    public Val lookupVar(String id) {
+    public Val lookupVar(String id, int lineNum, int columnNum) {
+        Val returnVal;
         if (!contexts.getLast().containsKey(id)) {
             for (int i = contexts.size() - 1; i >= 0; i--) {
                 if (contexts.get(i).containsKey(id)) {
-                    return contexts.get(i).get(id);
+                    returnVal = contexts.get(i).get(id);
+                    if(returnVal == null){
+                        throw new LookUpVarException(lineNum,columnNum,id);
+                    }else{
+                        return returnVal;
+                    }
                 }
             }
+        }else {
+            returnVal = contexts.getLast().get(id);
+            if (returnVal == null) {
+                throw new LookUpVarException(lineNum, columnNum, id);
+            } else {
+                return returnVal;
+            }
         }
-        return contexts.getLast().get(id);
+        throw new LookUpVarException(lineNum, columnNum, id);
     }
 
-    public ObjectDef lookupDef(String id) {
+    public ObjectDef lookupDef(String id, int lineNum, int columnNum) {
+        if(this.objectDefs.getLast().get(id) == null){
+            throw new LookUpDefException(lineNum,columnNum,id);
+        }
         return this.objectDefs.getLast().get(id);
     }
 
@@ -50,8 +70,7 @@ public class Env {
             this.contexts.getLast().put(id, val);
             return this;
         } else {
-            String msg = id +" already defined";
-            throw new RuntimeException(msg);
+            throw new ExtendEnvThrow(id);
         }
     }
 
