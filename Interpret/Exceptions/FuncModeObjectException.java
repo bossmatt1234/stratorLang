@@ -11,6 +11,6 @@ public class FuncModeObjectException extends CommonError {
     @Override
     public String getMessage() {
         return trace + "Functional Mode (Object) Error: Classes are not allowed in Functional Mode. " +
-                "Instead, try creating a function named {" +val+ "} which has nested functions inside. The clojure can mimic Object Orientation.";
+                "Instead, try creating a function named {" +val+ "} which has nested functions inside. The closure can mimic Object Orientation.";
     }
 }

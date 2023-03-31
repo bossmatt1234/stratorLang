@@ -129,9 +129,7 @@ public class NormalModeVisitor {
             if(funcType == Type.TVoid && p.liststm_.stream().anyMatch(o -> o.getClass().getSimpleName().equals("SReturn")))
                 throw new RuntimeException("Return not allowed in void func");
             newFunc.listStm = p.liststm_;
-            for(int i = 0 ; i<env.contexts.size();i++){
-                newFunc.closure.putAll(new HashMap<>(env.contexts.get(i)));
-            }
+            newFunc.closure.putAll(new HashMap<>(env.contexts.getLast()));
             VFunc val = new VFunc(newFunc, funcType);
             try{
                 return env.extendEnvVar(p.ident_, val);
@@ -270,6 +268,7 @@ public class NormalModeVisitor {
 
         public Object visit(lang.Absyn.SReturn p, Env env)
         { /* Code for SReturn goes here */
+
             throw new Return(p.exp_.accept(new ExpVisitor(), env));
         }
 
@@ -956,6 +955,7 @@ public class NormalModeVisitor {
             Function funcToExec = val.val;
             // Block 1 - Function variables
             env.contexts.addLast(funcToExec.closure);
+                //Adding given arguments to list
             HashMap<String,Val> args = new HashMap<>();
             int i=0;
             for (lang.Absyn.Exp x: p.listexp_) {
@@ -974,12 +974,17 @@ public class NormalModeVisitor {
 
             // Block 2 - function call parameters
             env.newBlock();
+
+                //Extend new block with given arguments
             for (HashMap.Entry<String, Val> entry: args.entrySet() ){
                 env.extendEnvVar(entry.getKey(),entry.getValue());
             }
+                //Execute function in block of parameters
+
             execFunc(funcToExec.listStm, env, funcToExec, val.funcType);
             // Empty Block 2
             env.emptyBlock();
+            System.out.println(env.contexts.getLast());
             funcToExec.closure = env.contexts.getLast();
             // Empty Block 1
             env.emptyBlock();
