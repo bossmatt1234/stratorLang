@@ -987,6 +987,30 @@ public class PrettyPrinter
        render("]");
        if (_i_ > 15) render(_R_PAREN);
     }
+    else     if (foo instanceof lang.Absyn.EListWith)
+    {
+       lang.Absyn.EListWith _elistwith = (lang.Absyn.EListWith) foo;
+       if (_i_ > 15) render(_L_PAREN);
+       pp(_elistwith.ident_, 0);
+       render(".");
+       render("with");
+       render("(");
+       pp(_elistwith.exp_, 0);
+       render(")");
+       if (_i_ > 15) render(_R_PAREN);
+    }
+    else     if (foo instanceof lang.Absyn.EListWithout)
+    {
+       lang.Absyn.EListWithout _elistwithout = (lang.Absyn.EListWithout) foo;
+       if (_i_ > 15) render(_L_PAREN);
+       pp(_elistwithout.ident_, 0);
+       render(".");
+       render("without");
+       render("[");
+       pp(_elistwithout.exp_, 0);
+       render("]");
+       if (_i_ > 15) render(_R_PAREN);
+    }
     else     if (foo instanceof lang.Absyn.EList)
     {
        lang.Absyn.EList _elist = (lang.Absyn.EList) foo;
@@ -2079,6 +2103,24 @@ public class PrettyPrinter
        render("EListItem");
        sh(_elistitem.ident_);
        sh(_elistitem.exp_);
+       render(")");
+    }
+    if (foo instanceof lang.Absyn.EListWith)
+    {
+       lang.Absyn.EListWith _elistwith = (lang.Absyn.EListWith) foo;
+       render("(");
+       render("EListWith");
+       sh(_elistwith.ident_);
+       sh(_elistwith.exp_);
+       render(")");
+    }
+    if (foo instanceof lang.Absyn.EListWithout)
+    {
+       lang.Absyn.EListWithout _elistwithout = (lang.Absyn.EListWithout) foo;
+       render("(");
+       render("EListWithout");
+       sh(_elistwithout.ident_);
+       sh(_elistwithout.exp_);
        render(")");
     }
     if (foo instanceof lang.Absyn.EList)

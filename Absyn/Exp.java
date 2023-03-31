@@ -15,6 +15,8 @@ public abstract class Exp implements java.io.Serializable {
     public R visit(lang.Absyn.EFalse p, A arg);
     public R visit(lang.Absyn.EId p, A arg);
     public R visit(lang.Absyn.EListItem p, A arg);
+    public R visit(lang.Absyn.EListWith p, A arg);
+    public R visit(lang.Absyn.EListWithout p, A arg);
     public R visit(lang.Absyn.EList p, A arg);
     public R visit(lang.Absyn.EListSize p, A arg);
     public R visit(lang.Absyn.EInput p, A arg);

@@ -378,6 +378,18 @@ public class VisitSkel
       p.exp_.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }
+    public R visit(lang.Absyn.EListWith p, A arg)
+    { /* Code for EListWith goes here */
+      //p.ident_;
+      p.exp_.accept(new ExpVisitor<R,A>(), arg);
+      return null;
+    }
+    public R visit(lang.Absyn.EListWithout p, A arg)
+    { /* Code for EListWithout goes here */
+      //p.ident_;
+      p.exp_.accept(new ExpVisitor<R,A>(), arg);
+      return null;
+    }
     public R visit(lang.Absyn.EList p, A arg)
     { /* Code for EList goes here */
       for (lang.Absyn.Item x: p.listitem_) {

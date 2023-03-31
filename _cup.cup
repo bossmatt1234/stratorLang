@@ -146,6 +146,8 @@ terminal _SYMB_71;    //   toString
 terminal _SYMB_72;    //   true
 terminal _SYMB_73;    //   void
 terminal _SYMB_74;    //   while
+terminal _SYMB_75;    //   with
+terminal _SYMB_76;    //   without
 
 terminal String _STRING_;
 terminal Character _CHAR_;
@@ -689,6 +691,28 @@ if (leftLoc != null) {
   ((lang.Absyn.EListItem)RESULT).line_num = -1;
   ((lang.Absyn.EListItem)RESULT).col_num = -1;
   ((lang.Absyn.EListItem)RESULT).offset = -1;
+} :}
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_75:p_3 _SYMB_1:p_4 Exp:p_5 _SYMB_2:p_6  {: RESULT = new lang.Absyn.EListWith(p_1,p_5);
+java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_5xleft);
+if (leftLoc != null) {
+  ((lang.Absyn.EListWith)RESULT).line_num = leftLoc.getLine();
+  ((lang.Absyn.EListWith)RESULT).col_num = leftLoc.getColumn();
+  ((lang.Absyn.EListWith)RESULT).offset = leftLoc.getOffset();
+} else {
+  ((lang.Absyn.EListWith)RESULT).line_num = -1;
+  ((lang.Absyn.EListWith)RESULT).col_num = -1;
+  ((lang.Absyn.EListWith)RESULT).offset = -1;
+} :}
+  | _IDENT_:p_1 _SYMB_6:p_2 _SYMB_76:p_3 _SYMB_7:p_4 Exp:p_5 _SYMB_8:p_6  {: RESULT = new lang.Absyn.EListWithout(p_1,p_5);
+java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_1xleft,p_5xleft);
+if (leftLoc != null) {
+  ((lang.Absyn.EListWithout)RESULT).line_num = leftLoc.getLine();
+  ((lang.Absyn.EListWithout)RESULT).col_num = leftLoc.getColumn();
+  ((lang.Absyn.EListWithout)RESULT).offset = leftLoc.getOffset();
+} else {
+  ((lang.Absyn.EListWithout)RESULT).line_num = -1;
+  ((lang.Absyn.EListWithout)RESULT).col_num = -1;
+  ((lang.Absyn.EListWithout)RESULT).offset = -1;
 } :}
   | _SYMB_7:p_1 ListItem:p_2 _SYMB_8:p_3  {: RESULT = new lang.Absyn.EList(p_2);
 java_cup.runtime.ComplexSymbolFactory.Location leftLoc = getLeftLocation(p_2xleft);

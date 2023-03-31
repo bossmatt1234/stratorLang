@@ -77,6 +77,9 @@ public class TypeChecker implements Checker{
         if(val.listVal.get(0).type == Type.TAuto ){
             return true;
         }
+        if(val.itemType == type ){
+            return true;
+        }
         for(Val item: val.listVal){
             if(item.type != type){
                 return false;
@@ -96,7 +99,7 @@ public class TypeChecker implements Checker{
             case TAuto -> {
                 throw new InferAutoException(lineNum,columnNum);
             }
-            case TList -> {return new VList(new ArrayList<>());}
+            case TList -> {return new VList(new ArrayList<>(),Type.TAuto);}
             default -> {throw new RuntimeException("Error in returning type");}
             }
 

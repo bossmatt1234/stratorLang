@@ -356,6 +356,16 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.exp_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(lang.Absyn.EListWith p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.exp_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(lang.Absyn.EListWithout p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.exp_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(lang.Absyn.EList p, A arg) {
       R r = leaf(arg);
       for (lang.Absyn.Item x : p.listitem_)

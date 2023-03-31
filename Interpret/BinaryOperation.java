@@ -297,7 +297,7 @@ public class BinaryOperation implements Eval {
     @Override
     public Val eval(VList x, VList y, Operator op) {
         if(op == ASSIGN){
-            return new VList(new ArrayList<>(y.listVal));
+            return new VList(new ArrayList<>(y.listVal),y.itemType);
         }else{
             return null;
         }

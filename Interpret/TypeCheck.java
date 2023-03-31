@@ -195,6 +195,16 @@ public class TypeCheck {
         }
 
         @Override
+        public Type visit(EListWith p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
+        public Type visit(EListWithout p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
         public Type visit(EList p, TypeEnv arg) {
             return null;
         }
@@ -359,7 +369,7 @@ public class TypeCheck {
         }
         public Type visit(lang.Absyn.FuncTypeVarType p, Object arg)
         { /* Code for FuncTypeVarType goes here */
-            return p.vartype_.accept(new Interpreter.VarTypeVisitor(), arg);
+            return p.vartype_.accept(new TypeCheck.VarTypeVisitor(), arg);
         }
     }
     public static class VarTypeVisitor implements VarType.Visitor<Type,Object>

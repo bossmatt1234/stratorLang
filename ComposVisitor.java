@@ -423,6 +423,18 @@ public class ComposVisitor<A> implements
       lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
       return new lang.Absyn.EListItem(ident_, exp_);
     }
+    public lang.Absyn.Exp visit(lang.Absyn.EListWith p, A arg)
+    {
+      String ident_ = p.ident_;
+      lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
+      return new lang.Absyn.EListWith(ident_, exp_);
+    }
+    public lang.Absyn.Exp visit(lang.Absyn.EListWithout p, A arg)
+    {
+      String ident_ = p.ident_;
+      lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
+      return new lang.Absyn.EListWithout(ident_, exp_);
+    }
     public lang.Absyn.Exp visit(lang.Absyn.EList p, A arg)
     {
       lang.Absyn.ListItem listitem_ = new lang.Absyn.ListItem();

@@ -116,6 +116,8 @@ IDENT = ({LETTER}|{DIGIT}|['_])
 <YYINITIAL>true { return cf.newSymbol("", sym._SYMB_72, left_loc(), right_loc()); }
 <YYINITIAL>void { return cf.newSymbol("", sym._SYMB_73, left_loc(), right_loc()); }
 <YYINITIAL>while { return cf.newSymbol("", sym._SYMB_74, left_loc(), right_loc()); }
+<YYINITIAL>with { return cf.newSymbol("", sym._SYMB_75, left_loc(), right_loc()); }
+<YYINITIAL>without { return cf.newSymbol("", sym._SYMB_76, left_loc(), right_loc()); }
 <YYINITIAL>"##" { yybegin(COMMENT); }
 <COMMENT>"##" { yybegin(YYINITIAL); }
 <COMMENT>. { /* skip */ }

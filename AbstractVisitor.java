@@ -95,6 +95,8 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.EFalse p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EId p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListItem p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EListWith p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EListWithout p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EList p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListSize p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EInput p, A arg) { return visitDefault(p, arg); }
