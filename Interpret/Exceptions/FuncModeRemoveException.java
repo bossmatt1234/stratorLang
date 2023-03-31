@@ -12,7 +12,7 @@ public class FuncModeRemoveException extends CommonError {
 
     @Override
     public String getMessage() {
-        return trace + "Functional Mode (Remove) Error: Removing from list mutates {" + val + "} variable." +
+        return trace + "Functional Mode (Remove) Error: Removing from list mutates {" + val + "} variable. " +
                 "Instead, try initialising a new list variable and use the " + val + ".without[] expression";
     }
 }

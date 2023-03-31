@@ -12,7 +12,7 @@ public class FuncModeAppendException extends CommonError {
 
     @Override
     public String getMessage() {
-        return trace + "Functional Mode (Append) Error: Appending to list mutates {" + val + "} variable." +
+        return trace + "Functional Mode (Append) Error: Appending to list mutates {" + val + "} variable. " +
                 "Instead, try initialising a new list variable and use the " + val + ".with() expression";
     }
 }
