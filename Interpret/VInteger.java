@@ -20,4 +20,12 @@ public class VInteger extends Val{
     public void setType(Type type) {
         this.type = type;
     }
+
+    public int getVal() {
+        return val;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

@@ -20,4 +20,8 @@ public class VList extends Val{
     public String toString() {
         return listVal.toString();
     }
+
+    public Type getItemType() {
+        return itemType;
+    }
 }

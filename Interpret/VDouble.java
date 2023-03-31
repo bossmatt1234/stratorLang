@@ -19,4 +19,8 @@ public class VDouble extends Val{
     public String toString() {
         return "" + val;
     }
+
+    public double getVal() {
+        return val;
+    }
 }

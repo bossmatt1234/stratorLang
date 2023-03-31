@@ -12,4 +12,8 @@ public class VBool extends Val{
     public String toString() {
         return "" + val;
     }
+
+    public boolean isVal() {
+        return val;
+    }
 }

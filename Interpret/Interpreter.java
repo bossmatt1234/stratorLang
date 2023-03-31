@@ -13,7 +13,6 @@ import static lang.Interpret.Operator.*;
 
 public class Interpreter
 {
-
     /* Program Start */
     public void interpret(Program p){
 

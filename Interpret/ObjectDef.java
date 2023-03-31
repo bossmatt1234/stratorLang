@@ -23,4 +23,8 @@ public class ObjectDef {
     public void constructorEnable() {
         this.isConstructorSet = true;
     }
+
+    public String getClassName() {
+        return className;
+    }
 }

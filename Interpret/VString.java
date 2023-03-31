@@ -19,4 +19,8 @@ public class VString extends Val{
     public String toString() {
         return val;
     }
+
+    public String getVal() {
+        return val;
+    }
 }
