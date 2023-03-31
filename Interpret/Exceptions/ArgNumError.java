@@ -1,7 +1,5 @@
 package lang.Interpret.Exceptions;
 
-import lang.Interpret.ErrorType;
-
 public class ArgNumError extends CommonError{
     int num1;
     int num2;

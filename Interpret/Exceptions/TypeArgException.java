@@ -1,8 +1,6 @@
 package lang.Interpret.Exceptions;
 
-import lang.Interpret.ErrorType;
 import lang.Interpret.Type;
-import lang.Interpret.Val;
 
 public class TypeArgException extends TypeErrException{
 
