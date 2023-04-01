@@ -982,9 +982,9 @@ public class NormalModeVisitor {
                 //Execute function in block of parameters
 
             execFunc(funcToExec.listStm, env, funcToExec, val.funcType);
+
             // Empty Block 2
             env.emptyBlock();
-            System.out.println(env.contexts.getLast());
             funcToExec.closure = env.contexts.getLast();
             // Empty Block 1
             env.emptyBlock();
