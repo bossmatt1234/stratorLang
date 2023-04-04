@@ -88,7 +88,7 @@ If you specify an independent instance of the __{__ __}__ braces, variables cont
 
 If / Else statements check for true and false values of expressions such as x == y, x <= 10, etc. You can use _AND_ / _OR_ operators to check multiple boolean values.
 ### Functions
-![Function](docs/examples/block.png "Function")
+![Function](docs/examples/function.png "Function")
 
 Functions and Lambdas provide the following functionalities:
 * an output based on a set of inputs
