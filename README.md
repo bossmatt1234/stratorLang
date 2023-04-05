@@ -61,8 +61,8 @@ Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https
 ### Paradigm Functional mode
 ![Paradigm](docs/examples/mode.png "Paradigm mode")
 
-At the top of the program you can use the _paradigm : functional_ to restrict the language to the functional subset.
-If you try to use restricted constructs (mutating, classes, loops, etc.), you will get special error messages.
+At the top of the program you can use the _paradigm : functional_ line of code to restrict the language to the functional subset.
+If you try to use restricted constructs (mutating, classes, loops, etc.) in this mode, you will get special error messages.
 ### Primitive Types, Variables and Printing 
 ![Variables](docs/examples/variables.png "Variables")
 
