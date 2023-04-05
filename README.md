@@ -48,7 +48,14 @@ __Strator__ is a programming language designed to assess and gain insights into 
  * Comments with __## ##__ tags
 
 ## Installation and Syntax Highlighter
-Download _lang.jar_ and _strator.zip_ from the [Releases](https://github.com/bossmatt1234/stratorLang/releases "Releases") page.
+Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https://github.com/bossmatt1234/stratorLang/releases "Releases") page.
+* Make sure you have at least JDK17 installed
+* Put the _lang.jar_ file in a suitable folder containing your text files
+* Run the text files in the interpreter by running the following line of code in a terminal console:
+```
+    java -jar lang.jar code.txt
+```
+* To get Syntax highlighting, put the _Strator_ folder from _strator.zip_ into the VSCode extensions folder. Finally, create a file with the _.stra_ file type and open it in VSCode.
 
 ## Documentation 
 
@@ -168,3 +175,7 @@ Functions need to have 1 single parameter specified for this construct.
 
 The _reduce_ function reduces the list to a single value using a given function that takes two parameters and returns a single value.
 Functions need to have 2 parameter specified for this construct.
+### Random number generator
+![Random](docs/examples/random.png "Random integer")
+
+You can generate a random integer using the _randomInt()_ function. You must specify the upper bound in the function's parameter.
