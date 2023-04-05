@@ -4,6 +4,7 @@
 __Strator__ is a programming language designed to assess and gain insights into student comprehension of programming language constructs, while enabling rapid development of education-oriented programming languages to match student needs.
 
 ## Language Features:
+ * Paradigm selection (Functional) mode. Use the language in an experimental _functional_ mode, where you are restricted from using imperative constructs of the language
  * Primitive types
     * Integer
     * Double
@@ -56,9 +57,12 @@ Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https
     java -jar lang.jar code.txt
 ```
 * To get Syntax highlighting, put the _Strator_ folder from _strator.zip_ into the VSCode extensions folder. Finally, create a file with the _.stra_ file type and open it in VSCode.
+## Documentation
+### Paradigm Functional mode
+![Paradigm](docs/examples/mode.png "Paradigm mode")
 
-## Documentation 
-
+At the top of the program you can use the _paradigm : functional_ to restrict the language to the functional subset.
+If you try to use restricted constructs (mutating, classes, loops, etc.), you will get special error messages.
 ### Primitive Types, Variables and Printing 
 ![Variables](docs/examples/variables.png "Variables")
 
