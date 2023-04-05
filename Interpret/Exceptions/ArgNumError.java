@@ -12,6 +12,6 @@ public class ArgNumError extends CommonError{
 
     @Override
     public String getMessage() {
-        return trace + "Argument number error: Function or method requires " + num1 + "parameters, only " + num2 +" given." ;
+        return trace + "Argument number error: Function or method requires " + num1 + " parameter(s), only " + num2 +" given." ;
     }
 }
