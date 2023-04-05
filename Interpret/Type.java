@@ -14,5 +14,7 @@ public enum Type{
 
     Type(int i) {
     }
+
+
 }
 

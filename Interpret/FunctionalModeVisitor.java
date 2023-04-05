@@ -30,8 +30,15 @@ public class FunctionalModeVisitor {
                 x.accept(new FunctionalModeVisitor.StmVisitor(), env);
             }
         }catch(Return val){
-            function.returnVal = val.returnVal;
-            function.returnVal.type = type;
+            if(new TypeChecker().check(type, val.returnVal, val.lineNum, val.colNum)){
+                function.returnVal = val.returnVal;
+                function.returnVal.type = type;
+            }else{
+                if(type == Type.TVoid){
+                    throw new FuncReturnVoidException(val.lineNum, val.colNum, type.toString());
+                }
+                throw new FuncReturnTypeException(val.lineNum, val.colNum, type.toString());
+            }
         }
     }
 
@@ -125,8 +132,6 @@ public class FunctionalModeVisitor {
             for (lang.Absyn.Arg x: p.listarg_) {
                 newFunc.args.add(x.accept(new ArgVisitor(), env));
             }
-            if(funcType == Type.TVoid && p.liststm_.stream().anyMatch(o -> o.getClass().getSimpleName().equals("SReturn")))
-                throw new RuntimeException("Return not allowed in void func");
             newFunc.listStm = p.liststm_;
             for(int i = 0 ; i<env.contexts.size();i++){
                 newFunc.closure.putAll(new HashMap<>(env.contexts.get(i)));
@@ -207,7 +212,7 @@ public class FunctionalModeVisitor {
 
         public Object visit(SReturn p, Env env)
         { /* Code for SReturn goes here */
-            throw new Return(p.exp_.accept(new ExpVisitor(), env));
+            throw new Return(p.exp_.accept(new ExpVisitor(), env), p.line_num, p.col_num);
         }
 
         public Object visit(SObjInit p, Env env)
@@ -594,9 +599,8 @@ public class FunctionalModeVisitor {
             ArrayList<Val> returnList = new ArrayList<>();
             for(Val val: list.listVal){
                 env.newBlock();
-
                 env.extendEnvVar(func.val.args.get(0).ident, val);
-                execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
+                execFunc(func.val.listStm, env,func.val, Type.TBoolean);
                 VBool condition = (VBool)func.val.returnVal;
                 if(condition.val){
                     returnList.add(val);
@@ -623,7 +627,7 @@ public class FunctionalModeVisitor {
             for(Val val: new VList(list,Type.TAuto).listVal){
                 env.newBlock();
                 env.extendEnvVar(func.val.args.get(0).ident, val);
-                execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
+                execFunc(func.val.listStm, env,func.val, Type.TBoolean);
                 VBool condition = (VBool)func.val.returnVal;
                 if(condition.val){
                     returnList.add(val);

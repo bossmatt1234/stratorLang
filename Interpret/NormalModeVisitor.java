@@ -4,10 +4,7 @@ import com.google.common.collect.Iterables;
 import lang.Absyn.*;
 import lang.Interpret.Exceptions.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static lang.Interpret.Operator.*;
 import static lang.Interpret.Operator.DECREMENT;
@@ -31,8 +28,16 @@ public class NormalModeVisitor {
                 x.accept(new NormalModeVisitor.StmVisitor(), env);
             }
         }catch(Return val){
-            function.returnVal = val.returnVal;
-            function.returnVal.type = type;
+            if(new TypeChecker().check(type, val.returnVal, val.lineNum, val.colNum)){
+                function.returnVal = val.returnVal;
+                function.returnVal.type = type;
+            }else{
+                if(type == Type.TVoid){
+                    throw new FuncReturnVoidException(val.lineNum, val.colNum, type.toString());
+                }
+                throw new FuncReturnTypeException(val.lineNum, val.colNum, type.toString());
+            }
+
         }
     }
 
@@ -126,8 +131,6 @@ public class NormalModeVisitor {
             for (lang.Absyn.Arg x: p.listarg_) {
                 newFunc.args.add(x.accept(new ArgVisitor(), env));
             }
-            if(funcType == Type.TVoid && p.liststm_.stream().anyMatch(o -> o.getClass().getSimpleName().equals("SReturn")))
-                throw new RuntimeException("Return not allowed in void func");
             newFunc.listStm = p.liststm_;
             newFunc.closure.putAll(new HashMap<>(env.contexts.getLast()));
             VFunc val = new VFunc(newFunc, funcType);
@@ -140,13 +143,22 @@ public class NormalModeVisitor {
 
         public Object visit(lang.Absyn.DefConstructor p, Env env)
         { /* Code for DefConstructor goes here */
-
             Function constructor = new Function();
             for (lang.Absyn.Arg x: p.listarg_) {
                 constructor.args.add(x.accept(new ArgVisitor(), env));
             }
-            constructor.listStm = p.liststm_;
-
+            constructor.listStm = new ListStm();
+            for (Stm x: p.liststm_){
+                if(x instanceof SReturn){
+                    throw new ClassConstructorStmException(p.line_num,p.col_num,"Return");
+                } else if (x instanceof SBreak) {
+                    throw new ClassConstructorStmException(p.line_num,p.col_num,"Break");
+                } else if (x instanceof SContinue) {
+                    throw new ClassConstructorStmException(p.line_num,p.col_num,"Continue");
+                }
+                constructor.listStm.add(x);
+            }
+            env.extendEnvVar("$constructor_name$", new VString(p.ident_));
             return env.extendEnvVar("$constructor$", new VFunc(constructor, Type.TVoid));
         }
         public Object visit(lang.Absyn.DefClass p, Env env)
@@ -170,8 +182,13 @@ public class NormalModeVisitor {
                 }
                 else if(x instanceof DefConstructor){
                     x.accept(new StmVisitor(), env);
-                    objectDef.constructorEnable();
-                    objectDef.setConstructor(env.contexts.getLast().get("$constructor$"));
+                    VString constructorName = (VString) env.contexts.getLast().get("$constructor_name$");
+                    if(Objects.equals(constructorName.val, objectDef.className)){
+                        objectDef.constructorEnable();
+                        objectDef.setConstructor(env.contexts.getLast().get("$constructor$"));
+                    }else{
+                        throw new ClassConstructorNameError(p.line_num, p.col_num, constructorName.val, objectDef.className);
+                    }
                 } else{
                     x.accept(new StmVisitor(), env);
                     objectDef.defVals.putAll(env.contexts.getLast());
@@ -269,7 +286,7 @@ public class NormalModeVisitor {
         public Object visit(lang.Absyn.SReturn p, Env env)
         { /* Code for SReturn goes here */
 
-            throw new Return(p.exp_.accept(new ExpVisitor(), env));
+            throw new Return(p.exp_.accept(new ExpVisitor(), env), p.line_num, p.col_num);
         }
 
         public Object visit(lang.Absyn.SObjInit p, Env env)
@@ -857,9 +874,8 @@ public class NormalModeVisitor {
             ArrayList<Val> returnList = new ArrayList<>();
             for(Val val: list.listVal){
                 env.newBlock();
-
                 env.extendEnvVar(func.val.args.get(0).ident, val);
-                execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
+                execFunc(func.val.listStm, env,func.val, Type.TBoolean);
                 VBool condition = (VBool)func.val.returnVal;
                 if(condition.val){
                     returnList.add(val);
@@ -886,7 +902,7 @@ public class NormalModeVisitor {
             for(Val val: new VList(list, Type.TAuto).listVal){
                 env.newBlock();
                 env.extendEnvVar(func.val.args.get(0).ident, val);
-                execFunc(func.val.listStm, env,func.val, new TypeChecker().returnType(val,p.line_num, p.col_num));
+                execFunc(func.val.listStm, env,func.val,Type.TBoolean);
                 VBool condition = (VBool)func.val.returnVal;
                 if(condition.val){
                     returnList.add(val);
@@ -982,7 +998,6 @@ public class NormalModeVisitor {
                 //Execute function in block of parameters
 
             execFunc(funcToExec.listStm, env, funcToExec, val.funcType);
-
             // Empty Block 2
             env.emptyBlock();
             funcToExec.closure = env.contexts.getLast();
