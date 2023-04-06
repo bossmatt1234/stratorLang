@@ -5,6 +5,7 @@ __Strator__ is a programming language designed to assess and gain insights into 
 
 ## Language Features:
  * Paradigm selection (Functional) mode. Use the language in an experimental _functional_ mode, where you are restricted from using imperative constructs of the language
+ * Runtime Errors, with some enhancements geared towards education
  * Primitive types
     * Integer
     * Double
@@ -62,7 +63,18 @@ Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https
 ![Paradigm](docs/examples/mode.png "Paradigm mode")
 
 At the top of the program you can use the _paradigm : functional_ line of code to restrict the language to the functional subset.
-If you try to use restricted constructs (mutating, classes, loops, etc.) in this mode, you will get special error messages.
+
+![ParadigmError](docs/examples/paradigmError.png "Paradigm mode error example")
+
+If you try to use restricted constructs (mutating, classes, loops, etc.), you will get special error messages exclusive to this mode.
+### Enhanced Error Messages
+![ErrorPart1](docs/examples/errorPart1.png "Error Part1")
+
+Here is an example of a mistyped function call. If you run this code, you will get an error message.
+
+![ErrorPart2](docs/examples/errorPart2.png "Error Part2")
+
+If you call an unidentified variable, function, object method / data, etc., the error will try to point you towards the most similar identifier in the context.
 ### Primitive Types, Variables and Printing 
 ![Variables](docs/examples/variables.png "Variables")
 
