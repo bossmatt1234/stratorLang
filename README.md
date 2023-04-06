@@ -148,11 +148,13 @@ This loop construct allows you to loop an iterator in a specified range. The loo
 * By specifying only 1 parameter in the range function, the iterator will increment until it hits the specified parameter and then the loop breaks
 * By specifying 2 parameters, the first parameter value will represent the starting number and the second parameter will represent the stop value at which the loop breaks
 * By specifying 3 parameters, the third parameter will represent the value by which the iterator will change each loop iteration
-You can use negative and positive numbers for each 3 parameters.
+
+You can only use negative and positive integers for all 3 parameters.
 #### Break / Continue Statements
 * The _break_ statement stops the loop in its tracks
 * The _continue_ statement skips to the next iteration
-Both these statements are usually used with conditional statements (if / else) to check for a suitable exit point in the loop.
+
+Both statements are usually used with conditional statements (if / else) to check for a suitable exit point in the loop.
 ### Classes and Objects
 #### Class Definition
 ![ClassDef](docs/examples/class.png "ClassDefinition")
