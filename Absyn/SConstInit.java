@@ -13,9 +13,8 @@ public class SConstInit  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SConstInit) {
-      lang.Absyn.SConstInit x = (lang.Absyn.SConstInit)o;
-      return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
+    if (o instanceof SConstInit x) {
+        return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
     }
     return false;
   }

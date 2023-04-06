@@ -10,10 +10,7 @@ public class EInput  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EInput) {
-      return true;
-    }
-    return false;
+      return o instanceof EInput;
   }
 
   public int hashCode() {

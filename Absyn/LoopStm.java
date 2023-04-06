@@ -11,9 +11,8 @@ public class LoopStm  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.LoopStm) {
-      lang.Absyn.LoopStm x = (lang.Absyn.LoopStm)o;
-      return this.stm_loop_.equals(x.stm_loop_);
+    if (o instanceof LoopStm x) {
+        return this.stm_loop_.equals(x.stm_loop_);
     }
     return false;
   }

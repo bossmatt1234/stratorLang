@@ -2,15 +2,15 @@ package lang.Interpret;
 
 public interface Checker {
 
-    public boolean check(Type t,Val val, int lineNum, int columnNum);
+    boolean check(Type t,Val val, int lineNum, int columnNum);
 
-    public boolean isType(Type t, VInteger val );
-    public boolean isType(Type type, VDouble val);
-    public boolean isType(Type type, VBool val);
-    public boolean isType(Type type, VString val);
-    public boolean isType(Type type, VChar val);
-    public boolean isType(Type type, VList val);
-    public Val returnValOfType(Type t, int lineNum, int columnNum);
-    public Type returnType(Val val,int lineNum, int columnNum);
+    boolean isType(Type t, VInteger val );
+    boolean isType(Type type, VDouble val);
+    boolean isType(Type type, VBool val);
+    boolean isType(Type type, VString val);
+    boolean isType(Type type, VChar val);
+    boolean isType(Type type, VList val);
+    Val returnValOfType(Type t, int lineNum, int columnNum);
+    Type returnType(Val val,int lineNum, int columnNum);
 
 }

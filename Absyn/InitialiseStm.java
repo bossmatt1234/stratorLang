@@ -11,9 +11,8 @@ public class InitialiseStm  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.InitialiseStm) {
-      lang.Absyn.InitialiseStm x = (lang.Absyn.InitialiseStm)o;
-      return this.stm_initialise_.equals(x.stm_initialise_);
+    if (o instanceof InitialiseStm x) {
+        return this.stm_initialise_.equals(x.stm_initialise_);
     }
     return false;
   }

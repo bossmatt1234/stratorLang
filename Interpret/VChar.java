@@ -17,6 +17,6 @@ public class VChar extends Val{
 
     @Override
     public String toString() {
-        return "" + val;
+        return String.valueOf(val);
     }
 }

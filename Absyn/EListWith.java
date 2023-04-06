@@ -12,9 +12,8 @@ public class EListWith  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EListWith) {
-      lang.Absyn.EListWith x = (lang.Absyn.EListWith)o;
-      return this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
+    if (o instanceof EListWith x) {
+        return this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
     }
     return false;
   }

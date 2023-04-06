@@ -10,10 +10,7 @@ public class ETrue  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ETrue) {
-      return true;
-    }
-    return false;
+      return o instanceof ETrue;
   }
 
   public int hashCode() {

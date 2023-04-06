@@ -11,9 +11,8 @@ public class EPow  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EPow) {
-      lang.Absyn.EPow x = (lang.Absyn.EPow)o;
-      return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
+    if (o instanceof EPow x) {
+        return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
     }
     return false;
   }

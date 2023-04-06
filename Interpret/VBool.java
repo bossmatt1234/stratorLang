@@ -10,7 +10,7 @@ public class VBool extends Val{
 
     @Override
     public String toString() {
-        return "" + val;
+        return String.valueOf(val);
     }
 
     public boolean isVal() {

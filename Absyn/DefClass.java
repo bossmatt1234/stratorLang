@@ -12,9 +12,8 @@ public class DefClass  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.DefClass) {
-      lang.Absyn.DefClass x = (lang.Absyn.DefClass)o;
-      return this.ident_.equals(x.ident_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof DefClass x) {
+        return this.ident_.equals(x.ident_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

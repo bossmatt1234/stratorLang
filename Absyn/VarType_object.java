@@ -10,10 +10,7 @@ public class VarType_object  extends VarType {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.VarType_object) {
-      return true;
-    }
-    return false;
+      return o instanceof VarType_object;
   }
 
   public int hashCode() {

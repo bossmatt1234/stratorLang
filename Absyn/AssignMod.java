@@ -10,10 +10,7 @@ public class AssignMod  extends Assign_Op {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.AssignMod) {
-      return true;
-    }
-    return false;
+      return o instanceof AssignMod;
   }
 
   public int hashCode() {

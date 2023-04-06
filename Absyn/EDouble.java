@@ -11,9 +11,8 @@ public class EDouble  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EDouble) {
-      lang.Absyn.EDouble x = (lang.Absyn.EDouble)o;
-      return this.double_.equals(x.double_);
+    if (o instanceof EDouble x) {
+        return this.double_.equals(x.double_);
     }
     return false;
   }

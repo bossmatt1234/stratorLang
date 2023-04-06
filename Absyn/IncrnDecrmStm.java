@@ -11,9 +11,8 @@ public class IncrnDecrmStm  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.IncrnDecrmStm) {
-      lang.Absyn.IncrnDecrmStm x = (lang.Absyn.IncrnDecrmStm)o;
-      return this.stm_incrmdecrm_.equals(x.stm_incrmdecrm_);
+    if (o instanceof IncrnDecrmStm x) {
+        return this.stm_incrmdecrm_.equals(x.stm_incrmdecrm_);
     }
     return false;
   }

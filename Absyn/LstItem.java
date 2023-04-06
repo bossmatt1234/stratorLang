@@ -11,9 +11,8 @@ public class LstItem  extends Item {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.LstItem) {
-      lang.Absyn.LstItem x = (lang.Absyn.LstItem)o;
-      return this.exp_.equals(x.exp_);
+    if (o instanceof LstItem x) {
+        return this.exp_.equals(x.exp_);
     }
     return false;
   }

@@ -10,10 +10,7 @@ public class TypeCast_toChar  extends TypeCast {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.TypeCast_toChar) {
-      return true;
-    }
-    return false;
+      return o instanceof TypeCast_toChar;
   }
 
   public int hashCode() {

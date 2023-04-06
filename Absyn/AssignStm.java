@@ -11,9 +11,8 @@ public class AssignStm  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.AssignStm) {
-      lang.Absyn.AssignStm x = (lang.Absyn.AssignStm)o;
-      return this.stm_assign_.equals(x.stm_assign_);
+    if (o instanceof AssignStm x) {
+        return this.stm_assign_.equals(x.stm_assign_);
     }
     return false;
   }

@@ -11,9 +11,8 @@ public class EStrLength  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EStrLength) {
-      lang.Absyn.EStrLength x = (lang.Absyn.EStrLength)o;
-      return this.ident_.equals(x.ident_);
+    if (o instanceof EStrLength x) {
+        return this.ident_.equals(x.ident_);
     }
     return false;
   }

@@ -34,7 +34,7 @@ public class Yylex implements java_cup.runtime.Scanner {
    *                  at the beginning of a line
    * l is of the form l = 2*k, k a non negative integer
    */
-  private static final int ZZ_LEXSTATE[] = {
+  private static final int[] ZZ_LEXSTATE = {
      0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6, 6
   };
 
@@ -474,7 +474,7 @@ public class Yylex implements java_cup.runtime.Scanner {
    * Error messages for {@link #ZZ_UNKNOWN_ERROR}, {@link #ZZ_NO_MATCH}, and
    * {@link #ZZ_PUSHBACK_2BIG} respectively.
    */
-  private static final String ZZ_ERROR_MSG[] = {
+  private static final String[] ZZ_ERROR_MSG = {
     "Unknown internal scanner error",
     "Error: could not match input",
     "Error: pushback value was too large"
@@ -524,7 +524,7 @@ public class Yylex implements java_cup.runtime.Scanner {
    * This buffer contains the current text to be matched and is the source of the {@link #yytext()}
    * string.
    */
-  private char zzBuffer[] = new char[ZZ_BUFFERSIZE];
+  private char[] zzBuffer = new char[ZZ_BUFFERSIZE];
 
   /** Text position at the last accepting state. */
   private int zzMarkedPos;
@@ -569,7 +569,7 @@ public class Yylex implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
-  String pstring = new String();
+  String pstring = "";
   final int unknown = -1;
   ComplexSymbolFactory.Location left = new ComplexSymbolFactory.Location(unknown, unknown);
   ComplexSymbolFactory cf = new ComplexSymbolFactory();
@@ -629,7 +629,7 @@ public class Yylex implements java_cup.runtime.Scanner {
     /* is the buffer big enough? */
     if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
       /* if not: blow it up */
-      char newBuffer[] = new char[zzBuffer.length * 2];
+      char[] newBuffer = new char[zzBuffer.length * 2];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
       zzEndRead += zzFinalHighSurrogate;
@@ -1189,7 +1189,7 @@ public class Yylex implements java_cup.runtime.Scanner {
             // fall through
           case 140: break;
           case 35:
-            { String foo = pstring; pstring = new String(); yybegin(YYINITIAL); return cf.newSymbol("", sym._STRING_, left, right_loc(), foo.intern());
+            { String foo = pstring; pstring = ""; yybegin(YYINITIAL); return cf.newSymbol("", sym._STRING_, left, right_loc(), foo.intern());
             }
             // fall through
           case 141: break;

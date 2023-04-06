@@ -11,9 +11,8 @@ public class PFunctionalModeStms  extends Program {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.PFunctionalModeStms) {
-      lang.Absyn.PFunctionalModeStms x = (lang.Absyn.PFunctionalModeStms)o;
-      return this.liststm_.equals(x.liststm_);
+    if (o instanceof PFunctionalModeStms x) {
+        return this.liststm_.equals(x.liststm_);
     }
     return false;
   }

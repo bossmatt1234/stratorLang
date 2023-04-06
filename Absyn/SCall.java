@@ -11,9 +11,8 @@ public class SCall  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SCall) {
-      lang.Absyn.SCall x = (lang.Absyn.SCall)o;
-      return this.exp_.equals(x.exp_);
+    if (o instanceof SCall x) {
+        return this.exp_.equals(x.exp_);
     }
     return false;
   }

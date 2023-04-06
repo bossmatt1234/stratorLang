@@ -12,9 +12,8 @@ public class ECall  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ECall) {
-      lang.Absyn.ECall x = (lang.Absyn.ECall)o;
-      return this.ident_.equals(x.ident_) && this.listexp_.equals(x.listexp_);
+    if (o instanceof ECall x) {
+        return this.ident_.equals(x.ident_) && this.listexp_.equals(x.listexp_);
     }
     return false;
   }

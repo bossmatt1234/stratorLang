@@ -52,6 +52,9 @@ public class FunctionalModeVisitor {
         VFunc methodVal = (VFunc) method;
         Function funcToExec = methodVal.val;
         HashMap<String,Val> args = new HashMap<>();
+        if(funcToExec.args.size() != listExp.size()){
+            throw new ArgNumError(lineNum,columnNum,funcToExec.args.size(),listExp.size());
+        }
         int i=0;
         for (Exp x: listExp) {
             Val newval = x.accept(new ExpVisitor(), env);
@@ -61,11 +64,7 @@ public class FunctionalModeVisitor {
             args.put(funcToExec.args.get(i).ident, newval);
             i++;
         }
-        if(funcToExec.args.size() != i){
-            throw new ArgNumError(lineNum,columnNum,funcToExec.args.size(),i);}
-
         // Block 3 - object call parameters
-
         env.newBlock();
         for (HashMap.Entry<String, Val> entry: args.entrySet() ){
             env.extendEnvVar(entry.getKey(),entry.getValue());
@@ -694,6 +693,9 @@ public class FunctionalModeVisitor {
             //p.ident_;
             VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
             Function funcToExec = val.val;
+            if(funcToExec.args.size() != p.listexp_.size()){
+                throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
+            }
             // Block 1 - Function variables
             env.contexts.addLast(funcToExec.closure);
             HashMap<String,Val> args = new HashMap<>();
@@ -707,11 +709,6 @@ public class FunctionalModeVisitor {
                 args.put(funcToExec.args.get(i).ident, newval);
                 i++;
             }
-
-            if(funcToExec.args.size() != i){
-                throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),i);
-            }
-
             // Block 2 - function call parameters
             env.newBlock();
             for (HashMap.Entry<String, Val> entry: args.entrySet() ){
@@ -731,9 +728,10 @@ public class FunctionalModeVisitor {
             //p.ident_2;
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
-            Val method = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2);
+            ObjectDef objectDef = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num);
+            Val method = objectDef.lookUpMethod(p.ident_2);
             if(method == null){
-                throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass);
+                throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass,objectDef.defMethods);
             }
             return execObjectMethod(
                     env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar,

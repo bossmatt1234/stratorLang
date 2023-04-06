@@ -11,9 +11,8 @@ public class PStms  extends Program {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.PStms) {
-      lang.Absyn.PStms x = (lang.Absyn.PStms)o;
-      return this.liststm_.equals(x.liststm_);
+    if (o instanceof PStms x) {
+        return this.liststm_.equals(x.liststm_);
     }
     return false;
   }

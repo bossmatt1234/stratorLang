@@ -12,9 +12,8 @@ public class EListWithout  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EListWithout) {
-      lang.Absyn.EListWithout x = (lang.Absyn.EListWithout)o;
-      return this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
+    if (o instanceof EListWithout x) {
+        return this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
     }
     return false;
   }

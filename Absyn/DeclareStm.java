@@ -11,9 +11,8 @@ public class DeclareStm  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.DeclareStm) {
-      lang.Absyn.DeclareStm x = (lang.Absyn.DeclareStm)o;
-      return this.stm_declare_.equals(x.stm_declare_);
+    if (o instanceof DeclareStm x) {
+        return this.stm_declare_.equals(x.stm_declare_);
     }
     return false;
   }

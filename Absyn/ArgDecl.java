@@ -12,9 +12,8 @@ public class ArgDecl  extends Arg {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ArgDecl) {
-      lang.Absyn.ArgDecl x = (lang.Absyn.ArgDecl)o;
-      return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_);
+    if (o instanceof ArgDecl x) {
+        return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_);
     }
     return false;
   }

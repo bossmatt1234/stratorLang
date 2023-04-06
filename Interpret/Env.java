@@ -1,6 +1,5 @@
 package lang.Interpret;
 
-import lang.Interpret.Exceptions.ExtendEnvException;
 import lang.Interpret.Exceptions.LookUpDefException;
 import lang.Interpret.Exceptions.LookUpVarException;
 
@@ -28,7 +27,7 @@ public class Env {
                 if (contexts.get(i).containsKey(id)) {
                     returnVal = contexts.get(i).get(id);
                     if(returnVal == null){
-                        throw new LookUpVarException(lineNum,columnNum,id);
+                        throw new LookUpVarException(lineNum,columnNum,id,this.contexts.getLast());
                     }else{
                         return returnVal;
                     }
@@ -37,17 +36,19 @@ public class Env {
         }else {
             returnVal = contexts.getLast().get(id);
             if (returnVal == null) {
-                throw new LookUpVarException(lineNum, columnNum, id);
+
+                throw new LookUpVarException(lineNum, columnNum, id,this.contexts.getLast());
             } else {
                 return returnVal;
             }
         }
-        throw new LookUpVarException(lineNum, columnNum, id);
+
+        throw new LookUpVarException(lineNum, columnNum, id,this.contexts.getLast());
     }
 
     public ObjectDef lookupDef(String id, int lineNum, int columnNum) {
         if(this.objectDefs.getLast().get(id) == null){
-            throw new LookUpDefException(lineNum,columnNum,id);
+            throw new LookUpDefException(lineNum,columnNum,id,this.objectDefs.getLast());
         }
         return this.objectDefs.getLast().get(id);
     }

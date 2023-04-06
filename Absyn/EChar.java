@@ -11,9 +11,8 @@ public class EChar  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EChar) {
-      lang.Absyn.EChar x = (lang.Absyn.EChar)o;
-      return this.char_.equals(x.char_);
+    if (o instanceof EChar x) {
+        return this.char_.equals(x.char_);
     }
     return false;
   }

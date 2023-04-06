@@ -11,9 +11,8 @@ public class ERand  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ERand) {
-      lang.Absyn.ERand x = (lang.Absyn.ERand)o;
-      return this.integer_.equals(x.integer_);
+    if (o instanceof ERand x) {
+        return this.integer_.equals(x.integer_);
     }
     return false;
   }

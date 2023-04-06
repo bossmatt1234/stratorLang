@@ -5,7 +5,7 @@ package lang.Absyn;
 public abstract class Stm_IncrmDecrm implements java.io.Serializable {
   public abstract <R,A> R accept(Stm_IncrmDecrm.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.SIncrmDecrm p, A arg);
+    R visit(lang.Absyn.SIncrmDecrm p, A arg);
 
   }
 

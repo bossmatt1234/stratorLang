@@ -14,9 +14,8 @@ public class SCLoop  extends Stm_Loop {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SCLoop) {
-      lang.Absyn.SCLoop x = (lang.Absyn.SCLoop)o;
-      return this.stm_initialise_.equals(x.stm_initialise_) && this.exp_.equals(x.exp_) && this.stm_incrmdecrm_.equals(x.stm_incrmdecrm_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SCLoop x) {
+        return this.stm_initialise_.equals(x.stm_initialise_) && this.exp_.equals(x.exp_) && this.stm_incrmdecrm_.equals(x.stm_incrmdecrm_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

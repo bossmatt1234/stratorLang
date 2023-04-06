@@ -12,9 +12,8 @@ public class EMapIdent  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EMapIdent) {
-      lang.Absyn.EMapIdent x = (lang.Absyn.EMapIdent)o;
-      return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
+    if (o instanceof EMapIdent x) {
+        return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
     }
     return false;
   }

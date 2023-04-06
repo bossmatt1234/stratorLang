@@ -13,9 +13,8 @@ public class SPLoopList  extends Stm_Loop {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SPLoopList) {
-      lang.Absyn.SPLoopList x = (lang.Absyn.SPLoopList)o;
-      return this.ident_.equals(x.ident_) && this.listitem_.equals(x.listitem_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SPLoopList x) {
+        return this.ident_.equals(x.ident_) && this.listitem_.equals(x.listitem_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

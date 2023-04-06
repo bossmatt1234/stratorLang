@@ -17,7 +17,7 @@ public class VDouble extends Val{
 
     @Override
     public String toString() {
-        return "" + val;
+        return String.valueOf(val);
     }
 
     public double getVal() {

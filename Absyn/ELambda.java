@@ -12,9 +12,8 @@ public class ELambda  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ELambda) {
-      lang.Absyn.ELambda x = (lang.Absyn.ELambda)o;
-      return this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof ELambda x) {
+        return this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

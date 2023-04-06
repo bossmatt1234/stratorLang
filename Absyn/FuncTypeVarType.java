@@ -11,9 +11,8 @@ public class FuncTypeVarType  extends FuncType {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.FuncTypeVarType) {
-      lang.Absyn.FuncTypeVarType x = (lang.Absyn.FuncTypeVarType)o;
-      return this.vartype_.equals(x.vartype_);
+    if (o instanceof FuncTypeVarType x) {
+        return this.vartype_.equals(x.vartype_);
     }
     return false;
   }

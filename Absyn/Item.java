@@ -5,7 +5,7 @@ package lang.Absyn;
 public abstract class Item implements java.io.Serializable {
   public abstract <R,A> R accept(Item.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.LstItem p, A arg);
+    R visit(lang.Absyn.LstItem p, A arg);
 
   }
 

@@ -10,6 +10,6 @@ public class FuncModeLoopException extends CommonError {
     @Override
     public String getMessage() {
         return trace + "Functional Mode (Loop) Error: Loops alter states, and break immutability." +
-                "Instead, try creating a (tail) recursive function for loop behaviour.";
+                " Instead, try creating a (tail) recursive function for loop behaviour.";
     }
 }

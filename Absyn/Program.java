@@ -5,8 +5,8 @@ package lang.Absyn;
 public abstract class Program implements java.io.Serializable {
   public abstract <R,A> R accept(Program.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.PStms p, A arg);
-    public R visit(lang.Absyn.PFunctionalModeStms p, A arg);
+    R visit(lang.Absyn.PStms p, A arg);
+    R visit(lang.Absyn.PFunctionalModeStms p, A arg);
 
   }
 

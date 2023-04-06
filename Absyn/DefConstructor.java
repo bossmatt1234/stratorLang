@@ -13,9 +13,8 @@ public class DefConstructor  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.DefConstructor) {
-      lang.Absyn.DefConstructor x = (lang.Absyn.DefConstructor)o;
-      return this.ident_.equals(x.ident_) && this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof DefConstructor x) {
+        return this.ident_.equals(x.ident_) && this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

@@ -14,9 +14,8 @@ public class DefFun  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.DefFun) {
-      lang.Absyn.DefFun x = (lang.Absyn.DefFun)o;
-      return this.functype_.equals(x.functype_) && this.ident_.equals(x.ident_) && this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof DefFun x) {
+        return this.functype_.equals(x.functype_) && this.ident_.equals(x.ident_) && this.listarg_.equals(x.listarg_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

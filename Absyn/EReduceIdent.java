@@ -12,9 +12,8 @@ public class EReduceIdent  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EReduceIdent) {
-      lang.Absyn.EReduceIdent x = (lang.Absyn.EReduceIdent)o;
-      return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
+    if (o instanceof EReduceIdent x) {
+        return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
     }
     return false;
   }

@@ -12,9 +12,8 @@ public class DefClassInherits  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.DefClassInherits) {
-      lang.Absyn.DefClassInherits x = (lang.Absyn.DefClassInherits)o;
-      return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.liststm_.equals(x.liststm_);
+    if (o instanceof DefClassInherits x) {
+        return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

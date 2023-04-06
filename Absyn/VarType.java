@@ -5,14 +5,14 @@ package lang.Absyn;
 public abstract class VarType implements java.io.Serializable {
   public abstract <R,A> R accept(VarType.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.VarType_int p, A arg);
-    public R visit(lang.Absyn.VarType_double p, A arg);
-    public R visit(lang.Absyn.VarType_bool p, A arg);
-    public R visit(lang.Absyn.VarType_char p, A arg);
-    public R visit(lang.Absyn.VarType_string p, A arg);
-    public R visit(lang.Absyn.VarType_auto p, A arg);
-    public R visit(lang.Absyn.VarType_func p, A arg);
-    public R visit(lang.Absyn.VarType_object p, A arg);
+    R visit(lang.Absyn.VarType_int p, A arg);
+    R visit(lang.Absyn.VarType_double p, A arg);
+    R visit(lang.Absyn.VarType_bool p, A arg);
+    R visit(lang.Absyn.VarType_char p, A arg);
+    R visit(lang.Absyn.VarType_string p, A arg);
+    R visit(lang.Absyn.VarType_auto p, A arg);
+    R visit(lang.Absyn.VarType_func p, A arg);
+    R visit(lang.Absyn.VarType_object p, A arg);
 
   }
 

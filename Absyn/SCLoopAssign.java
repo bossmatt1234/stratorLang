@@ -14,9 +14,8 @@ public class SCLoopAssign  extends Stm_Loop {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SCLoopAssign) {
-      lang.Absyn.SCLoopAssign x = (lang.Absyn.SCLoopAssign)o;
-      return this.stm_initialise_.equals(x.stm_initialise_) && this.exp_.equals(x.exp_) && this.stm_assign_.equals(x.stm_assign_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SCLoopAssign x) {
+        return this.stm_initialise_.equals(x.stm_initialise_) && this.exp_.equals(x.exp_) && this.stm_assign_.equals(x.stm_assign_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

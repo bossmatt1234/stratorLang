@@ -10,10 +10,7 @@ public class TypeCast_toBool  extends TypeCast {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.TypeCast_toBool) {
-      return true;
-    }
-    return false;
+      return o instanceof TypeCast_toBool;
   }
 
   public int hashCode() {

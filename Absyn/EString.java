@@ -11,9 +11,8 @@ public class EString  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EString) {
-      lang.Absyn.EString x = (lang.Absyn.EString)o;
-      return this.string_.equals(x.string_);
+    if (o instanceof EString x) {
+        return this.string_.equals(x.string_);
     }
     return false;
   }

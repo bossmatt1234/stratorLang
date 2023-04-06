@@ -5,8 +5,8 @@ package lang.Absyn;
 public abstract class IncrmDecrm_Op implements java.io.Serializable {
   public abstract <R,A> R accept(IncrmDecrm_Op.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.Increment p, A arg);
-    public R visit(lang.Absyn.Decrement p, A arg);
+    R visit(lang.Absyn.Increment p, A arg);
+    R visit(lang.Absyn.Decrement p, A arg);
 
   }
 

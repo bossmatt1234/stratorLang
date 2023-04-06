@@ -10,10 +10,7 @@ public class VarType_auto  extends VarType {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.VarType_auto) {
-      return true;
-    }
-    return false;
+      return o instanceof VarType_auto;
   }
 
   public int hashCode() {

@@ -5,7 +5,7 @@ package lang.Absyn;
 public abstract class Stm_Initialise implements java.io.Serializable {
   public abstract <R,A> R accept(Stm_Initialise.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
-    public R visit(lang.Absyn.SInit p, A arg);
+    R visit(lang.Absyn.SInit p, A arg);
 
   }
 

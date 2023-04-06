@@ -11,9 +11,8 @@ public class EListSize  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EListSize) {
-      lang.Absyn.EListSize x = (lang.Absyn.EListSize)o;
-      return this.ident_.equals(x.ident_);
+    if (o instanceof EListSize x) {
+        return this.ident_.equals(x.ident_);
     }
     return false;
   }

@@ -11,9 +11,8 @@ public class EAdd  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EAdd) {
-      lang.Absyn.EAdd x = (lang.Absyn.EAdd)o;
-      return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
+    if (o instanceof EAdd x) {
+        return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
     }
     return false;
   }

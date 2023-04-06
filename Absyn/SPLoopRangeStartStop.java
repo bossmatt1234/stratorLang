@@ -13,9 +13,8 @@ public class SPLoopRangeStartStop  extends Stm_Loop {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SPLoopRangeStartStop) {
-      lang.Absyn.SPLoopRangeStartStop x = (lang.Absyn.SPLoopRangeStartStop)o;
-      return this.ident_.equals(x.ident_) && this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SPLoopRangeStartStop x) {
+        return this.ident_.equals(x.ident_) && this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

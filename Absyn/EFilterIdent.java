@@ -12,9 +12,8 @@ public class EFilterIdent  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EFilterIdent) {
-      lang.Absyn.EFilterIdent x = (lang.Absyn.EFilterIdent)o;
-      return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
+    if (o instanceof EFilterIdent x) {
+        return this.exp_.equals(x.exp_) && this.ident_.equals(x.ident_);
     }
     return false;
   }

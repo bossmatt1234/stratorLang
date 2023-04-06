@@ -8,8 +8,8 @@ public class PrettyPrinter
   private static final int INITIAL_BUFFER_SIZE = 128;
   private static final int INDENT_WIDTH = 2;
   //You may wish to change the parentheses used in precedence.
-  private static final String _L_PAREN = new String("(");
-  private static final String _R_PAREN = new String(")");
+  private static final String _L_PAREN = "(";
+  private static final String _R_PAREN = ")";
   //You may wish to change render
   private static void render(String s)
   {
@@ -50,7 +50,8 @@ public class PrettyPrinter
        buf_.append("\n");
        indent();
     }
-    else if (s.equals("")) return;
+    else if (s.equals("")) {
+    }
     else if (s.trim().equals(""))
     {
        backup();
@@ -384,17 +385,15 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Program foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.PStms)
+    if (foo instanceof lang.Absyn.PStms _pstms)
     {
-       lang.Absyn.PStms _pstms = (lang.Absyn.PStms) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_pstms.liststm_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.PFunctionalModeStms)
+    else     if (foo instanceof lang.Absyn.PFunctionalModeStms _pfunctionalmodestms)
     {
-       lang.Absyn.PFunctionalModeStms _pfunctionalmodestms = (lang.Absyn.PFunctionalModeStms) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("paradigm");
        render(":");
        render("functional");
@@ -406,10 +405,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.DefFun)
+    if (foo instanceof lang.Absyn.DefFun _deffun)
     {
-       lang.Absyn.DefFun _deffun = (lang.Absyn.DefFun) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("function");
        pp(_deffun.functype_, 0);
        pp(_deffun.ident_, 0);
@@ -421,10 +419,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.DefConstructor)
+    else     if (foo instanceof lang.Absyn.DefConstructor _defconstructor)
     {
-       lang.Absyn.DefConstructor _defconstructor = (lang.Absyn.DefConstructor) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("constructor");
        pp(_defconstructor.ident_, 0);
        render("(");
@@ -435,10 +432,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.DefClass)
+    else     if (foo instanceof lang.Absyn.DefClass _defclass)
     {
-       lang.Absyn.DefClass _defclass = (lang.Absyn.DefClass) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("class");
        pp(_defclass.ident_, 0);
        render("{");
@@ -446,10 +442,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.DefClassInherits)
+    else     if (foo instanceof lang.Absyn.DefClassInherits _defclassinherits)
     {
-       lang.Absyn.DefClassInherits _defclassinherits = (lang.Absyn.DefClassInherits) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("class");
        pp(_defclassinherits.ident_1, 0);
        render("inherits");
@@ -459,74 +454,64 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPrint)
+    else     if (foo instanceof lang.Absyn.SPrint _sprint)
     {
-       lang.Absyn.SPrint _sprint = (lang.Absyn.SPrint) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("print");
        pp(_sprint.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SBreak)
+    else     if (foo instanceof lang.Absyn.SBreak _sbreak)
     {
-       lang.Absyn.SBreak _sbreak = (lang.Absyn.SBreak) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("break");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SContinue)
+    else     if (foo instanceof lang.Absyn.SContinue _scontinue)
     {
-       lang.Absyn.SContinue _scontinue = (lang.Absyn.SContinue) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("continue");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.InitialiseStm)
+    else     if (foo instanceof lang.Absyn.InitialiseStm _initialisestm)
     {
-       lang.Absyn.InitialiseStm _initialisestm = (lang.Absyn.InitialiseStm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_initialisestm.stm_initialise_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.DeclareStm)
+    else     if (foo instanceof lang.Absyn.DeclareStm _declarestm)
     {
-       lang.Absyn.DeclareStm _declarestm = (lang.Absyn.DeclareStm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_declarestm.stm_declare_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignStm)
+    else     if (foo instanceof lang.Absyn.AssignStm _assignstm)
     {
-       lang.Absyn.AssignStm _assignstm = (lang.Absyn.AssignStm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_assignstm.stm_assign_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.LoopStm)
+    else     if (foo instanceof lang.Absyn.LoopStm _loopstm)
     {
-       lang.Absyn.LoopStm _loopstm = (lang.Absyn.LoopStm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_loopstm.stm_loop_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.IncrnDecrmStm)
+    else     if (foo instanceof lang.Absyn.IncrnDecrmStm _incrndecrmstm)
     {
-       lang.Absyn.IncrnDecrmStm _incrndecrmstm = (lang.Absyn.IncrnDecrmStm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_incrndecrmstm.stm_incrmdecrm_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SCall)
+    else     if (foo instanceof lang.Absyn.SCall _scall)
     {
-       lang.Absyn.SCall _scall = (lang.Absyn.SCall) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_scall.exp_, 16);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SAppend)
+    else     if (foo instanceof lang.Absyn.SAppend _sappend)
     {
-       lang.Absyn.SAppend _sappend = (lang.Absyn.SAppend) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sappend.ident_, 0);
        render(".");
        render("append");
@@ -535,10 +520,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SRemove)
+    else     if (foo instanceof lang.Absyn.SRemove _sremove)
     {
-       lang.Absyn.SRemove _sremove = (lang.Absyn.SRemove) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sremove.ident_, 0);
        render(".");
        render("remove");
@@ -547,18 +531,16 @@ public class PrettyPrinter
        render("]");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SReturn)
+    else     if (foo instanceof lang.Absyn.SReturn _sreturn)
     {
-       lang.Absyn.SReturn _sreturn = (lang.Absyn.SReturn) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("return");
        pp(_sreturn.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SObjInit)
+    else     if (foo instanceof lang.Absyn.SObjInit _sobjinit)
     {
-       lang.Absyn.SObjInit _sobjinit = (lang.Absyn.SObjInit) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("object");
        pp(_sobjinit.ident_1, 0);
        render("=");
@@ -569,10 +551,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SConstInit)
+    else     if (foo instanceof lang.Absyn.SConstInit _sconstinit)
     {
-       lang.Absyn.SConstInit _sconstinit = (lang.Absyn.SConstInit) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("const");
        pp(_sconstinit.vartype_, 0);
        pp(_sconstinit.ident_, 0);
@@ -580,17 +561,15 @@ public class PrettyPrinter
        pp(_sconstinit.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.IfS)
+    else     if (foo instanceof lang.Absyn.IfS _ifs)
     {
-       lang.Absyn.IfS _ifs = (lang.Absyn.IfS) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_ifs.if_stm_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.Block)
+    else     if (foo instanceof lang.Absyn.Block _block)
     {
-       lang.Absyn.Block _block = (lang.Absyn.Block) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("{");
        pp(_block.liststm_, 0);
        render("}");
@@ -601,10 +580,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Item foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.LstItem)
+    if (foo instanceof lang.Absyn.LstItem _lstitem)
     {
-       lang.Absyn.LstItem _lstitem = (lang.Absyn.LstItem) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_lstitem.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -635,10 +613,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm_Initialise foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SInit)
+    if (foo instanceof lang.Absyn.SInit _sinit)
     {
-       lang.Absyn.SInit _sinit = (lang.Absyn.SInit) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sinit.vartype_, 0);
        pp(_sinit.ident_, 0);
        render("=");
@@ -650,10 +627,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm_Declare foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SDecl)
+    if (foo instanceof lang.Absyn.SDecl _sdecl)
     {
-       lang.Absyn.SDecl _sdecl = (lang.Absyn.SDecl) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sdecl.vartype_, 0);
        pp(_sdecl.ident_, 0);
        if (_i_ > 0) render(_R_PAREN);
@@ -663,10 +639,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm_Assign foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SAssign)
+    if (foo instanceof lang.Absyn.SAssign _sassign)
     {
-       lang.Absyn.SAssign _sassign = (lang.Absyn.SAssign) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sassign.ident_, 0);
        pp(_sassign.assign_op_, 0);
        pp(_sassign.exp_, 0);
@@ -677,10 +652,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm_IncrmDecrm foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SIncrmDecrm)
+    if (foo instanceof lang.Absyn.SIncrmDecrm _sincrmdecrm)
     {
-       lang.Absyn.SIncrmDecrm _sincrmdecrm = (lang.Absyn.SIncrmDecrm) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_sincrmdecrm.ident_, 0);
        pp(_sincrmdecrm.incrmdecrm_op_, 0);
        if (_i_ > 0) render(_R_PAREN);
@@ -690,10 +664,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Stm_Loop foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SWhile)
+    if (foo instanceof lang.Absyn.SWhile _swhile)
     {
-       lang.Absyn.SWhile _swhile = (lang.Absyn.SWhile) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("while");
        pp(_swhile.exp_, 0);
        render("{");
@@ -701,10 +674,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPLoopIdent)
+    else     if (foo instanceof lang.Absyn.SPLoopIdent _sploopident)
     {
-       lang.Absyn.SPLoopIdent _sploopident = (lang.Absyn.SPLoopIdent) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_sploopident.ident_1, 0);
        render("in");
@@ -714,10 +686,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPLoopList)
+    else     if (foo instanceof lang.Absyn.SPLoopList _splooplist)
     {
-       lang.Absyn.SPLoopList _splooplist = (lang.Absyn.SPLoopList) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_splooplist.ident_, 0);
        render("in");
@@ -729,10 +700,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPLoopRangeStart)
+    else     if (foo instanceof lang.Absyn.SPLoopRangeStart _splooprangestart)
     {
-       lang.Absyn.SPLoopRangeStart _splooprangestart = (lang.Absyn.SPLoopRangeStart) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_splooprangestart.ident_, 0);
        render("in");
@@ -745,10 +715,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPLoopRangeStartStop)
+    else     if (foo instanceof lang.Absyn.SPLoopRangeStartStop _splooprangestartstop)
     {
-       lang.Absyn.SPLoopRangeStartStop _splooprangestartstop = (lang.Absyn.SPLoopRangeStartStop) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_splooprangestartstop.ident_, 0);
        render("in");
@@ -763,10 +732,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SPLoopRangeStartStopEnd)
+    else     if (foo instanceof lang.Absyn.SPLoopRangeStartStopEnd _splooprangestartstopend)
     {
-       lang.Absyn.SPLoopRangeStartStopEnd _splooprangestartstopend = (lang.Absyn.SPLoopRangeStartStopEnd) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_splooprangestartstopend.ident_, 0);
        render("in");
@@ -783,10 +751,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SCLoop)
+    else     if (foo instanceof lang.Absyn.SCLoop _scloop)
     {
-       lang.Absyn.SCLoop _scloop = (lang.Absyn.SCLoop) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_scloop.stm_initialise_, 0);
        render(",");
@@ -798,10 +765,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SCLoopAssign)
+    else     if (foo instanceof lang.Absyn.SCLoopAssign _scloopassign)
     {
-       lang.Absyn.SCLoopAssign _scloopassign = (lang.Absyn.SCLoopAssign) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("repeat");
        pp(_scloopassign.stm_initialise_, 0);
        render(",");
@@ -818,10 +784,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.If_Stm foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.SIf)
+    if (foo instanceof lang.Absyn.SIf _sif)
     {
-       lang.Absyn.SIf _sif = (lang.Absyn.SIf) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("if");
        pp(_sif.exp_, 0);
        render("{");
@@ -829,10 +794,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SIfElse)
+    else     if (foo instanceof lang.Absyn.SIfElse _sifelse)
     {
-       lang.Absyn.SIfElse _sifelse = (lang.Absyn.SIfElse) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("if");
        pp(_sifelse.exp_, 0);
        render("{");
@@ -844,10 +808,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.SIfElseIf)
+    else     if (foo instanceof lang.Absyn.SIfElseIf _sifelseif)
     {
-       lang.Absyn.SIfElseIf _sifelseif = (lang.Absyn.SIfElseIf) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("if");
        pp(_sifelseif.exp_, 0);
        render("{");
@@ -862,10 +825,9 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Arg foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.ArgDecl)
+    if (foo instanceof lang.Absyn.ArgDecl _argdecl)
     {
-       lang.Absyn.ArgDecl _argdecl = (lang.Absyn.ArgDecl) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_argdecl.vartype_, 0);
        pp(_argdecl.ident_, 0);
        if (_i_ > 0) render(_R_PAREN);
@@ -912,85 +874,74 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Exp foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.EInt)
+    if (foo instanceof lang.Absyn.EInt _eint)
     {
-       lang.Absyn.EInt _eint = (lang.Absyn.EInt) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_eint.integer_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ENegInt)
+    else     if (foo instanceof lang.Absyn.ENegInt _enegint)
     {
-       lang.Absyn.ENegInt _enegint = (lang.Absyn.ENegInt) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("-");
        pp(_enegint.integer_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EChar)
+    else     if (foo instanceof lang.Absyn.EChar _echar)
     {
-       lang.Absyn.EChar _echar = (lang.Absyn.EChar) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_echar.char_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EDouble)
+    else     if (foo instanceof lang.Absyn.EDouble _edouble)
     {
-       lang.Absyn.EDouble _edouble = (lang.Absyn.EDouble) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_edouble.double_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ENegDouble)
+    else     if (foo instanceof lang.Absyn.ENegDouble _enegdouble)
     {
-       lang.Absyn.ENegDouble _enegdouble = (lang.Absyn.ENegDouble) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("-");
        pp(_enegdouble.double_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EString)
+    else     if (foo instanceof lang.Absyn.EString _estring)
     {
-       lang.Absyn.EString _estring = (lang.Absyn.EString) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        printQuoted(_estring.string_);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ETrue)
+    else     if (foo instanceof lang.Absyn.ETrue _etrue)
     {
-       lang.Absyn.ETrue _etrue = (lang.Absyn.ETrue) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("true");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EFalse)
+    else     if (foo instanceof lang.Absyn.EFalse _efalse)
     {
-       lang.Absyn.EFalse _efalse = (lang.Absyn.EFalse) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("false");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EId)
+    else     if (foo instanceof lang.Absyn.EId _eid)
     {
-       lang.Absyn.EId _eid = (lang.Absyn.EId) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_eid.ident_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EListItem)
+    else     if (foo instanceof lang.Absyn.EListItem _elistitem)
     {
-       lang.Absyn.EListItem _elistitem = (lang.Absyn.EListItem) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_elistitem.ident_, 0);
        render("[");
        pp(_elistitem.exp_, 0);
        render("]");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EListWith)
+    else     if (foo instanceof lang.Absyn.EListWith _elistwith)
     {
-       lang.Absyn.EListWith _elistwith = (lang.Absyn.EListWith) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_elistwith.ident_, 0);
        render(".");
        render("with");
@@ -999,10 +950,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EListWithout)
+    else     if (foo instanceof lang.Absyn.EListWithout _elistwithout)
     {
-       lang.Absyn.EListWithout _elistwithout = (lang.Absyn.EListWithout) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_elistwithout.ident_, 0);
        render(".");
        render("without");
@@ -1011,65 +961,58 @@ public class PrettyPrinter
        render("]");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EList)
+    else     if (foo instanceof lang.Absyn.EList _elist)
     {
-       lang.Absyn.EList _elist = (lang.Absyn.EList) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("[");
        pp(_elist.listitem_, 0);
        render("]");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EListSize)
+    else     if (foo instanceof lang.Absyn.EListSize _elistsize)
     {
-       lang.Absyn.EListSize _elistsize = (lang.Absyn.EListSize) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_elistsize.ident_, 0);
        render(".");
        render("size");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EInput)
+    else     if (foo instanceof lang.Absyn.EInput _einput)
     {
-       lang.Absyn.EInput _einput = (lang.Absyn.EInput) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("input");
        render("(");
        render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EStrLength)
+    else     if (foo instanceof lang.Absyn.EStrLength _estrlength)
     {
-       lang.Absyn.EStrLength _estrlength = (lang.Absyn.EStrLength) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        pp(_estrlength.ident_, 0);
        render(".");
        render("length");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ERand)
+    else     if (foo instanceof lang.Absyn.ERand _erand)
     {
-       lang.Absyn.ERand _erand = (lang.Absyn.ERand) foo;
-       if (_i_ > 15) render(_L_PAREN);
+        if (_i_ > 15) render(_L_PAREN);
        render("randomInt");
        render("(");
        pp(_erand.integer_, 0);
        render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ETypeCast)
+    else     if (foo instanceof lang.Absyn.ETypeCast _etypecast)
     {
-       lang.Absyn.ETypeCast _etypecast = (lang.Absyn.ETypeCast) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        pp(_etypecast.ident_, 0);
        render(".");
        pp(_etypecast.typecast_, 0);
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ELambda)
+    else     if (foo instanceof lang.Absyn.ELambda _elambda)
     {
-       lang.Absyn.ELambda _elambda = (lang.Absyn.ELambda) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("lambda");
        render("(");
        pp(_elambda.listarg_, 0);
@@ -1079,10 +1022,9 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EMapIdent)
+    else     if (foo instanceof lang.Absyn.EMapIdent _emapident)
     {
-       lang.Absyn.EMapIdent _emapident = (lang.Absyn.EMapIdent) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("map");
        render("(");
        pp(_emapident.exp_, 0);
@@ -1091,10 +1033,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EMapList)
+    else     if (foo instanceof lang.Absyn.EMapList _emaplist)
     {
-       lang.Absyn.EMapList _emaplist = (lang.Absyn.EMapList) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("map");
        render("(");
        pp(_emaplist.exp_, 0);
@@ -1105,10 +1046,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EFilterIdent)
+    else     if (foo instanceof lang.Absyn.EFilterIdent _efilterident)
     {
-       lang.Absyn.EFilterIdent _efilterident = (lang.Absyn.EFilterIdent) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("filter");
        render("(");
        pp(_efilterident.exp_, 0);
@@ -1117,10 +1057,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EFilterList)
+    else     if (foo instanceof lang.Absyn.EFilterList _efilterlist)
     {
-       lang.Absyn.EFilterList _efilterlist = (lang.Absyn.EFilterList) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("filter");
        render("(");
        pp(_efilterlist.exp_, 0);
@@ -1131,10 +1070,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EReduceIdent)
+    else     if (foo instanceof lang.Absyn.EReduceIdent _ereduceident)
     {
-       lang.Absyn.EReduceIdent _ereduceident = (lang.Absyn.EReduceIdent) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("reduce");
        render("(");
        pp(_ereduceident.exp_, 0);
@@ -1143,10 +1081,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EReduceList)
+    else     if (foo instanceof lang.Absyn.EReduceList _ereducelist)
     {
-       lang.Absyn.EReduceList _ereducelist = (lang.Absyn.EReduceList) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        render("reduce");
        render("(");
        pp(_ereducelist.exp_, 0);
@@ -1157,19 +1094,17 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ESelect)
+    else     if (foo instanceof lang.Absyn.ESelect _eselect)
     {
-       lang.Absyn.ESelect _eselect = (lang.Absyn.ESelect) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        pp(_eselect.ident_1, 0);
        render(".");
        pp(_eselect.ident_2, 0);
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ESelectListItem)
+    else     if (foo instanceof lang.Absyn.ESelectListItem _eselectlistitem)
     {
-       lang.Absyn.ESelectListItem _eselectlistitem = (lang.Absyn.ESelectListItem) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        pp(_eselectlistitem.ident_1, 0);
        render(".");
        pp(_eselectlistitem.ident_2, 0);
@@ -1178,20 +1113,18 @@ public class PrettyPrinter
        render("]");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ECall)
+    else     if (foo instanceof lang.Absyn.ECall _ecall)
     {
-       lang.Absyn.ECall _ecall = (lang.Absyn.ECall) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        pp(_ecall.ident_, 0);
        render("(");
        pp(_ecall.listexp_, 0);
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EObjCall)
+    else     if (foo instanceof lang.Absyn.EObjCall _eobjcall)
     {
-       lang.Absyn.EObjCall _eobjcall = (lang.Absyn.EObjCall) foo;
-       if (_i_ > 16) render(_L_PAREN);
+        if (_i_ > 16) render(_L_PAREN);
        pp(_eobjcall.ident_1, 0);
        render(".");
        pp(_eobjcall.ident_2, 0);
@@ -1200,127 +1133,113 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EPow)
+    else     if (foo instanceof lang.Absyn.EPow _epow)
     {
-       lang.Absyn.EPow _epow = (lang.Absyn.EPow) foo;
-       if (_i_ > 13) render(_L_PAREN);
+        if (_i_ > 13) render(_L_PAREN);
        pp(_epow.exp_1, 13);
        render("**");
        pp(_epow.exp_2, 14);
        if (_i_ > 13) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EMul)
+    else     if (foo instanceof lang.Absyn.EMul _emul)
     {
-       lang.Absyn.EMul _emul = (lang.Absyn.EMul) foo;
-       if (_i_ > 12) render(_L_PAREN);
+        if (_i_ > 12) render(_L_PAREN);
        pp(_emul.exp_1, 12);
        render("*");
        pp(_emul.exp_2, 13);
        if (_i_ > 12) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EDiv)
+    else     if (foo instanceof lang.Absyn.EDiv _ediv)
     {
-       lang.Absyn.EDiv _ediv = (lang.Absyn.EDiv) foo;
-       if (_i_ > 12) render(_L_PAREN);
+        if (_i_ > 12) render(_L_PAREN);
        pp(_ediv.exp_1, 12);
        render("/");
        pp(_ediv.exp_2, 13);
        if (_i_ > 12) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EMod)
+    else     if (foo instanceof lang.Absyn.EMod _emod)
     {
-       lang.Absyn.EMod _emod = (lang.Absyn.EMod) foo;
-       if (_i_ > 12) render(_L_PAREN);
+        if (_i_ > 12) render(_L_PAREN);
        pp(_emod.exp_1, 12);
        render("%");
        pp(_emod.exp_2, 13);
        if (_i_ > 12) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EAdd)
+    else     if (foo instanceof lang.Absyn.EAdd _eadd)
     {
-       lang.Absyn.EAdd _eadd = (lang.Absyn.EAdd) foo;
-       if (_i_ > 11) render(_L_PAREN);
+        if (_i_ > 11) render(_L_PAREN);
        pp(_eadd.exp_1, 11);
        render("+");
        pp(_eadd.exp_2, 12);
        if (_i_ > 11) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ESub)
+    else     if (foo instanceof lang.Absyn.ESub _esub)
     {
-       lang.Absyn.ESub _esub = (lang.Absyn.ESub) foo;
-       if (_i_ > 11) render(_L_PAREN);
+        if (_i_ > 11) render(_L_PAREN);
        pp(_esub.exp_1, 11);
        render("-");
        pp(_esub.exp_2, 12);
        if (_i_ > 11) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ELt)
+    else     if (foo instanceof lang.Absyn.ELt _elt)
     {
-       lang.Absyn.ELt _elt = (lang.Absyn.ELt) foo;
-       if (_i_ > 9) render(_L_PAREN);
+        if (_i_ > 9) render(_L_PAREN);
        pp(_elt.exp_1, 9);
        render("<");
        pp(_elt.exp_2, 10);
        if (_i_ > 9) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EGt)
+    else     if (foo instanceof lang.Absyn.EGt _egt)
     {
-       lang.Absyn.EGt _egt = (lang.Absyn.EGt) foo;
-       if (_i_ > 9) render(_L_PAREN);
+        if (_i_ > 9) render(_L_PAREN);
        pp(_egt.exp_1, 9);
        render(">");
        pp(_egt.exp_2, 10);
        if (_i_ > 9) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ELEq)
+    else     if (foo instanceof lang.Absyn.ELEq _eleq)
     {
-       lang.Absyn.ELEq _eleq = (lang.Absyn.ELEq) foo;
-       if (_i_ > 9) render(_L_PAREN);
+        if (_i_ > 9) render(_L_PAREN);
        pp(_eleq.exp_1, 9);
        render("<=");
        pp(_eleq.exp_2, 10);
        if (_i_ > 9) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EGEq)
+    else     if (foo instanceof lang.Absyn.EGEq _egeq)
     {
-       lang.Absyn.EGEq _egeq = (lang.Absyn.EGEq) foo;
-       if (_i_ > 9) render(_L_PAREN);
+        if (_i_ > 9) render(_L_PAREN);
        pp(_egeq.exp_1, 9);
        render(">=");
        pp(_egeq.exp_2, 10);
        if (_i_ > 9) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EEq)
+    else     if (foo instanceof lang.Absyn.EEq _eeq)
     {
-       lang.Absyn.EEq _eeq = (lang.Absyn.EEq) foo;
-       if (_i_ > 8) render(_L_PAREN);
+        if (_i_ > 8) render(_L_PAREN);
        pp(_eeq.exp_1, 8);
        render("==");
        pp(_eeq.exp_2, 9);
        if (_i_ > 8) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.ENEq)
+    else     if (foo instanceof lang.Absyn.ENEq _eneq)
     {
-       lang.Absyn.ENEq _eneq = (lang.Absyn.ENEq) foo;
-       if (_i_ > 8) render(_L_PAREN);
+        if (_i_ > 8) render(_L_PAREN);
        pp(_eneq.exp_1, 8);
        render("!=");
        pp(_eneq.exp_2, 9);
        if (_i_ > 8) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EAnd)
+    else     if (foo instanceof lang.Absyn.EAnd _eand)
     {
-       lang.Absyn.EAnd _eand = (lang.Absyn.EAnd) foo;
-       if (_i_ > 4) render(_L_PAREN);
+        if (_i_ > 4) render(_L_PAREN);
        pp(_eand.exp_1, 4);
        render("AND");
        pp(_eand.exp_2, 5);
        if (_i_ > 4) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.EOr)
+    else     if (foo instanceof lang.Absyn.EOr _eor)
     {
-       lang.Absyn.EOr _eor = (lang.Absyn.EOr) foo;
-       if (_i_ > 3) render(_L_PAREN);
+        if (_i_ > 3) render(_L_PAREN);
        pp(_eor.exp_1, 3);
        render("OR");
        pp(_eor.exp_2, 4);
@@ -1353,45 +1272,39 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.Assign_Op foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.Assign)
+    if (foo instanceof lang.Absyn.Assign _assign)
     {
-       lang.Absyn.Assign _assign = (lang.Absyn.Assign) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("=");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignMul)
+    else     if (foo instanceof lang.Absyn.AssignMul _assignmul)
     {
-       lang.Absyn.AssignMul _assignmul = (lang.Absyn.AssignMul) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("*=");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignDiv)
+    else     if (foo instanceof lang.Absyn.AssignDiv _assigndiv)
     {
-       lang.Absyn.AssignDiv _assigndiv = (lang.Absyn.AssignDiv) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("/=");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignMod)
+    else     if (foo instanceof lang.Absyn.AssignMod _assignmod)
     {
-       lang.Absyn.AssignMod _assignmod = (lang.Absyn.AssignMod) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("%=");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignAdd)
+    else     if (foo instanceof lang.Absyn.AssignAdd _assignadd)
     {
-       lang.Absyn.AssignAdd _assignadd = (lang.Absyn.AssignAdd) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("+=");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.AssignSub)
+    else     if (foo instanceof lang.Absyn.AssignSub _assignsub)
     {
-       lang.Absyn.AssignSub _assignsub = (lang.Absyn.AssignSub) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("-=");
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -1400,17 +1313,15 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.IncrmDecrm_Op foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.Increment)
+    if (foo instanceof lang.Absyn.Increment _increment)
     {
-       lang.Absyn.Increment _increment = (lang.Absyn.Increment) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("++");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.Decrement)
+    else     if (foo instanceof lang.Absyn.Decrement _decrement)
     {
-       lang.Absyn.Decrement _decrement = (lang.Absyn.Decrement) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("--");
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -1441,17 +1352,15 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.FuncType foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.FuncType_void)
+    if (foo instanceof lang.Absyn.FuncType_void _functype_void)
     {
-       lang.Absyn.FuncType_void _functype_void = (lang.Absyn.FuncType_void) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("void");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.FuncTypeVarType)
+    else     if (foo instanceof lang.Absyn.FuncTypeVarType _functypevartype)
     {
-       lang.Absyn.FuncTypeVarType _functypevartype = (lang.Absyn.FuncTypeVarType) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        pp(_functypevartype.vartype_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -1460,59 +1369,51 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.VarType foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.VarType_int)
+    if (foo instanceof lang.Absyn.VarType_int _vartype_int)
     {
-       lang.Absyn.VarType_int _vartype_int = (lang.Absyn.VarType_int) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("int");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_double)
+    else     if (foo instanceof lang.Absyn.VarType_double _vartype_double)
     {
-       lang.Absyn.VarType_double _vartype_double = (lang.Absyn.VarType_double) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("double");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_bool)
+    else     if (foo instanceof lang.Absyn.VarType_bool _vartype_bool)
     {
-       lang.Absyn.VarType_bool _vartype_bool = (lang.Absyn.VarType_bool) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("bool");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_char)
+    else     if (foo instanceof lang.Absyn.VarType_char _vartype_char)
     {
-       lang.Absyn.VarType_char _vartype_char = (lang.Absyn.VarType_char) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("char");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_string)
+    else     if (foo instanceof lang.Absyn.VarType_string _vartype_string)
     {
-       lang.Absyn.VarType_string _vartype_string = (lang.Absyn.VarType_string) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("string");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_auto)
+    else     if (foo instanceof lang.Absyn.VarType_auto _vartype_auto)
     {
-       lang.Absyn.VarType_auto _vartype_auto = (lang.Absyn.VarType_auto) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("auto");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_func)
+    else     if (foo instanceof lang.Absyn.VarType_func _vartype_func)
     {
-       lang.Absyn.VarType_func _vartype_func = (lang.Absyn.VarType_func) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("func");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.VarType_object)
+    else     if (foo instanceof lang.Absyn.VarType_object _vartype_object)
     {
-       lang.Absyn.VarType_object _vartype_object = (lang.Absyn.VarType_object) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("object");
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -1521,38 +1422,33 @@ public class PrettyPrinter
 
   private static void pp(lang.Absyn.TypeCast foo, int _i_)
   {
-    if (foo instanceof lang.Absyn.TypeCast_toInt)
+    if (foo instanceof lang.Absyn.TypeCast_toInt _typecast_toint)
     {
-       lang.Absyn.TypeCast_toInt _typecast_toint = (lang.Absyn.TypeCast_toInt) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("toInt");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.TypeCast_toDouble)
+    else     if (foo instanceof lang.Absyn.TypeCast_toDouble _typecast_todouble)
     {
-       lang.Absyn.TypeCast_toDouble _typecast_todouble = (lang.Absyn.TypeCast_toDouble) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("toDouble");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.TypeCast_toBool)
+    else     if (foo instanceof lang.Absyn.TypeCast_toBool _typecast_tobool)
     {
-       lang.Absyn.TypeCast_toBool _typecast_tobool = (lang.Absyn.TypeCast_toBool) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("toBool");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.TypeCast_toChar)
+    else     if (foo instanceof lang.Absyn.TypeCast_toChar _typecast_tochar)
     {
-       lang.Absyn.TypeCast_toChar _typecast_tochar = (lang.Absyn.TypeCast_toChar) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("toChar");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof lang.Absyn.TypeCast_toString)
+    else     if (foo instanceof lang.Absyn.TypeCast_toString _typecast_tostring)
     {
-       lang.Absyn.TypeCast_toString _typecast_tostring = (lang.Absyn.TypeCast_toString) foo;
-       if (_i_ > 0) render(_L_PAREN);
+        if (_i_ > 0) render(_L_PAREN);
        render("toString");
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -1562,20 +1458,18 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Program foo)
   {
-    if (foo instanceof lang.Absyn.PStms)
+    if (foo instanceof lang.Absyn.PStms _pstms)
     {
-       lang.Absyn.PStms _pstms = (lang.Absyn.PStms) foo;
-       render("(");
+        render("(");
        render("PStms");
        render("[");
        sh(_pstms.liststm_);
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.PFunctionalModeStms)
+    if (foo instanceof lang.Absyn.PFunctionalModeStms _pfunctionalmodestms)
     {
-       lang.Absyn.PFunctionalModeStms _pfunctionalmodestms = (lang.Absyn.PFunctionalModeStms) foo;
-       render("(");
+        render("(");
        render("PFunctionalModeStms");
        render("[");
        sh(_pfunctionalmodestms.liststm_);
@@ -1586,10 +1480,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm foo)
   {
-    if (foo instanceof lang.Absyn.DefFun)
+    if (foo instanceof lang.Absyn.DefFun _deffun)
     {
-       lang.Absyn.DefFun _deffun = (lang.Absyn.DefFun) foo;
-       render("(");
+        render("(");
        render("DefFun");
        sh(_deffun.functype_);
        sh(_deffun.ident_);
@@ -1601,10 +1494,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.DefConstructor)
+    if (foo instanceof lang.Absyn.DefConstructor _defconstructor)
     {
-       lang.Absyn.DefConstructor _defconstructor = (lang.Absyn.DefConstructor) foo;
-       render("(");
+        render("(");
        render("DefConstructor");
        sh(_defconstructor.ident_);
        render("[");
@@ -1615,10 +1507,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.DefClass)
+    if (foo instanceof lang.Absyn.DefClass _defclass)
     {
-       lang.Absyn.DefClass _defclass = (lang.Absyn.DefClass) foo;
-       render("(");
+        render("(");
        render("DefClass");
        sh(_defclass.ident_);
        render("[");
@@ -1626,10 +1517,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.DefClassInherits)
+    if (foo instanceof lang.Absyn.DefClassInherits _defclassinherits)
     {
-       lang.Absyn.DefClassInherits _defclassinherits = (lang.Absyn.DefClassInherits) foo;
-       render("(");
+        render("(");
        render("DefClassInherits");
        sh(_defclassinherits.ident_1);
        sh(_defclassinherits.ident_2);
@@ -1638,102 +1528,89 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPrint)
+    if (foo instanceof lang.Absyn.SPrint _sprint)
     {
-       lang.Absyn.SPrint _sprint = (lang.Absyn.SPrint) foo;
-       render("(");
+        render("(");
        render("SPrint");
        sh(_sprint.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SBreak)
+    if (foo instanceof lang.Absyn.SBreak _sbreak)
     {
-       lang.Absyn.SBreak _sbreak = (lang.Absyn.SBreak) foo;
-       render("SBreak");
+        render("SBreak");
     }
-    if (foo instanceof lang.Absyn.SContinue)
+    if (foo instanceof lang.Absyn.SContinue _scontinue)
     {
-       lang.Absyn.SContinue _scontinue = (lang.Absyn.SContinue) foo;
-       render("SContinue");
+        render("SContinue");
     }
-    if (foo instanceof lang.Absyn.InitialiseStm)
+    if (foo instanceof lang.Absyn.InitialiseStm _initialisestm)
     {
-       lang.Absyn.InitialiseStm _initialisestm = (lang.Absyn.InitialiseStm) foo;
-       render("(");
+        render("(");
        render("InitialiseStm");
        sh(_initialisestm.stm_initialise_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.DeclareStm)
+    if (foo instanceof lang.Absyn.DeclareStm _declarestm)
     {
-       lang.Absyn.DeclareStm _declarestm = (lang.Absyn.DeclareStm) foo;
-       render("(");
+        render("(");
        render("DeclareStm");
        sh(_declarestm.stm_declare_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.AssignStm)
+    if (foo instanceof lang.Absyn.AssignStm _assignstm)
     {
-       lang.Absyn.AssignStm _assignstm = (lang.Absyn.AssignStm) foo;
-       render("(");
+        render("(");
        render("AssignStm");
        sh(_assignstm.stm_assign_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.LoopStm)
+    if (foo instanceof lang.Absyn.LoopStm _loopstm)
     {
-       lang.Absyn.LoopStm _loopstm = (lang.Absyn.LoopStm) foo;
-       render("(");
+        render("(");
        render("LoopStm");
        sh(_loopstm.stm_loop_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.IncrnDecrmStm)
+    if (foo instanceof lang.Absyn.IncrnDecrmStm _incrndecrmstm)
     {
-       lang.Absyn.IncrnDecrmStm _incrndecrmstm = (lang.Absyn.IncrnDecrmStm) foo;
-       render("(");
+        render("(");
        render("IncrnDecrmStm");
        sh(_incrndecrmstm.stm_incrmdecrm_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SCall)
+    if (foo instanceof lang.Absyn.SCall _scall)
     {
-       lang.Absyn.SCall _scall = (lang.Absyn.SCall) foo;
-       render("(");
+        render("(");
        render("SCall");
        sh(_scall.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SAppend)
+    if (foo instanceof lang.Absyn.SAppend _sappend)
     {
-       lang.Absyn.SAppend _sappend = (lang.Absyn.SAppend) foo;
-       render("(");
+        render("(");
        render("SAppend");
        sh(_sappend.ident_);
        sh(_sappend.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SRemove)
+    if (foo instanceof lang.Absyn.SRemove _sremove)
     {
-       lang.Absyn.SRemove _sremove = (lang.Absyn.SRemove) foo;
-       render("(");
+        render("(");
        render("SRemove");
        sh(_sremove.ident_);
        sh(_sremove.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SReturn)
+    if (foo instanceof lang.Absyn.SReturn _sreturn)
     {
-       lang.Absyn.SReturn _sreturn = (lang.Absyn.SReturn) foo;
-       render("(");
+        render("(");
        render("SReturn");
        sh(_sreturn.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.SObjInit)
+    if (foo instanceof lang.Absyn.SObjInit _sobjinit)
     {
-       lang.Absyn.SObjInit _sobjinit = (lang.Absyn.SObjInit) foo;
-       render("(");
+        render("(");
        render("SObjInit");
        sh(_sobjinit.ident_1);
        sh(_sobjinit.ident_2);
@@ -1742,28 +1619,25 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SConstInit)
+    if (foo instanceof lang.Absyn.SConstInit _sconstinit)
     {
-       lang.Absyn.SConstInit _sconstinit = (lang.Absyn.SConstInit) foo;
-       render("(");
+        render("(");
        render("SConstInit");
        sh(_sconstinit.vartype_);
        sh(_sconstinit.ident_);
        sh(_sconstinit.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.IfS)
+    if (foo instanceof lang.Absyn.IfS _ifs)
     {
-       lang.Absyn.IfS _ifs = (lang.Absyn.IfS) foo;
-       render("(");
+        render("(");
        render("IfS");
        sh(_ifs.if_stm_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.Block)
+    if (foo instanceof lang.Absyn.Block _block)
     {
-       lang.Absyn.Block _block = (lang.Absyn.Block) foo;
-       render("(");
+        render("(");
        render("Block");
        render("[");
        sh(_block.liststm_);
@@ -1774,10 +1648,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Item foo)
   {
-    if (foo instanceof lang.Absyn.LstItem)
+    if (foo instanceof lang.Absyn.LstItem _lstitem)
     {
-       lang.Absyn.LstItem _lstitem = (lang.Absyn.LstItem) foo;
-       render("(");
+        render("(");
        render("LstItem");
        sh(_lstitem.exp_);
        render(")");
@@ -1796,10 +1669,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm_Initialise foo)
   {
-    if (foo instanceof lang.Absyn.SInit)
+    if (foo instanceof lang.Absyn.SInit _sinit)
     {
-       lang.Absyn.SInit _sinit = (lang.Absyn.SInit) foo;
-       render("(");
+        render("(");
        render("SInit");
        sh(_sinit.vartype_);
        sh(_sinit.ident_);
@@ -1810,10 +1682,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm_Declare foo)
   {
-    if (foo instanceof lang.Absyn.SDecl)
+    if (foo instanceof lang.Absyn.SDecl _sdecl)
     {
-       lang.Absyn.SDecl _sdecl = (lang.Absyn.SDecl) foo;
-       render("(");
+        render("(");
        render("SDecl");
        sh(_sdecl.vartype_);
        sh(_sdecl.ident_);
@@ -1823,10 +1694,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm_Assign foo)
   {
-    if (foo instanceof lang.Absyn.SAssign)
+    if (foo instanceof lang.Absyn.SAssign _sassign)
     {
-       lang.Absyn.SAssign _sassign = (lang.Absyn.SAssign) foo;
-       render("(");
+        render("(");
        render("SAssign");
        sh(_sassign.ident_);
        sh(_sassign.assign_op_);
@@ -1837,10 +1707,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm_IncrmDecrm foo)
   {
-    if (foo instanceof lang.Absyn.SIncrmDecrm)
+    if (foo instanceof lang.Absyn.SIncrmDecrm _sincrmdecrm)
     {
-       lang.Absyn.SIncrmDecrm _sincrmdecrm = (lang.Absyn.SIncrmDecrm) foo;
-       render("(");
+        render("(");
        render("SIncrmDecrm");
        sh(_sincrmdecrm.ident_);
        sh(_sincrmdecrm.incrmdecrm_op_);
@@ -1850,10 +1719,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Stm_Loop foo)
   {
-    if (foo instanceof lang.Absyn.SWhile)
+    if (foo instanceof lang.Absyn.SWhile _swhile)
     {
-       lang.Absyn.SWhile _swhile = (lang.Absyn.SWhile) foo;
-       render("(");
+        render("(");
        render("SWhile");
        sh(_swhile.exp_);
        render("[");
@@ -1861,10 +1729,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPLoopIdent)
+    if (foo instanceof lang.Absyn.SPLoopIdent _sploopident)
     {
-       lang.Absyn.SPLoopIdent _sploopident = (lang.Absyn.SPLoopIdent) foo;
-       render("(");
+        render("(");
        render("SPLoopIdent");
        sh(_sploopident.ident_1);
        sh(_sploopident.ident_2);
@@ -1873,10 +1740,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPLoopList)
+    if (foo instanceof lang.Absyn.SPLoopList _splooplist)
     {
-       lang.Absyn.SPLoopList _splooplist = (lang.Absyn.SPLoopList) foo;
-       render("(");
+        render("(");
        render("SPLoopList");
        sh(_splooplist.ident_);
        render("[");
@@ -1887,10 +1753,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPLoopRangeStart)
+    if (foo instanceof lang.Absyn.SPLoopRangeStart _splooprangestart)
     {
-       lang.Absyn.SPLoopRangeStart _splooprangestart = (lang.Absyn.SPLoopRangeStart) foo;
-       render("(");
+        render("(");
        render("SPLoopRangeStart");
        sh(_splooprangestart.ident_);
        sh(_splooprangestart.exp_);
@@ -1899,10 +1764,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPLoopRangeStartStop)
+    if (foo instanceof lang.Absyn.SPLoopRangeStartStop _splooprangestartstop)
     {
-       lang.Absyn.SPLoopRangeStartStop _splooprangestartstop = (lang.Absyn.SPLoopRangeStartStop) foo;
-       render("(");
+        render("(");
        render("SPLoopRangeStartStop");
        sh(_splooprangestartstop.ident_);
        sh(_splooprangestartstop.exp_1);
@@ -1912,10 +1776,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SPLoopRangeStartStopEnd)
+    if (foo instanceof lang.Absyn.SPLoopRangeStartStopEnd _splooprangestartstopend)
     {
-       lang.Absyn.SPLoopRangeStartStopEnd _splooprangestartstopend = (lang.Absyn.SPLoopRangeStartStopEnd) foo;
-       render("(");
+        render("(");
        render("SPLoopRangeStartStopEnd");
        sh(_splooprangestartstopend.ident_);
        sh(_splooprangestartstopend.exp_1);
@@ -1926,10 +1789,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SCLoop)
+    if (foo instanceof lang.Absyn.SCLoop _scloop)
     {
-       lang.Absyn.SCLoop _scloop = (lang.Absyn.SCLoop) foo;
-       render("(");
+        render("(");
        render("SCLoop");
        sh(_scloop.stm_initialise_);
        sh(_scloop.exp_);
@@ -1939,10 +1801,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SCLoopAssign)
+    if (foo instanceof lang.Absyn.SCLoopAssign _scloopassign)
     {
-       lang.Absyn.SCLoopAssign _scloopassign = (lang.Absyn.SCLoopAssign) foo;
-       render("(");
+        render("(");
        render("SCLoopAssign");
        sh(_scloopassign.stm_initialise_);
        sh(_scloopassign.exp_);
@@ -1956,10 +1817,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.If_Stm foo)
   {
-    if (foo instanceof lang.Absyn.SIf)
+    if (foo instanceof lang.Absyn.SIf _sif)
     {
-       lang.Absyn.SIf _sif = (lang.Absyn.SIf) foo;
-       render("(");
+        render("(");
        render("SIf");
        sh(_sif.exp_);
        render("[");
@@ -1967,10 +1827,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SIfElse)
+    if (foo instanceof lang.Absyn.SIfElse _sifelse)
     {
-       lang.Absyn.SIfElse _sifelse = (lang.Absyn.SIfElse) foo;
-       render("(");
+        render("(");
        render("SIfElse");
        sh(_sifelse.exp_);
        render("[");
@@ -1981,10 +1840,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.SIfElseIf)
+    if (foo instanceof lang.Absyn.SIfElseIf _sifelseif)
     {
-       lang.Absyn.SIfElseIf _sifelseif = (lang.Absyn.SIfElseIf) foo;
-       render("(");
+        render("(");
        render("SIfElseIf");
        sh(_sifelseif.exp_);
        render("[");
@@ -1997,10 +1855,9 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Arg foo)
   {
-    if (foo instanceof lang.Absyn.ArgDecl)
+    if (foo instanceof lang.Absyn.ArgDecl _argdecl)
     {
-       lang.Absyn.ArgDecl _argdecl = (lang.Absyn.ArgDecl) foo;
-       render("(");
+        render("(");
        render("ArgDecl");
        sh(_argdecl.vartype_);
        sh(_argdecl.ident_);
@@ -2030,151 +1887,132 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Exp foo)
   {
-    if (foo instanceof lang.Absyn.EInt)
+    if (foo instanceof lang.Absyn.EInt _eint)
     {
-       lang.Absyn.EInt _eint = (lang.Absyn.EInt) foo;
-       render("(");
+        render("(");
        render("EInt");
        sh(_eint.integer_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ENegInt)
+    if (foo instanceof lang.Absyn.ENegInt _enegint)
     {
-       lang.Absyn.ENegInt _enegint = (lang.Absyn.ENegInt) foo;
-       render("(");
+        render("(");
        render("ENegInt");
        sh(_enegint.integer_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EChar)
+    if (foo instanceof lang.Absyn.EChar _echar)
     {
-       lang.Absyn.EChar _echar = (lang.Absyn.EChar) foo;
-       render("(");
+        render("(");
        render("EChar");
        sh(_echar.char_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EDouble)
+    if (foo instanceof lang.Absyn.EDouble _edouble)
     {
-       lang.Absyn.EDouble _edouble = (lang.Absyn.EDouble) foo;
-       render("(");
+        render("(");
        render("EDouble");
        sh(_edouble.double_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ENegDouble)
+    if (foo instanceof lang.Absyn.ENegDouble _enegdouble)
     {
-       lang.Absyn.ENegDouble _enegdouble = (lang.Absyn.ENegDouble) foo;
-       render("(");
+        render("(");
        render("ENegDouble");
        sh(_enegdouble.double_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EString)
+    if (foo instanceof lang.Absyn.EString _estring)
     {
-       lang.Absyn.EString _estring = (lang.Absyn.EString) foo;
-       render("(");
+        render("(");
        render("EString");
        sh(_estring.string_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ETrue)
+    if (foo instanceof lang.Absyn.ETrue _etrue)
     {
-       lang.Absyn.ETrue _etrue = (lang.Absyn.ETrue) foo;
-       render("ETrue");
+        render("ETrue");
     }
-    if (foo instanceof lang.Absyn.EFalse)
+    if (foo instanceof lang.Absyn.EFalse _efalse)
     {
-       lang.Absyn.EFalse _efalse = (lang.Absyn.EFalse) foo;
-       render("EFalse");
+        render("EFalse");
     }
-    if (foo instanceof lang.Absyn.EId)
+    if (foo instanceof lang.Absyn.EId _eid)
     {
-       lang.Absyn.EId _eid = (lang.Absyn.EId) foo;
-       render("(");
+        render("(");
        render("EId");
        sh(_eid.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EListItem)
+    if (foo instanceof lang.Absyn.EListItem _elistitem)
     {
-       lang.Absyn.EListItem _elistitem = (lang.Absyn.EListItem) foo;
-       render("(");
+        render("(");
        render("EListItem");
        sh(_elistitem.ident_);
        sh(_elistitem.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EListWith)
+    if (foo instanceof lang.Absyn.EListWith _elistwith)
     {
-       lang.Absyn.EListWith _elistwith = (lang.Absyn.EListWith) foo;
-       render("(");
+        render("(");
        render("EListWith");
        sh(_elistwith.ident_);
        sh(_elistwith.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EListWithout)
+    if (foo instanceof lang.Absyn.EListWithout _elistwithout)
     {
-       lang.Absyn.EListWithout _elistwithout = (lang.Absyn.EListWithout) foo;
-       render("(");
+        render("(");
        render("EListWithout");
        sh(_elistwithout.ident_);
        sh(_elistwithout.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EList)
+    if (foo instanceof lang.Absyn.EList _elist)
     {
-       lang.Absyn.EList _elist = (lang.Absyn.EList) foo;
-       render("(");
+        render("(");
        render("EList");
        render("[");
        sh(_elist.listitem_);
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EListSize)
+    if (foo instanceof lang.Absyn.EListSize _elistsize)
     {
-       lang.Absyn.EListSize _elistsize = (lang.Absyn.EListSize) foo;
-       render("(");
+        render("(");
        render("EListSize");
        sh(_elistsize.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EInput)
+    if (foo instanceof lang.Absyn.EInput _einput)
     {
-       lang.Absyn.EInput _einput = (lang.Absyn.EInput) foo;
-       render("EInput");
+        render("EInput");
     }
-    if (foo instanceof lang.Absyn.EStrLength)
+    if (foo instanceof lang.Absyn.EStrLength _estrlength)
     {
-       lang.Absyn.EStrLength _estrlength = (lang.Absyn.EStrLength) foo;
-       render("(");
+        render("(");
        render("EStrLength");
        sh(_estrlength.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ERand)
+    if (foo instanceof lang.Absyn.ERand _erand)
     {
-       lang.Absyn.ERand _erand = (lang.Absyn.ERand) foo;
-       render("(");
+        render("(");
        render("ERand");
        sh(_erand.integer_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ETypeCast)
+    if (foo instanceof lang.Absyn.ETypeCast _etypecast)
     {
-       lang.Absyn.ETypeCast _etypecast = (lang.Absyn.ETypeCast) foo;
-       render("(");
+        render("(");
        render("ETypeCast");
        sh(_etypecast.ident_);
        sh(_etypecast.typecast_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ELambda)
+    if (foo instanceof lang.Absyn.ELambda _elambda)
     {
-       lang.Absyn.ELambda _elambda = (lang.Absyn.ELambda) foo;
-       render("(");
+        render("(");
        render("ELambda");
        render("[");
        sh(_elambda.listarg_);
@@ -2184,19 +2022,17 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EMapIdent)
+    if (foo instanceof lang.Absyn.EMapIdent _emapident)
     {
-       lang.Absyn.EMapIdent _emapident = (lang.Absyn.EMapIdent) foo;
-       render("(");
+        render("(");
        render("EMapIdent");
        sh(_emapident.exp_);
        sh(_emapident.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EMapList)
+    if (foo instanceof lang.Absyn.EMapList _emaplist)
     {
-       lang.Absyn.EMapList _emaplist = (lang.Absyn.EMapList) foo;
-       render("(");
+        render("(");
        render("EMapList");
        sh(_emaplist.exp_);
        render("[");
@@ -2204,19 +2040,17 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EFilterIdent)
+    if (foo instanceof lang.Absyn.EFilterIdent _efilterident)
     {
-       lang.Absyn.EFilterIdent _efilterident = (lang.Absyn.EFilterIdent) foo;
-       render("(");
+        render("(");
        render("EFilterIdent");
        sh(_efilterident.exp_);
        sh(_efilterident.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EFilterList)
+    if (foo instanceof lang.Absyn.EFilterList _efilterlist)
     {
-       lang.Absyn.EFilterList _efilterlist = (lang.Absyn.EFilterList) foo;
-       render("(");
+        render("(");
        render("EFilterList");
        sh(_efilterlist.exp_);
        render("[");
@@ -2224,19 +2058,17 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EReduceIdent)
+    if (foo instanceof lang.Absyn.EReduceIdent _ereduceident)
     {
-       lang.Absyn.EReduceIdent _ereduceident = (lang.Absyn.EReduceIdent) foo;
-       render("(");
+        render("(");
        render("EReduceIdent");
        sh(_ereduceident.exp_);
        sh(_ereduceident.ident_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EReduceList)
+    if (foo instanceof lang.Absyn.EReduceList _ereducelist)
     {
-       lang.Absyn.EReduceList _ereducelist = (lang.Absyn.EReduceList) foo;
-       render("(");
+        render("(");
        render("EReduceList");
        sh(_ereducelist.exp_);
        render("[");
@@ -2244,29 +2076,26 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.ESelect)
+    if (foo instanceof lang.Absyn.ESelect _eselect)
     {
-       lang.Absyn.ESelect _eselect = (lang.Absyn.ESelect) foo;
-       render("(");
+        render("(");
        render("ESelect");
        sh(_eselect.ident_1);
        sh(_eselect.ident_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ESelectListItem)
+    if (foo instanceof lang.Absyn.ESelectListItem _eselectlistitem)
     {
-       lang.Absyn.ESelectListItem _eselectlistitem = (lang.Absyn.ESelectListItem) foo;
-       render("(");
+        render("(");
        render("ESelectListItem");
        sh(_eselectlistitem.ident_1);
        sh(_eselectlistitem.ident_2);
        sh(_eselectlistitem.exp_);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ECall)
+    if (foo instanceof lang.Absyn.ECall _ecall)
     {
-       lang.Absyn.ECall _ecall = (lang.Absyn.ECall) foo;
-       render("(");
+        render("(");
        render("ECall");
        sh(_ecall.ident_);
        render("[");
@@ -2274,10 +2103,9 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EObjCall)
+    if (foo instanceof lang.Absyn.EObjCall _eobjcall)
     {
-       lang.Absyn.EObjCall _eobjcall = (lang.Absyn.EObjCall) foo;
-       render("(");
+        render("(");
        render("EObjCall");
        sh(_eobjcall.ident_1);
        sh(_eobjcall.ident_2);
@@ -2286,127 +2114,113 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
-    if (foo instanceof lang.Absyn.EPow)
+    if (foo instanceof lang.Absyn.EPow _epow)
     {
-       lang.Absyn.EPow _epow = (lang.Absyn.EPow) foo;
-       render("(");
+        render("(");
        render("EPow");
        sh(_epow.exp_1);
        sh(_epow.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EMul)
+    if (foo instanceof lang.Absyn.EMul _emul)
     {
-       lang.Absyn.EMul _emul = (lang.Absyn.EMul) foo;
-       render("(");
+        render("(");
        render("EMul");
        sh(_emul.exp_1);
        sh(_emul.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EDiv)
+    if (foo instanceof lang.Absyn.EDiv _ediv)
     {
-       lang.Absyn.EDiv _ediv = (lang.Absyn.EDiv) foo;
-       render("(");
+        render("(");
        render("EDiv");
        sh(_ediv.exp_1);
        sh(_ediv.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EMod)
+    if (foo instanceof lang.Absyn.EMod _emod)
     {
-       lang.Absyn.EMod _emod = (lang.Absyn.EMod) foo;
-       render("(");
+        render("(");
        render("EMod");
        sh(_emod.exp_1);
        sh(_emod.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EAdd)
+    if (foo instanceof lang.Absyn.EAdd _eadd)
     {
-       lang.Absyn.EAdd _eadd = (lang.Absyn.EAdd) foo;
-       render("(");
+        render("(");
        render("EAdd");
        sh(_eadd.exp_1);
        sh(_eadd.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ESub)
+    if (foo instanceof lang.Absyn.ESub _esub)
     {
-       lang.Absyn.ESub _esub = (lang.Absyn.ESub) foo;
-       render("(");
+        render("(");
        render("ESub");
        sh(_esub.exp_1);
        sh(_esub.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ELt)
+    if (foo instanceof lang.Absyn.ELt _elt)
     {
-       lang.Absyn.ELt _elt = (lang.Absyn.ELt) foo;
-       render("(");
+        render("(");
        render("ELt");
        sh(_elt.exp_1);
        sh(_elt.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EGt)
+    if (foo instanceof lang.Absyn.EGt _egt)
     {
-       lang.Absyn.EGt _egt = (lang.Absyn.EGt) foo;
-       render("(");
+        render("(");
        render("EGt");
        sh(_egt.exp_1);
        sh(_egt.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ELEq)
+    if (foo instanceof lang.Absyn.ELEq _eleq)
     {
-       lang.Absyn.ELEq _eleq = (lang.Absyn.ELEq) foo;
-       render("(");
+        render("(");
        render("ELEq");
        sh(_eleq.exp_1);
        sh(_eleq.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EGEq)
+    if (foo instanceof lang.Absyn.EGEq _egeq)
     {
-       lang.Absyn.EGEq _egeq = (lang.Absyn.EGEq) foo;
-       render("(");
+        render("(");
        render("EGEq");
        sh(_egeq.exp_1);
        sh(_egeq.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EEq)
+    if (foo instanceof lang.Absyn.EEq _eeq)
     {
-       lang.Absyn.EEq _eeq = (lang.Absyn.EEq) foo;
-       render("(");
+        render("(");
        render("EEq");
        sh(_eeq.exp_1);
        sh(_eeq.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.ENEq)
+    if (foo instanceof lang.Absyn.ENEq _eneq)
     {
-       lang.Absyn.ENEq _eneq = (lang.Absyn.ENEq) foo;
-       render("(");
+        render("(");
        render("ENEq");
        sh(_eneq.exp_1);
        sh(_eneq.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EAnd)
+    if (foo instanceof lang.Absyn.EAnd _eand)
     {
-       lang.Absyn.EAnd _eand = (lang.Absyn.EAnd) foo;
-       render("(");
+        render("(");
        render("EAnd");
        sh(_eand.exp_1);
        sh(_eand.exp_2);
        render(")");
     }
-    if (foo instanceof lang.Absyn.EOr)
+    if (foo instanceof lang.Absyn.EOr _eor)
     {
-       lang.Absyn.EOr _eor = (lang.Absyn.EOr) foo;
-       render("(");
+        render("(");
        render("EOr");
        sh(_eor.exp_1);
        sh(_eor.exp_2);
@@ -2426,49 +2240,41 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.Assign_Op foo)
   {
-    if (foo instanceof lang.Absyn.Assign)
+    if (foo instanceof lang.Absyn.Assign _assign)
     {
-       lang.Absyn.Assign _assign = (lang.Absyn.Assign) foo;
-       render("Assign");
+        render("Assign");
     }
-    if (foo instanceof lang.Absyn.AssignMul)
+    if (foo instanceof lang.Absyn.AssignMul _assignmul)
     {
-       lang.Absyn.AssignMul _assignmul = (lang.Absyn.AssignMul) foo;
-       render("AssignMul");
+        render("AssignMul");
     }
-    if (foo instanceof lang.Absyn.AssignDiv)
+    if (foo instanceof lang.Absyn.AssignDiv _assigndiv)
     {
-       lang.Absyn.AssignDiv _assigndiv = (lang.Absyn.AssignDiv) foo;
-       render("AssignDiv");
+        render("AssignDiv");
     }
-    if (foo instanceof lang.Absyn.AssignMod)
+    if (foo instanceof lang.Absyn.AssignMod _assignmod)
     {
-       lang.Absyn.AssignMod _assignmod = (lang.Absyn.AssignMod) foo;
-       render("AssignMod");
+        render("AssignMod");
     }
-    if (foo instanceof lang.Absyn.AssignAdd)
+    if (foo instanceof lang.Absyn.AssignAdd _assignadd)
     {
-       lang.Absyn.AssignAdd _assignadd = (lang.Absyn.AssignAdd) foo;
-       render("AssignAdd");
+        render("AssignAdd");
     }
-    if (foo instanceof lang.Absyn.AssignSub)
+    if (foo instanceof lang.Absyn.AssignSub _assignsub)
     {
-       lang.Absyn.AssignSub _assignsub = (lang.Absyn.AssignSub) foo;
-       render("AssignSub");
+        render("AssignSub");
     }
   }
 
   private static void sh(lang.Absyn.IncrmDecrm_Op foo)
   {
-    if (foo instanceof lang.Absyn.Increment)
+    if (foo instanceof lang.Absyn.Increment _increment)
     {
-       lang.Absyn.Increment _increment = (lang.Absyn.Increment) foo;
-       render("Increment");
+        render("Increment");
     }
-    if (foo instanceof lang.Absyn.Decrement)
+    if (foo instanceof lang.Absyn.Decrement _decrement)
     {
-       lang.Absyn.Decrement _decrement = (lang.Absyn.Decrement) foo;
-       render("Decrement");
+        render("Decrement");
     }
   }
 
@@ -2484,15 +2290,13 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.FuncType foo)
   {
-    if (foo instanceof lang.Absyn.FuncType_void)
+    if (foo instanceof lang.Absyn.FuncType_void _functype_void)
     {
-       lang.Absyn.FuncType_void _functype_void = (lang.Absyn.FuncType_void) foo;
-       render("FuncType_void");
+        render("FuncType_void");
     }
-    if (foo instanceof lang.Absyn.FuncTypeVarType)
+    if (foo instanceof lang.Absyn.FuncTypeVarType _functypevartype)
     {
-       lang.Absyn.FuncTypeVarType _functypevartype = (lang.Absyn.FuncTypeVarType) foo;
-       render("(");
+        render("(");
        render("FuncTypeVarType");
        sh(_functypevartype.vartype_);
        render(")");
@@ -2501,74 +2305,61 @@ public class PrettyPrinter
 
   private static void sh(lang.Absyn.VarType foo)
   {
-    if (foo instanceof lang.Absyn.VarType_int)
+    if (foo instanceof lang.Absyn.VarType_int _vartype_int)
     {
-       lang.Absyn.VarType_int _vartype_int = (lang.Absyn.VarType_int) foo;
-       render("VarType_int");
+        render("VarType_int");
     }
-    if (foo instanceof lang.Absyn.VarType_double)
+    if (foo instanceof lang.Absyn.VarType_double _vartype_double)
     {
-       lang.Absyn.VarType_double _vartype_double = (lang.Absyn.VarType_double) foo;
-       render("VarType_double");
+        render("VarType_double");
     }
-    if (foo instanceof lang.Absyn.VarType_bool)
+    if (foo instanceof lang.Absyn.VarType_bool _vartype_bool)
     {
-       lang.Absyn.VarType_bool _vartype_bool = (lang.Absyn.VarType_bool) foo;
-       render("VarType_bool");
+        render("VarType_bool");
     }
-    if (foo instanceof lang.Absyn.VarType_char)
+    if (foo instanceof lang.Absyn.VarType_char _vartype_char)
     {
-       lang.Absyn.VarType_char _vartype_char = (lang.Absyn.VarType_char) foo;
-       render("VarType_char");
+        render("VarType_char");
     }
-    if (foo instanceof lang.Absyn.VarType_string)
+    if (foo instanceof lang.Absyn.VarType_string _vartype_string)
     {
-       lang.Absyn.VarType_string _vartype_string = (lang.Absyn.VarType_string) foo;
-       render("VarType_string");
+        render("VarType_string");
     }
-    if (foo instanceof lang.Absyn.VarType_auto)
+    if (foo instanceof lang.Absyn.VarType_auto _vartype_auto)
     {
-       lang.Absyn.VarType_auto _vartype_auto = (lang.Absyn.VarType_auto) foo;
-       render("VarType_auto");
+        render("VarType_auto");
     }
-    if (foo instanceof lang.Absyn.VarType_func)
+    if (foo instanceof lang.Absyn.VarType_func _vartype_func)
     {
-       lang.Absyn.VarType_func _vartype_func = (lang.Absyn.VarType_func) foo;
-       render("VarType_func");
+        render("VarType_func");
     }
-    if (foo instanceof lang.Absyn.VarType_object)
+    if (foo instanceof lang.Absyn.VarType_object _vartype_object)
     {
-       lang.Absyn.VarType_object _vartype_object = (lang.Absyn.VarType_object) foo;
-       render("VarType_object");
+        render("VarType_object");
     }
   }
 
   private static void sh(lang.Absyn.TypeCast foo)
   {
-    if (foo instanceof lang.Absyn.TypeCast_toInt)
+    if (foo instanceof lang.Absyn.TypeCast_toInt _typecast_toint)
     {
-       lang.Absyn.TypeCast_toInt _typecast_toint = (lang.Absyn.TypeCast_toInt) foo;
-       render("TypeCast_toInt");
+        render("TypeCast_toInt");
     }
-    if (foo instanceof lang.Absyn.TypeCast_toDouble)
+    if (foo instanceof lang.Absyn.TypeCast_toDouble _typecast_todouble)
     {
-       lang.Absyn.TypeCast_toDouble _typecast_todouble = (lang.Absyn.TypeCast_toDouble) foo;
-       render("TypeCast_toDouble");
+        render("TypeCast_toDouble");
     }
-    if (foo instanceof lang.Absyn.TypeCast_toBool)
+    if (foo instanceof lang.Absyn.TypeCast_toBool _typecast_tobool)
     {
-       lang.Absyn.TypeCast_toBool _typecast_tobool = (lang.Absyn.TypeCast_toBool) foo;
-       render("TypeCast_toBool");
+        render("TypeCast_toBool");
     }
-    if (foo instanceof lang.Absyn.TypeCast_toChar)
+    if (foo instanceof lang.Absyn.TypeCast_toChar _typecast_tochar)
     {
-       lang.Absyn.TypeCast_toChar _typecast_tochar = (lang.Absyn.TypeCast_toChar) foo;
-       render("TypeCast_toChar");
+        render("TypeCast_toChar");
     }
-    if (foo instanceof lang.Absyn.TypeCast_toString)
+    if (foo instanceof lang.Absyn.TypeCast_toString _typecast_tostring)
     {
-       lang.Absyn.TypeCast_toString _typecast_tostring = (lang.Absyn.TypeCast_toString) foo;
-       render("TypeCast_toString");
+        render("TypeCast_toString");
     }
   }
 
@@ -2638,6 +2429,6 @@ public class PrettyPrinter
   }
 
   private static int _n_ = 0;
-  private static StringBuilder buf_ = new StringBuilder(INITIAL_BUFFER_SIZE);
+  private static final StringBuilder buf_ = new StringBuilder(INITIAL_BUFFER_SIZE);
 }
 

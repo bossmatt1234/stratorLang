@@ -11,9 +11,8 @@ public class SReturn  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SReturn) {
-      lang.Absyn.SReturn x = (lang.Absyn.SReturn)o;
-      return this.exp_.equals(x.exp_);
+    if (o instanceof SReturn x) {
+        return this.exp_.equals(x.exp_);
     }
     return false;
   }

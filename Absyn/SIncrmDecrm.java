@@ -12,9 +12,8 @@ public class SIncrmDecrm  extends Stm_IncrmDecrm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SIncrmDecrm) {
-      lang.Absyn.SIncrmDecrm x = (lang.Absyn.SIncrmDecrm)o;
-      return this.ident_.equals(x.ident_) && this.incrmdecrm_op_.equals(x.incrmdecrm_op_);
+    if (o instanceof SIncrmDecrm x) {
+        return this.ident_.equals(x.ident_) && this.incrmdecrm_op_.equals(x.incrmdecrm_op_);
     }
     return false;
   }

@@ -12,9 +12,8 @@ public class EFilterList  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EFilterList) {
-      lang.Absyn.EFilterList x = (lang.Absyn.EFilterList)o;
-      return this.exp_.equals(x.exp_) && this.listitem_.equals(x.listitem_);
+    if (o instanceof EFilterList x) {
+        return this.exp_.equals(x.exp_) && this.listitem_.equals(x.listitem_);
     }
     return false;
   }

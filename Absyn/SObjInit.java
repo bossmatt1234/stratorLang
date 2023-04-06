@@ -12,9 +12,8 @@ public class SObjInit  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SObjInit) {
-      lang.Absyn.SObjInit x = (lang.Absyn.SObjInit)o;
-      return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.listexp_.equals(x.listexp_);
+    if (o instanceof SObjInit x) {
+        return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.listexp_.equals(x.listexp_);
     }
     return false;
   }

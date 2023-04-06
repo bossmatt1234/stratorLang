@@ -12,9 +12,8 @@ public class EReduceList  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EReduceList) {
-      lang.Absyn.EReduceList x = (lang.Absyn.EReduceList)o;
-      return this.exp_.equals(x.exp_) && this.listitem_.equals(x.listitem_);
+    if (o instanceof EReduceList x) {
+        return this.exp_.equals(x.exp_) && this.listitem_.equals(x.listitem_);
     }
     return false;
   }

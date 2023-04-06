@@ -10,10 +10,7 @@ public class SContinue  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SContinue) {
-      return true;
-    }
-    return false;
+      return o instanceof SContinue;
   }
 
   public int hashCode() {

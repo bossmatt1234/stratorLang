@@ -11,9 +11,8 @@ public class EList  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EList) {
-      lang.Absyn.EList x = (lang.Absyn.EList)o;
-      return this.listitem_.equals(x.listitem_);
+    if (o instanceof EList x) {
+        return this.listitem_.equals(x.listitem_);
     }
     return false;
   }

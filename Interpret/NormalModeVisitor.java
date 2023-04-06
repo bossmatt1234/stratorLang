@@ -51,6 +51,9 @@ public class NormalModeVisitor {
         VFunc methodVal = (VFunc) method;
         Function funcToExec = methodVal.val;
         HashMap<String,Val> args = new HashMap<>();
+        if(funcToExec.args.size() != listExp.size()){
+            throw new ArgNumError(lineNum,columnNum,funcToExec.args.size(),listExp.size());
+        }
         int i=0;
         for (lang.Absyn.Exp x: listExp) {
             Val newval = x.accept(new ExpVisitor(), env);
@@ -60,9 +63,6 @@ public class NormalModeVisitor {
             args.put(funcToExec.args.get(i).ident, newval);
             i++;
         }
-        if(funcToExec.args.size() != i){
-            throw new ArgNumError(lineNum,columnNum,funcToExec.args.size(),i);}
-
         // Block 3 - object call parameters
 
         env.newBlock();
@@ -225,7 +225,13 @@ public class NormalModeVisitor {
                 }
                 else if(x instanceof DefConstructor){
                     x.accept(new StmVisitor(), env);
-                    objectDef.setConstructor(env.contexts.getLast().get("$constructor$"));
+                    VString constructorName = (VString) env.contexts.getLast().get("$constructor_name$");
+                    if(Objects.equals(constructorName.val, objectDef.className)){
+                        objectDef.constructorEnable();
+                        objectDef.setConstructor(env.contexts.getLast().get("$constructor$"));
+                    }else{
+                        throw new ClassConstructorNameError(p.line_num, p.col_num, constructorName.val, objectDef.className);
+                    }
                 }
                 else{
                     x.accept(new StmVisitor(), env);
@@ -967,8 +973,12 @@ public class NormalModeVisitor {
         public Val visit(lang.Absyn.ECall p, Env env)
         { /* Code for ECall goes here */
             //p.ident_;
+
             VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
             Function funcToExec = val.val;
+            if(funcToExec.args.size() != p.listexp_.size()){
+                throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
+            }
             // Block 1 - Function variables
             env.contexts.addLast(funcToExec.closure);
                 //Adding given arguments to list
@@ -982,10 +992,6 @@ public class NormalModeVisitor {
                 }
                 args.put(funcToExec.args.get(i).ident, newval);
                 i++;
-            }
-
-            if(funcToExec.args.size() != i){
-                throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),i);
             }
 
             // Block 2 - function call parameters
@@ -1011,9 +1017,10 @@ public class NormalModeVisitor {
             //p.ident_2;
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
-            Val method = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2);
+            ObjectDef objectDef = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num);
+            Val method = objectDef.lookUpMethod(p.ident_2);
             if(method == null){
-                throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass);
+                throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass,objectDef.defMethods);
             }
             return execObjectMethod(
                     env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar,

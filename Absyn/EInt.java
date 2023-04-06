@@ -11,9 +11,8 @@ public class EInt  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EInt) {
-      lang.Absyn.EInt x = (lang.Absyn.EInt)o;
-      return this.integer_.equals(x.integer_);
+    if (o instanceof EInt x) {
+        return this.integer_.equals(x.integer_);
     }
     return false;
   }

@@ -12,9 +12,8 @@ public class SIf  extends If_Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SIf) {
-      lang.Absyn.SIf x = (lang.Absyn.SIf)o;
-      return this.exp_.equals(x.exp_) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SIf x) {
+        return this.exp_.equals(x.exp_) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

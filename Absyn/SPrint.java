@@ -11,9 +11,8 @@ public class SPrint  extends Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SPrint) {
-      lang.Absyn.SPrint x = (lang.Absyn.SPrint)o;
-      return this.exp_.equals(x.exp_);
+    if (o instanceof SPrint x) {
+        return this.exp_.equals(x.exp_);
     }
     return false;
   }

@@ -10,10 +10,7 @@ public class AssignDiv  extends Assign_Op {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.AssignDiv) {
-      return true;
-    }
-    return false;
+      return o instanceof AssignDiv;
   }
 
   public int hashCode() {

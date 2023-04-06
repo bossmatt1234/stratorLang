@@ -13,9 +13,8 @@ public class SAssign  extends Stm_Assign {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SAssign) {
-      lang.Absyn.SAssign x = (lang.Absyn.SAssign)o;
-      return this.ident_.equals(x.ident_) && this.assign_op_.equals(x.assign_op_) && this.exp_.equals(x.exp_);
+    if (o instanceof SAssign x) {
+        return this.ident_.equals(x.ident_) && this.assign_op_.equals(x.assign_op_) && this.exp_.equals(x.exp_);
     }
     return false;
   }

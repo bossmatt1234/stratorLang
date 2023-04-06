@@ -11,9 +11,8 @@ public class EMod  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.EMod) {
-      lang.Absyn.EMod x = (lang.Absyn.EMod)o;
-      return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
+    if (o instanceof EMod x) {
+        return this.exp_1.equals(x.exp_1) && this.exp_2.equals(x.exp_2);
     }
     return false;
   }

@@ -12,9 +12,8 @@ public class SPLoopIdent  extends Stm_Loop {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SPLoopIdent) {
-      lang.Absyn.SPLoopIdent x = (lang.Absyn.SPLoopIdent)o;
-      return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.liststm_.equals(x.liststm_);
+    if (o instanceof SPLoopIdent x) {
+        return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2) && this.liststm_.equals(x.liststm_);
     }
     return false;
   }

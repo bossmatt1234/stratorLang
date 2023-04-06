@@ -12,9 +12,8 @@ public class SDecl  extends Stm_Declare {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SDecl) {
-      lang.Absyn.SDecl x = (lang.Absyn.SDecl)o;
-      return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_);
+    if (o instanceof SDecl x) {
+        return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_);
     }
     return false;
   }

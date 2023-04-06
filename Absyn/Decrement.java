@@ -10,10 +10,7 @@ public class Decrement  extends IncrmDecrm_Op {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.Decrement) {
-      return true;
-    }
-    return false;
+      return o instanceof Decrement;
   }
 
   public int hashCode() {

@@ -13,9 +13,8 @@ public class SIfElseIf  extends If_Stm {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SIfElseIf) {
-      lang.Absyn.SIfElseIf x = (lang.Absyn.SIfElseIf)o;
-      return this.exp_.equals(x.exp_) && this.liststm_.equals(x.liststm_) && this.if_stm_.equals(x.if_stm_);
+    if (o instanceof SIfElseIf x) {
+        return this.exp_.equals(x.exp_) && this.liststm_.equals(x.liststm_) && this.if_stm_.equals(x.if_stm_);
     }
     return false;
   }

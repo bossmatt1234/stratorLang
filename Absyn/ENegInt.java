@@ -11,9 +11,8 @@ public class ENegInt  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ENegInt) {
-      lang.Absyn.ENegInt x = (lang.Absyn.ENegInt)o;
-      return this.integer_.equals(x.integer_);
+    if (o instanceof ENegInt x) {
+        return this.integer_.equals(x.integer_);
     }
     return false;
   }

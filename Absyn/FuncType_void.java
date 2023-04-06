@@ -10,10 +10,7 @@ public class FuncType_void  extends FuncType {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.FuncType_void) {
-      return true;
-    }
-    return false;
+      return o instanceof FuncType_void;
   }
 
   public int hashCode() {

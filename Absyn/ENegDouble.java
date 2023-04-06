@@ -11,9 +11,8 @@ public class ENegDouble  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ENegDouble) {
-      lang.Absyn.ENegDouble x = (lang.Absyn.ENegDouble)o;
-      return this.double_.equals(x.double_);
+    if (o instanceof ENegDouble x) {
+        return this.double_.equals(x.double_);
     }
     return false;
   }

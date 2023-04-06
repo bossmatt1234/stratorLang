@@ -10,10 +10,7 @@ public class Assign  extends Assign_Op {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.Assign) {
-      return true;
-    }
-    return false;
+      return o instanceof Assign;
   }
 
   public int hashCode() {

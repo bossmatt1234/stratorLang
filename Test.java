@@ -48,7 +48,7 @@ public class Test
     return ast;
   }
 
-  public static void main(String args[]) throws Exception
+  public static void main(String[] args) throws Exception
   {
     Test t = new Test(args);
     try
@@ -57,7 +57,7 @@ public class Test
     }
     catch(Throwable e)
     {
-      System.err.println("At line " + String.valueOf(t.l.line_num()) + ", near \"" + t.l.buff() + "\" :");
+      System.err.println("At line " + t.l.line_num() + ", near \"" + t.l.buff() + "\" :");
       System.err.println("     " + e.getMessage());
       System.exit(1);
     }

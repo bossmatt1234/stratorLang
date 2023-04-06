@@ -13,9 +13,8 @@ public class SInit  extends Stm_Initialise {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.SInit) {
-      lang.Absyn.SInit x = (lang.Absyn.SInit)o;
-      return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
+    if (o instanceof SInit x) {
+        return this.vartype_.equals(x.vartype_) && this.ident_.equals(x.ident_) && this.exp_.equals(x.exp_);
     }
     return false;
   }

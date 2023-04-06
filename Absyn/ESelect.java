@@ -11,9 +11,8 @@ public class ESelect  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ESelect) {
-      lang.Absyn.ESelect x = (lang.Absyn.ESelect)o;
-      return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2);
+    if (o instanceof ESelect x) {
+        return this.ident_1.equals(x.ident_1) && this.ident_2.equals(x.ident_2);
     }
     return false;
   }

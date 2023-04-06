@@ -12,9 +12,8 @@ public class ETypeCast  extends Exp {
 
   public boolean equals(java.lang.Object o) {
     if (this == o) return true;
-    if (o instanceof lang.Absyn.ETypeCast) {
-      lang.Absyn.ETypeCast x = (lang.Absyn.ETypeCast)o;
-      return this.ident_.equals(x.ident_) && this.typecast_.equals(x.typecast_);
+    if (o instanceof ETypeCast x) {
+        return this.ident_.equals(x.ident_) && this.typecast_.equals(x.typecast_);
     }
     return false;
   }
