@@ -132,7 +132,9 @@ public class NormalModeVisitor {
                 newFunc.args.add(x.accept(new ArgVisitor(), env));
             }
             newFunc.listStm = p.liststm_;
-            newFunc.closure.putAll(new HashMap<>(env.contexts.getLast()));
+            if(env.getScopeType() == 1){
+                newFunc.closure.putAll(new HashMap<>(env.contexts.getLast()));
+            }
             VFunc val = new VFunc(newFunc, funcType);
             try{
                 return env.extendEnvVar(p.ident_, val);
@@ -245,7 +247,7 @@ public class NormalModeVisitor {
 
         public Object visit(lang.Absyn.SPrint p, Env env)
         { /* Code for SPrint goes here */
-
+            
             return System.out.printf("%s\n", p.exp_.accept(new ExpVisitor(), env).toString());
         }
 
@@ -416,6 +418,7 @@ public class NormalModeVisitor {
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             try{
                 while(condition.val){
+
                     for (lang.Absyn.Stm x: p.liststm_) {
                         try{
                             x.accept(new StmVisitor(), env);
@@ -424,7 +427,9 @@ public class NormalModeVisitor {
                         }
                     }
                     condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
+
                 }
+
             }catch(Break stm){
                 env.emptyBlock();
                 return env;
@@ -779,6 +784,8 @@ public class NormalModeVisitor {
                     val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
                     list.add(val);
                 }
+            }else{
+                return new VList(list, Type.TChar);
             }
             return new VList(list, list.get(0).type);
         }
@@ -974,12 +981,13 @@ public class NormalModeVisitor {
         public Val visit(lang.Absyn.ECall p, Env env)
         { /* Code for ECall goes here */
             //p.ident_;
-
+            env.setScopeTypeToFunc();
             VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
             Function funcToExec = val.val;
             if(funcToExec.args.size() != p.listexp_.size()){
                 throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
             }
+
             // Block 1 - Function variables
             //Adding given arguments to list
             HashMap<String,Val> args = new HashMap<>();
@@ -991,7 +999,6 @@ public class NormalModeVisitor {
                     throw new TypeArgException(p.line_num, p.col_num,funcToExec.args.get(i).type, newval.getClass().getSimpleName() );
                 }
                 args.put(funcToExec.args.get(i).ident, newval);
-
                 i++;
             }
             env.contexts.addLast(funcToExec.closure);
@@ -1010,6 +1017,7 @@ public class NormalModeVisitor {
             funcToExec.closure = env.contexts.getLast();
             // Empty Block 1
             env.emptyBlock();
+            env.setScopeTypeToOuter();
             return funcToExec.returnVal;
         }
         public Val visit(lang.Absyn.EObjCall p, Env env)

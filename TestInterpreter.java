@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Arrays;
 
 
 public class TestInterpreter
@@ -54,7 +55,8 @@ public class TestInterpreter
     }
     catch (Throwable e){
         System.err.println(" \n Java error:");
-        System.err.println("        " + e.getMessage());
+        System.err.println("     Message: " + e.getMessage());
+        System.err.println("     Cause: " + e.getCause());
         System.exit(1);
     }
   }

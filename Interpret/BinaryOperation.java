@@ -191,7 +191,10 @@ public class BinaryOperation implements Eval {
                 return new VChar(y.val);
             }
             case EQUALS -> {
-                return new VBool(Objects.equals(x.val, y.val));
+                return new VBool(x.val == y.val);
+            }
+            case NOT_EQUALS -> {
+                return new VBool(x.val != y.val);
             }
             default -> {
                 return null;
@@ -215,6 +218,12 @@ public class BinaryOperation implements Eval {
                 }else{
                     return new VBool(false);
                 }
+            }
+            case EQUALS -> {
+                return new VBool(x.val == y.val);
+            }
+            case ASSIGN -> {
+                return new VBool(y.val);
             }
             default -> {
                 return null;

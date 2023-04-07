@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Env {
-
+    public int scopeType = 0;
     public LinkedList<HashMap<String, Val>> contexts;
 
     public LinkedList<HashMap<String, ObjectDef>> objectDefs;
@@ -82,5 +82,15 @@ public class Env {
 
     public void emptyBlock() {
         this.contexts.removeLast();
+    }
+
+    public void setScopeTypeToFunc() {
+        this.scopeType = 1;
+    }
+    public void setScopeTypeToOuter() {
+        this.scopeType = 0;
+    }
+    public int getScopeType() {
+        return scopeType;
     }
 }
