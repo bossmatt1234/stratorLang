@@ -132,8 +132,8 @@ public class FunctionalModeVisitor {
                 newFunc.args.add(x.accept(new ArgVisitor(), env));
             }
             newFunc.listStm = p.liststm_;
-            for(int i = 0 ; i<env.contexts.size();i++){
-                newFunc.closure.putAll(new HashMap<>(env.contexts.get(i)));
+            if(env.getScopeType() == 1){
+                newFunc.closure.putAll(new HashMap<>(env.contexts.getLast()));
             }
             VFunc val = new VFunc(newFunc, funcType);
             try{
@@ -317,9 +317,7 @@ public class FunctionalModeVisitor {
     {
         public Object visit(SIncrmDecrm p, Env env)
         { /* Code for SIncrmDecrm goes here */
-            Val x = env.lookupVar(p.ident_,p.line_num, p.col_num);
-            Operator op = p.incrmdecrm_op_.accept(new IncrmDecrm_OpVisitor(), env);
-            return env.updateVar(p.ident_, doUnaryOperation(x,op, p.line_num,p.col_num));
+            throw new FuncModeAssignException(p.line_num,p.col_num,p.ident_);
         }
     }
 
@@ -537,8 +535,8 @@ public class FunctionalModeVisitor {
                 lambda.args.add(x.accept(new ArgVisitor(), env));
             }
             lambda.listStm = p.liststm_;
-            for(int i = 0 ; i<env.contexts.size();i++){
-                lambda.closure.putAll(env.contexts.get(i));
+            if(env.getScopeType() == 1){
+                lambda.closure.putAll(new HashMap<>(env.contexts.getLast()));
             }
 
             return new VFunc(lambda, Type.TAuto);
@@ -691,6 +689,7 @@ public class FunctionalModeVisitor {
         public Val visit(ECall p, Env env)
         { /* Code for ECall goes here */
             //p.ident_;
+            env.setScopeTypeToFunc();
             VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
             Function funcToExec = val.val;
             if(funcToExec.args.size() != p.listexp_.size()){
@@ -720,6 +719,7 @@ public class FunctionalModeVisitor {
             funcToExec.closure = env.contexts.getLast();
             // Empty Block 1
             env.emptyBlock();
+            env.setScopeTypeToOuter();
             return funcToExec.returnVal;
         }
         public Val visit(EObjCall p, Env env)

@@ -247,7 +247,7 @@ public class NormalModeVisitor {
 
         public Object visit(lang.Absyn.SPrint p, Env env)
         { /* Code for SPrint goes here */
-            
+
             return System.out.printf("%s\n", p.exp_.accept(new ExpVisitor(), env).toString());
         }
 
@@ -827,10 +827,9 @@ public class NormalModeVisitor {
                 lambda.args.add(x.accept(new ArgVisitor(), env));
             }
             lambda.listStm = p.liststm_;
-            for(int i = 0 ; i<env.contexts.size();i++){
-                lambda.closure.putAll(env.contexts.get(i));
+            if(env.getScopeType() == 1){
+                lambda.closure.putAll(new HashMap<>(env.contexts.getLast()));
             }
-
             return new VFunc(lambda, Type.TAuto);
         }
 
