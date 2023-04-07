@@ -49,7 +49,7 @@ __Strator__ is a programming language designed to assess and gain insights into 
  * Random Integer generator function with _randomInt()_ function
  * Comments with __## ##__ tags
 
-## Installation and Syntax Highlighter
+## Installation, Syntax Highlighter and Instructions
 Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https://github.com/bossmatt1234/stratorLang/releases "Releases") page.
 * Make sure you have at least JDK17 installed
 * Put the _lang.jar_ file in a suitable folder containing your text files
@@ -57,7 +57,13 @@ Download _lang.jar_ and _strator.zip_ VSCode extension from the [Releases](https
 ```
     java -jar lang.jar code.txt
 ```
-* To get Syntax highlighting, put the _Strator_ folder from _strator.zip_ into the VSCode extensions folder. Finally, create a file with the _.stra_ file type and open it in VSCode.
+* To run code from the standard input, use this command:
+```
+    java -jar lang.jar
+```
+While running the interpreter in this mode, you need to use an EOF (End-Of-File) character to execute the codes. The EOF characters are: _^Z_ for Windows Command Prompt; _^D_ for Unix / Linux systems.
+
+* To get Syntax highlighting, put the _Strator_ folder from _strator.zip_ into the VSCode extensions folder. Finally, create a file with the _.stra_ file type and open it in VSCode
 ## Documentation
 ### Paradigm Functional mode
 ![Paradigm](docs/examples/mode.png "Paradigm mode")
