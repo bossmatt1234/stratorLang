@@ -697,7 +697,6 @@ public class FunctionalModeVisitor {
                 throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
             }
             // Block 1 - Function variables
-            env.contexts.addLast(funcToExec.closure);
             HashMap<String,Val> args = new HashMap<>();
             int i=0;
             for (Exp x: p.listexp_) {
@@ -709,6 +708,7 @@ public class FunctionalModeVisitor {
                 args.put(funcToExec.args.get(i).ident, newval);
                 i++;
             }
+            env.contexts.addLast(funcToExec.closure);
             // Block 2 - function call parameters
             env.newBlock();
             for (HashMap.Entry<String, Val> entry: args.entrySet() ){

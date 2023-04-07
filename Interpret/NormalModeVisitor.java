@@ -245,6 +245,7 @@ public class NormalModeVisitor {
 
         public Object visit(lang.Absyn.SPrint p, Env env)
         { /* Code for SPrint goes here */
+
             return System.out.printf("%s\n", p.exp_.accept(new ExpVisitor(), env).toString());
         }
 
@@ -980,8 +981,7 @@ public class NormalModeVisitor {
                 throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
             }
             // Block 1 - Function variables
-            env.contexts.addLast(funcToExec.closure);
-                //Adding given arguments to list
+            //Adding given arguments to list
             HashMap<String,Val> args = new HashMap<>();
             int i=0;
             for (lang.Absyn.Exp x: p.listexp_) {
@@ -991,9 +991,10 @@ public class NormalModeVisitor {
                     throw new TypeArgException(p.line_num, p.col_num,funcToExec.args.get(i).type, newval.getClass().getSimpleName() );
                 }
                 args.put(funcToExec.args.get(i).ident, newval);
+
                 i++;
             }
-
+            env.contexts.addLast(funcToExec.closure);
             // Block 2 - function call parameters
             env.newBlock();
 
