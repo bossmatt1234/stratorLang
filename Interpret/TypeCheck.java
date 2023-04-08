@@ -48,6 +48,16 @@ public class TypeCheck {
         }
 
         @Override
+        public Object visit(STryCatch p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
+        public Object visit(STryCatchFinally p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
         public Object visit(SPrint p, TypeEnv arg) {
             return null;
         }
@@ -59,6 +69,11 @@ public class TypeCheck {
 
         @Override
         public Object visit(SContinue p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
+        public Object visit(SThrow p, TypeEnv arg) {
             return null;
         }
 
@@ -102,6 +117,13 @@ public class TypeCheck {
             return null;
         }
 
+
+
+        @Override
+        public Object visit(SSet p, TypeEnv arg) {
+            return null;
+        }
+
         @Override
         public Object visit(SReturn p, TypeEnv arg) {
             return null;
@@ -112,10 +134,7 @@ public class TypeCheck {
             return null;
         }
 
-        @Override
-        public Object visit(SConstInit p, TypeEnv arg) {
-            return null;
-        }
+
 
         @Override
         public Object visit(IfS p, TypeEnv arg) {
@@ -190,6 +209,11 @@ public class TypeCheck {
         }
 
         @Override
+        public Type visit(EType p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
         public Type visit(EListItem p, TypeEnv arg) {
             return null;
         }
@@ -214,8 +238,21 @@ public class TypeCheck {
             return null;
         }
 
+
+
+        @Override
+        public Type visit(EListIsEmpty p, TypeEnv arg) {
+            return null;
+        }
+
+
         @Override
         public Type visit(EInput p, TypeEnv arg) {
+            return null;
+        }
+
+        @Override
+        public Type visit(EInputString p, TypeEnv arg) {
             return null;
         }
 

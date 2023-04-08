@@ -18,8 +18,8 @@ public class sym {
   public static final int _SYMB_32 = 34;
   public static final int _SYMB_31 = 33;
   public static final int _SYMB_30 = 32;
-  public static final int _DOUBLE_ = 82;
-  public static final int _CHAR_ = 80;
+  public static final int _DOUBLE_ = 88;
+  public static final int _CHAR_ = 86;
   public static final int _SYMB_29 = 31;
   public static final int _SYMB_28 = 30;
   public static final int _SYMB_27 = 29;
@@ -30,14 +30,20 @@ public class sym {
   public static final int _SYMB_22 = 24;
   public static final int _SYMB_21 = 23;
   public static final int _SYMB_20 = 22;
+  public static final int _SYMB_82 = 84;
+  public static final int _SYMB_81 = 83;
+  public static final int _SYMB_80 = 82;
   public static final int _SYMB_19 = 21;
   public static final int _SYMB_18 = 20;
   public static final int _SYMB_17 = 19;
   public static final int _SYMB_16 = 18;
   public static final int _SYMB_15 = 17;
+  public static final int _SYMB_79 = 81;
   public static final int _SYMB_14 = 16;
+  public static final int _SYMB_78 = 80;
   public static final int _SYMB_9 = 11;
   public static final int _SYMB_13 = 15;
+  public static final int _SYMB_77 = 79;
   public static final int _SYMB_8 = 10;
   public static final int _SYMB_12 = 14;
   public static final int _SYMB_76 = 78;
@@ -63,13 +69,13 @@ public class sym {
   public static final int _SYMB_66 = 68;
   public static final int _SYMB_65 = 67;
   public static final int _SYMB_64 = 66;
-  public static final int _STRING_ = 79;
+  public static final int _STRING_ = 85;
   public static final int _SYMB_63 = 65;
   public static final int _SYMB_62 = 64;
   public static final int EOF = 0;
   public static final int _SYMB_61 = 63;
   public static final int _SYMB_60 = 62;
-  public static final int _INTEGER_ = 81;
+  public static final int _INTEGER_ = 87;
   public static final int error = 1;
   public static final int _SYMB_59 = 61;
   public static final int _SYMB_58 = 60;
@@ -81,7 +87,7 @@ public class sym {
   public static final int _SYMB_52 = 54;
   public static final int _SYMB_51 = 53;
   public static final int _SYMB_50 = 52;
-  public static final int _IDENT_ = 83;
+  public static final int _IDENT_ = 89;
   public static final int _SYMB_49 = 51;
   public static final int _SYMB_48 = 50;
   public static final int _SYMB_47 = 49;
@@ -172,6 +178,12 @@ public class sym {
   "_SYMB_74",
   "_SYMB_75",
   "_SYMB_76",
+  "_SYMB_77",
+  "_SYMB_78",
+  "_SYMB_79",
+  "_SYMB_80",
+  "_SYMB_81",
+  "_SYMB_82",
   "_STRING_",
   "_CHAR_",
   "_INTEGER_",

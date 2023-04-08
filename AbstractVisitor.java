@@ -16,9 +16,12 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.DefConstructor p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.DefClass p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.DefClassInherits p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.STryCatch p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.STryCatchFinally p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SPrint p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SBreak p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SContinue p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.SThrow p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.InitialiseStm p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.DeclareStm p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.AssignStm p, A arg) { return visitDefault(p, arg); }
@@ -27,9 +30,9 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.SCall p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SAppend p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SRemove p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.SSet p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SReturn p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.SObjInit p, A arg) { return visitDefault(p, arg); }
-    public R visit(lang.Absyn.SConstInit p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.IfS p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.Block p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(lang.Absyn.Stm p, A arg) {
@@ -94,12 +97,15 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(lang.Absyn.ETrue p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EFalse p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EId p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EType p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListItem p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListWith p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListWithout p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EList p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EListSize p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EListIsEmpty p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EInput p, A arg) { return visitDefault(p, arg); }
+    public R visit(lang.Absyn.EInputString p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.EStrLength p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ERand p, A arg) { return visitDefault(p, arg); }
     public R visit(lang.Absyn.ETypeCast p, A arg) { return visitDefault(p, arg); }

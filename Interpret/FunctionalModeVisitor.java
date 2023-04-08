@@ -39,6 +39,12 @@ public class FunctionalModeVisitor {
                 }
                 throw new FuncReturnTypeException(val.lineNum, val.colNum, type.toString());
             }
+        }catch(Continue val) {
+            throw new LoopCtrlStmException(val.lineNum, val.colNum, "Continue");
+        }catch(Break val) {
+            throw new LoopCtrlStmException(val.lineNum, val.colNum, "Break");
+        }catch(Throw val) {
+            throw new ThrowErrorException(val.lineNum, val.colNum);
         }
     }
 
@@ -164,6 +170,72 @@ public class FunctionalModeVisitor {
             throw new FuncModeObjectException(p.line_num,p.col_num,p.ident_1);
         }
 
+        @Override
+        public Object visit(STryCatch p, Env env) {
+            try{
+                env.newBlock();
+                for (lang.Absyn.Stm x: p.liststm_1) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            }catch(Throw stm){
+                env.emptyBlock();
+
+                env.newBlock();
+                env.extendEnvVar(p.ident_,stm.returnVal);
+                for (lang.Absyn.Stm x: p.liststm_2) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            } catch (CommonError e) {
+                env.emptyBlock();
+
+                env.newBlock();
+                env.extendEnvVar(p.ident_, new VString(e.getMessage()));
+                for (Stm x : p.liststm_2) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            }
+            return env;
+        }
+
+        @Override
+        public Object visit(STryCatchFinally p, Env env) {
+            try{
+                env.newBlock();
+                for (lang.Absyn.Stm x: p.liststm_1) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            }catch(Throw stm){
+                env.emptyBlock();
+
+                env.newBlock();
+                env.extendEnvVar(p.ident_,stm.returnVal);
+                for (lang.Absyn.Stm x: p.liststm_2) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            } catch (CommonError e) {
+                env.emptyBlock();
+
+                env.newBlock();
+                env.extendEnvVar(p.ident_, new VString(e.getMessage()));
+                for (Stm x : p.liststm_2) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            } finally {
+                env.newBlock();
+                for (Stm x : p.liststm_3) {
+                    x.accept(new StmVisitor(), env);
+                }
+                env.emptyBlock();
+            }
+            return env;
+        }
+
         public Object visit(SPrint p, Env env)
         { /* Code for SPrint goes here */
             return System.out.printf("%s\n", p.exp_.accept(new ExpVisitor(), env).toString());
@@ -209,6 +281,12 @@ public class FunctionalModeVisitor {
             throw new FuncModeRemoveException(p.line_num,p.col_num,p.ident_);
         }
 
+
+        @Override
+        public Object visit(SSet p, Env env) {
+            throw new FuncModeSetListException(p.line_num,p.col_num,p.ident_);
+        }
+
         public Object visit(SReturn p, Env env)
         { /* Code for SReturn goes here */
             throw new Return(p.exp_.accept(new ExpVisitor(), env), p.line_num, p.col_num);
@@ -228,22 +306,20 @@ public class FunctionalModeVisitor {
             return env.extendEnvVar(p.ident_1, new VObject(newObject));
         }
 
-        public Object visit(SConstInit p, Env env)
-        { /* Code for SConstInit goes here */
-            p.vartype_.accept(new VarTypeVisitor(), env);
-            //p.ident_;
-            p.exp_.accept(new ExpVisitor(), env);
-            return null;
-        }
 
         public Object visit(SBreak p, Env env)
         { /* Code for SBreak goes here */
-            throw new Break();
+            throw new Break(p.line_num, p.col_num);
         }
 
         @Override
-        public Object visit(SContinue p, Env arg) {
-            throw new Continue();
+        public Object visit(SContinue p, Env env) {
+            throw new Continue(p.line_num, p.col_num);
+        }
+
+        @Override
+        public Object visit(SThrow p, Env env) {
+            throw new Throw(p.exp_.accept(new ExpVisitor(),env),p.line_num,p.col_num);
         }
 
         public Object visit(IfS p, Env env)
@@ -458,6 +534,26 @@ public class FunctionalModeVisitor {
             //p.ident_;
             return env.lookupVar(p.ident_,p.line_num, p.col_num);
         }
+
+        @Override
+        public Val visit(EType p, Env env) {
+            Val val = env.lookupVar(p.ident_, p.line_num, p.col_num);
+            Type type = new TypeChecker().returnType(val, p.line_num, p.col_num);
+            Type type2 = p.vartype_.accept(new NormalModeVisitor.VarTypeVisitor(),env);
+            if(val instanceof VList list){
+                if(type2 == list.itemType){
+                    return new VBool(true);
+                }else{
+                    return new VBool(false);
+                }
+            }
+            if(type == type2){
+                return new VBool(true);
+            }else{
+                return new VBool(false);
+            }
+        }
+
         public Val visit(EListItem p, Env env)
         { /* Code for EListItem goes here */
             VInteger index = (VInteger) p.exp_.accept(new ExpVisitor(), env);
@@ -494,8 +590,10 @@ public class FunctionalModeVisitor {
                     val.type = new TypeChecker().returnType(val,p.line_num, p.col_num);
                     list.add(val);
                 }
+            }else{
+                return new VList(list, Type.TUnknown);
             }
-            return new VList(list,list.get(0).type);
+            return new VList(list,Type.TUnknown);
         }
 
         @Override
@@ -504,8 +602,23 @@ public class FunctionalModeVisitor {
             return new VInteger(list.listVal.size());
         }
 
+
+        @Override
+        public Val visit(EListIsEmpty p, Env env) {
+            VList list = (VList) env.lookupVar(p.ident_,p.line_num, p.col_num);
+            return new VBool(list.listVal.isEmpty());
+        }
+
+
         @Override
         public Val visit(EInput p, Env arg) {
+            Scanner prompt = new Scanner(System.in);
+            return new TypeChecker().inferInput(prompt, p.line_num, p.col_num);
+        }
+
+        @Override
+        public Val visit(EInputString p, Env arg) {
+            System.out.print(p.string_);
             Scanner prompt = new Scanner(System.in);
             return new TypeChecker().inferInput(prompt, p.line_num, p.col_num);
         }

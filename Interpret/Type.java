@@ -10,7 +10,8 @@ public enum Type{
     TVoid (7),
     TFunc (8),
     TObject (9),
-    TList (10);
+    TList (10),
+    TUnknown(11);
 
     Type(int i) {
     }

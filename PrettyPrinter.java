@@ -454,6 +454,42 @@ public class PrettyPrinter
        render("}");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof lang.Absyn.STryCatch _strycatch)
+    {
+        if (_i_ > 0) render(_L_PAREN);
+       render("try");
+       render("{");
+       pp(_strycatch.liststm_1, 0);
+       render("}");
+       render("catch");
+       render("(");
+       pp(_strycatch.ident_, 0);
+       render(")");
+       render("{");
+       pp(_strycatch.liststm_2, 0);
+       render("}");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof lang.Absyn.STryCatchFinally _strycatchfinally)
+    {
+        if (_i_ > 0) render(_L_PAREN);
+       render("try");
+       render("{");
+       pp(_strycatchfinally.liststm_1, 0);
+       render("}");
+       render("catch");
+       render("(");
+       pp(_strycatchfinally.ident_, 0);
+       render(")");
+       render("{");
+       pp(_strycatchfinally.liststm_2, 0);
+       render("}");
+       render("finally");
+       render("{");
+       pp(_strycatchfinally.liststm_3, 0);
+       render("}");
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof lang.Absyn.SPrint _sprint)
     {
         if (_i_ > 0) render(_L_PAREN);
@@ -471,6 +507,13 @@ public class PrettyPrinter
     {
         if (_i_ > 0) render(_L_PAREN);
        render("continue");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof lang.Absyn.SThrow _sthrow)
+    {
+        if (_i_ > 0) render(_L_PAREN);
+       render("throw");
+       pp(_sthrow.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof lang.Absyn.InitialiseStm _initialisestm)
@@ -531,6 +574,19 @@ public class PrettyPrinter
        render("]");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof lang.Absyn.SSet _sset)
+    {
+        if (_i_ > 0) render(_L_PAREN);
+       pp(_sset.ident_, 0);
+       render(".");
+       render("set");
+       render("(");
+       pp(_sset.exp_1, 0);
+       render(",");
+       pp(_sset.exp_2, 0);
+       render(")");
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof lang.Absyn.SReturn _sreturn)
     {
         if (_i_ > 0) render(_L_PAREN);
@@ -549,16 +605,6 @@ public class PrettyPrinter
        render("(");
        pp(_sobjinit.listexp_, 0);
        render(")");
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof lang.Absyn.SConstInit _sconstinit)
-    {
-        if (_i_ > 0) render(_L_PAREN);
-       render("const");
-       pp(_sconstinit.vartype_, 0);
-       pp(_sconstinit.ident_, 0);
-       render("=");
-       pp(_sconstinit.exp_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof lang.Absyn.IfS _ifs)
@@ -930,6 +976,17 @@ public class PrettyPrinter
        pp(_eid.ident_, 0);
        if (_i_ > 15) render(_R_PAREN);
     }
+    else     if (foo instanceof lang.Absyn.EType _etype)
+    {
+        if (_i_ > 15) render(_L_PAREN);
+       pp(_etype.ident_, 0);
+       render(".");
+       render("isType");
+       render("(");
+       pp(_etype.vartype_, 0);
+       render(")");
+       if (_i_ > 15) render(_R_PAREN);
+    }
     else     if (foo instanceof lang.Absyn.EListItem _elistitem)
     {
         if (_i_ > 15) render(_L_PAREN);
@@ -975,6 +1032,18 @@ public class PrettyPrinter
        pp(_elistsize.ident_, 0);
        render(".");
        render("size");
+       render("(");
+       render(")");
+       if (_i_ > 15) render(_R_PAREN);
+    }
+    else     if (foo instanceof lang.Absyn.EListIsEmpty _elistisempty)
+    {
+        if (_i_ > 15) render(_L_PAREN);
+       pp(_elistisempty.ident_, 0);
+       render(".");
+       render("isEmpty");
+       render("(");
+       render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
     else     if (foo instanceof lang.Absyn.EInput _einput)
@@ -985,12 +1054,23 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
+    else     if (foo instanceof lang.Absyn.EInputString _einputstring)
+    {
+        if (_i_ > 15) render(_L_PAREN);
+       render("input");
+       render("(");
+       printQuoted(_einputstring.string_);
+       render(")");
+       if (_i_ > 15) render(_R_PAREN);
+    }
     else     if (foo instanceof lang.Absyn.EStrLength _estrlength)
     {
         if (_i_ > 15) render(_L_PAREN);
        pp(_estrlength.ident_, 0);
        render(".");
        render("length");
+       render("(");
+       render(")");
        if (_i_ > 15) render(_R_PAREN);
     }
     else     if (foo instanceof lang.Absyn.ERand _erand)
@@ -1008,6 +1088,8 @@ public class PrettyPrinter
        pp(_etypecast.ident_, 0);
        render(".");
        pp(_etypecast.typecast_, 0);
+       render("(");
+       render(")");
        if (_i_ > 16) render(_R_PAREN);
     }
     else     if (foo instanceof lang.Absyn.ELambda _elambda)
@@ -1528,6 +1610,35 @@ public class PrettyPrinter
        render("]");
        render(")");
     }
+    if (foo instanceof lang.Absyn.STryCatch _strycatch)
+    {
+        render("(");
+       render("STryCatch");
+       render("[");
+       sh(_strycatch.liststm_1);
+       render("]");
+       sh(_strycatch.ident_);
+       render("[");
+       sh(_strycatch.liststm_2);
+       render("]");
+       render(")");
+    }
+    if (foo instanceof lang.Absyn.STryCatchFinally _strycatchfinally)
+    {
+        render("(");
+       render("STryCatchFinally");
+       render("[");
+       sh(_strycatchfinally.liststm_1);
+       render("]");
+       sh(_strycatchfinally.ident_);
+       render("[");
+       sh(_strycatchfinally.liststm_2);
+       render("]");
+       render("[");
+       sh(_strycatchfinally.liststm_3);
+       render("]");
+       render(")");
+    }
     if (foo instanceof lang.Absyn.SPrint _sprint)
     {
         render("(");
@@ -1542,6 +1653,13 @@ public class PrettyPrinter
     if (foo instanceof lang.Absyn.SContinue _scontinue)
     {
         render("SContinue");
+    }
+    if (foo instanceof lang.Absyn.SThrow _sthrow)
+    {
+        render("(");
+       render("SThrow");
+       sh(_sthrow.exp_);
+       render(")");
     }
     if (foo instanceof lang.Absyn.InitialiseStm _initialisestm)
     {
@@ -1601,6 +1719,15 @@ public class PrettyPrinter
        sh(_sremove.exp_);
        render(")");
     }
+    if (foo instanceof lang.Absyn.SSet _sset)
+    {
+        render("(");
+       render("SSet");
+       sh(_sset.ident_);
+       sh(_sset.exp_1);
+       sh(_sset.exp_2);
+       render(")");
+    }
     if (foo instanceof lang.Absyn.SReturn _sreturn)
     {
         render("(");
@@ -1617,15 +1744,6 @@ public class PrettyPrinter
        render("[");
        sh(_sobjinit.listexp_);
        render("]");
-       render(")");
-    }
-    if (foo instanceof lang.Absyn.SConstInit _sconstinit)
-    {
-        render("(");
-       render("SConstInit");
-       sh(_sconstinit.vartype_);
-       sh(_sconstinit.ident_);
-       sh(_sconstinit.exp_);
        render(")");
     }
     if (foo instanceof lang.Absyn.IfS _ifs)
@@ -1944,6 +2062,14 @@ public class PrettyPrinter
        sh(_eid.ident_);
        render(")");
     }
+    if (foo instanceof lang.Absyn.EType _etype)
+    {
+        render("(");
+       render("EType");
+       sh(_etype.ident_);
+       sh(_etype.vartype_);
+       render(")");
+    }
     if (foo instanceof lang.Absyn.EListItem _elistitem)
     {
         render("(");
@@ -1984,9 +2110,23 @@ public class PrettyPrinter
        sh(_elistsize.ident_);
        render(")");
     }
+    if (foo instanceof lang.Absyn.EListIsEmpty _elistisempty)
+    {
+        render("(");
+       render("EListIsEmpty");
+       sh(_elistisempty.ident_);
+       render(")");
+    }
     if (foo instanceof lang.Absyn.EInput _einput)
     {
         render("EInput");
+    }
+    if (foo instanceof lang.Absyn.EInputString _einputstring)
+    {
+        render("(");
+       render("EInputString");
+       sh(_einputstring.string_);
+       render(")");
     }
     if (foo instanceof lang.Absyn.EStrLength _estrlength)
     {

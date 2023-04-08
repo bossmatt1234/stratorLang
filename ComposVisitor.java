@@ -95,6 +95,41 @@ public class ComposVisitor<A> implements
       }
       return new lang.Absyn.DefClassInherits(ident_1, ident_2, liststm_);
     }
+    public lang.Absyn.Stm visit(lang.Absyn.STryCatch p, A arg)
+    {
+      lang.Absyn.ListStm liststm_1 = new lang.Absyn.ListStm();
+      for (lang.Absyn.Stm x : p.liststm_1)
+      {
+        liststm_1.add(x.accept(this,arg));
+      }
+      String ident_ = p.ident_;
+      lang.Absyn.ListStm liststm_2 = new lang.Absyn.ListStm();
+      for (lang.Absyn.Stm x : p.liststm_2)
+      {
+        liststm_2.add(x.accept(this,arg));
+      }
+      return new lang.Absyn.STryCatch(liststm_1, ident_, liststm_2);
+    }
+    public lang.Absyn.Stm visit(lang.Absyn.STryCatchFinally p, A arg)
+    {
+      lang.Absyn.ListStm liststm_1 = new lang.Absyn.ListStm();
+      for (lang.Absyn.Stm x : p.liststm_1)
+      {
+        liststm_1.add(x.accept(this,arg));
+      }
+      String ident_ = p.ident_;
+      lang.Absyn.ListStm liststm_2 = new lang.Absyn.ListStm();
+      for (lang.Absyn.Stm x : p.liststm_2)
+      {
+        liststm_2.add(x.accept(this,arg));
+      }
+      lang.Absyn.ListStm liststm_3 = new lang.Absyn.ListStm();
+      for (lang.Absyn.Stm x : p.liststm_3)
+      {
+        liststm_3.add(x.accept(this,arg));
+      }
+      return new lang.Absyn.STryCatchFinally(liststm_1, ident_, liststm_2, liststm_3);
+    }
     public lang.Absyn.Stm visit(lang.Absyn.SPrint p, A arg)
     {
       lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
@@ -107,6 +142,11 @@ public class ComposVisitor<A> implements
     public lang.Absyn.Stm visit(lang.Absyn.SContinue p, A arg)
     {
       return new lang.Absyn.SContinue();
+    }
+    public lang.Absyn.Stm visit(lang.Absyn.SThrow p, A arg)
+    {
+      lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
+      return new lang.Absyn.SThrow(exp_);
     }
     public lang.Absyn.Stm visit(lang.Absyn.InitialiseStm p, A arg)
     {
@@ -150,6 +190,13 @@ public class ComposVisitor<A> implements
       lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
       return new lang.Absyn.SRemove(ident_, exp_);
     }
+    public lang.Absyn.Stm visit(lang.Absyn.SSet p, A arg)
+    {
+      String ident_ = p.ident_;
+      lang.Absyn.Exp exp_1 = p.exp_1.accept(this, arg);
+      lang.Absyn.Exp exp_2 = p.exp_2.accept(this, arg);
+      return new lang.Absyn.SSet(ident_, exp_1, exp_2);
+    }
     public lang.Absyn.Stm visit(lang.Absyn.SReturn p, A arg)
     {
       lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
@@ -165,13 +212,6 @@ public class ComposVisitor<A> implements
         listexp_.add(x.accept(this,arg));
       }
       return new lang.Absyn.SObjInit(ident_1, ident_2, listexp_);
-    }
-    public lang.Absyn.Stm visit(lang.Absyn.SConstInit p, A arg)
-    {
-      lang.Absyn.VarType vartype_ = p.vartype_.accept(this, arg);
-      String ident_ = p.ident_;
-      lang.Absyn.Exp exp_ = p.exp_.accept(this, arg);
-      return new lang.Absyn.SConstInit(vartype_, ident_, exp_);
     }
     public lang.Absyn.Stm visit(lang.Absyn.IfS p, A arg)
     {
@@ -417,6 +457,12 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       return new lang.Absyn.EId(ident_);
     }
+    public lang.Absyn.Exp visit(lang.Absyn.EType p, A arg)
+    {
+      String ident_ = p.ident_;
+      lang.Absyn.VarType vartype_ = p.vartype_.accept(this, arg);
+      return new lang.Absyn.EType(ident_, vartype_);
+    }
     public lang.Absyn.Exp visit(lang.Absyn.EListItem p, A arg)
     {
       String ident_ = p.ident_;
@@ -449,9 +495,19 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       return new lang.Absyn.EListSize(ident_);
     }
+    public lang.Absyn.Exp visit(lang.Absyn.EListIsEmpty p, A arg)
+    {
+      String ident_ = p.ident_;
+      return new lang.Absyn.EListIsEmpty(ident_);
+    }
     public lang.Absyn.Exp visit(lang.Absyn.EInput p, A arg)
     {
       return new lang.Absyn.EInput();
+    }
+    public lang.Absyn.Exp visit(lang.Absyn.EInputString p, A arg)
+    {
+      String string_ = p.string_;
+      return new lang.Absyn.EInputString(string_);
     }
     public lang.Absyn.Exp visit(lang.Absyn.EStrLength p, A arg)
     {

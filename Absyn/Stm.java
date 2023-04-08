@@ -9,9 +9,12 @@ public abstract class Stm implements java.io.Serializable {
     R visit(lang.Absyn.DefConstructor p, A arg);
     R visit(lang.Absyn.DefClass p, A arg);
     R visit(lang.Absyn.DefClassInherits p, A arg);
+    R visit(lang.Absyn.STryCatch p, A arg);
+    R visit(lang.Absyn.STryCatchFinally p, A arg);
     R visit(lang.Absyn.SPrint p, A arg);
     R visit(lang.Absyn.SBreak p, A arg);
     R visit(lang.Absyn.SContinue p, A arg);
+    R visit(lang.Absyn.SThrow p, A arg);
     R visit(lang.Absyn.InitialiseStm p, A arg);
     R visit(lang.Absyn.DeclareStm p, A arg);
     R visit(lang.Absyn.AssignStm p, A arg);
@@ -20,9 +23,9 @@ public abstract class Stm implements java.io.Serializable {
     R visit(lang.Absyn.SCall p, A arg);
     R visit(lang.Absyn.SAppend p, A arg);
     R visit(lang.Absyn.SRemove p, A arg);
+    R visit(lang.Absyn.SSet p, A arg);
     R visit(lang.Absyn.SReturn p, A arg);
     R visit(lang.Absyn.SObjInit p, A arg);
-    R visit(lang.Absyn.SConstInit p, A arg);
     R visit(lang.Absyn.IfS p, A arg);
     R visit(lang.Absyn.Block p, A arg);
 

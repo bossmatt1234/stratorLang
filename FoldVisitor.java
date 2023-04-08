@@ -67,6 +67,34 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       }
       return r;
     }
+    public R visit(lang.Absyn.STryCatch p, A arg) {
+      R r = leaf(arg);
+      for (lang.Absyn.Stm x : p.liststm_1)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      for (lang.Absyn.Stm x : p.liststm_2)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      return r;
+    }
+    public R visit(lang.Absyn.STryCatchFinally p, A arg) {
+      R r = leaf(arg);
+      for (lang.Absyn.Stm x : p.liststm_1)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      for (lang.Absyn.Stm x : p.liststm_2)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      for (lang.Absyn.Stm x : p.liststm_3)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      return r;
+    }
     public R visit(lang.Absyn.SPrint p, A arg) {
       R r = leaf(arg);
       r = combine(p.exp_.accept(this, arg), r, arg);
@@ -78,6 +106,11 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     }
     public R visit(lang.Absyn.SContinue p, A arg) {
       R r = leaf(arg);
+      return r;
+    }
+    public R visit(lang.Absyn.SThrow p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.exp_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(lang.Absyn.InitialiseStm p, A arg) {
@@ -120,6 +153,12 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.exp_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(lang.Absyn.SSet p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.exp_1.accept(this, arg), r, arg);
+      r = combine(p.exp_2.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(lang.Absyn.SReturn p, A arg) {
       R r = leaf(arg);
       r = combine(p.exp_.accept(this, arg), r, arg);
@@ -131,12 +170,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       {
         r = combine(x.accept(this, arg), r, arg);
       }
-      return r;
-    }
-    public R visit(lang.Absyn.SConstInit p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.vartype_.accept(this, arg), r, arg);
-      r = combine(p.exp_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(lang.Absyn.IfS p, A arg) {
@@ -351,6 +384,11 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       return r;
     }
+    public R visit(lang.Absyn.EType p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.vartype_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(lang.Absyn.EListItem p, A arg) {
       R r = leaf(arg);
       r = combine(p.exp_.accept(this, arg), r, arg);
@@ -378,7 +416,15 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       return r;
     }
+    public R visit(lang.Absyn.EListIsEmpty p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
     public R visit(lang.Absyn.EInput p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+    public R visit(lang.Absyn.EInputString p, A arg) {
       R r = leaf(arg);
       return r;
     }

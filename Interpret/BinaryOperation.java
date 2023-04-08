@@ -59,9 +59,21 @@ public class BinaryOperation implements Eval {
             case "VListVList" ->{
                 return eval((VList) leftVal, (VList) rightVal,op);
             }
+            case "VFuncVFunc" ->{
+                return eval((VFunc) leftVal, (VFunc) rightVal,op);
+            }
             default ->{return null;}
         }
     }
+
+    private Val eval(VFunc leftVal, VFunc rightVal, Operator op) {
+        if(op == ASSIGN){
+            return rightVal;
+        }else{
+            return null;
+        }
+    }
+
     @Override
     public Val eval(VInteger x, VInteger y, Operator op) {
         switch (op) {

@@ -71,6 +71,31 @@ public class VisitSkel
       }
       return null;
     }
+    public R visit(lang.Absyn.STryCatch p, A arg)
+    { /* Code for STryCatch goes here */
+      for (lang.Absyn.Stm x: p.liststm_1) {
+        x.accept(new StmVisitor<R,A>(), arg);
+      }
+      //p.ident_;
+      for (lang.Absyn.Stm x: p.liststm_2) {
+        x.accept(new StmVisitor<R,A>(), arg);
+      }
+      return null;
+    }
+    public R visit(lang.Absyn.STryCatchFinally p, A arg)
+    { /* Code for STryCatchFinally goes here */
+      for (lang.Absyn.Stm x: p.liststm_1) {
+        x.accept(new StmVisitor<R,A>(), arg);
+      }
+      //p.ident_;
+      for (lang.Absyn.Stm x: p.liststm_2) {
+        x.accept(new StmVisitor<R,A>(), arg);
+      }
+      for (lang.Absyn.Stm x: p.liststm_3) {
+        x.accept(new StmVisitor<R,A>(), arg);
+      }
+      return null;
+    }
     public R visit(lang.Absyn.SPrint p, A arg)
     { /* Code for SPrint goes here */
       p.exp_.accept(new ExpVisitor<R,A>(), arg);
@@ -82,6 +107,11 @@ public class VisitSkel
     }
     public R visit(lang.Absyn.SContinue p, A arg)
     { /* Code for SContinue goes here */
+      return null;
+    }
+    public R visit(lang.Absyn.SThrow p, A arg)
+    { /* Code for SThrow goes here */
+      p.exp_.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }
     public R visit(lang.Absyn.InitialiseStm p, A arg)
@@ -126,6 +156,13 @@ public class VisitSkel
       p.exp_.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }
+    public R visit(lang.Absyn.SSet p, A arg)
+    { /* Code for SSet goes here */
+      //p.ident_;
+      p.exp_1.accept(new ExpVisitor<R,A>(), arg);
+      p.exp_2.accept(new ExpVisitor<R,A>(), arg);
+      return null;
+    }
     public R visit(lang.Absyn.SReturn p, A arg)
     { /* Code for SReturn goes here */
       p.exp_.accept(new ExpVisitor<R,A>(), arg);
@@ -138,13 +175,6 @@ public class VisitSkel
       for (lang.Absyn.Exp x: p.listexp_) {
         x.accept(new ExpVisitor<R,A>(), arg);
       }
-      return null;
-    }
-    public R visit(lang.Absyn.SConstInit p, A arg)
-    { /* Code for SConstInit goes here */
-      p.vartype_.accept(new VarTypeVisitor<R,A>(), arg);
-      //p.ident_;
-      p.exp_.accept(new ExpVisitor<R,A>(), arg);
       return null;
     }
     public R visit(lang.Absyn.IfS p, A arg)
@@ -372,6 +402,12 @@ public class VisitSkel
       //p.ident_;
       return null;
     }
+    public R visit(lang.Absyn.EType p, A arg)
+    { /* Code for EType goes here */
+      //p.ident_;
+      p.vartype_.accept(new VarTypeVisitor<R,A>(), arg);
+      return null;
+    }
     public R visit(lang.Absyn.EListItem p, A arg)
     { /* Code for EListItem goes here */
       //p.ident_;
@@ -402,8 +438,18 @@ public class VisitSkel
       //p.ident_;
       return null;
     }
+    public R visit(lang.Absyn.EListIsEmpty p, A arg)
+    { /* Code for EListIsEmpty goes here */
+      //p.ident_;
+      return null;
+    }
     public R visit(lang.Absyn.EInput p, A arg)
     { /* Code for EInput goes here */
+      return null;
+    }
+    public R visit(lang.Absyn.EInputString p, A arg)
+    { /* Code for EInputString goes here */
+      //p.string_;
       return null;
     }
     public R visit(lang.Absyn.EStrLength p, A arg)

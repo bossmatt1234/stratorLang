@@ -7,13 +7,6 @@ public class VString extends Val{
         this.val = x;
     }
 
-    public void setDynamic(boolean x){
-        if(x){
-            this.type = Type.TAuto;
-        }else{
-            this.type = Type.TString;
-        }
-    }
 
     @Override
     public String toString() {

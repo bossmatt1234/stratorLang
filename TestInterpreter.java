@@ -2,14 +2,16 @@
 
 package lang;
 
+import lang.Interpret.*;
 import lang.Interpret.Exceptions.CommonError;
-import lang.Interpret.Interpreter;
+import lang.Interpret.Exceptions.LoopCtrlStmException;
+import lang.Interpret.Exceptions.ReturnErrorException;
+import lang.Interpret.Exceptions.ThrowErrorException;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.Arrays;
 
 
 public class TestInterpreter
@@ -41,19 +43,30 @@ public class TestInterpreter
       i.interpret(ast);
   }
 
-  public static void main(String[] args) throws Exception
+  public static void main(String[] args)
   {
     TestInterpreter t = new TestInterpreter(args);
-    try
-    {
+    try {
       t.interpret();
+    }catch(Return val) {
+        ReturnErrorException err = new ReturnErrorException(val.lineNum, val.colNum);
+        System.out.println(err.getMessage());
+    }catch(Continue val) {
+        LoopCtrlStmException err = new LoopCtrlStmException(val.lineNum, val.colNum, "Continue");
+        System.out.println(err.getMessage());
     }
-    catch(CommonError e)
-    {
+    catch(Break val) {
+        LoopCtrlStmException err = new LoopCtrlStmException(val.lineNum, val.colNum, "Break");
+        System.out.println(err.getMessage());
+    }
+    catch(Throw val) {
+        ThrowErrorException err = new ThrowErrorException(val.lineNum, val.colNum);
+        System.out.println(err.getMessage());
+    }
+    catch(CommonError e) {
       System.err.println(" \n " + e.getMessage() + "\n");
       System.exit(1);
-    }
-    catch (Throwable e){
+    }catch (Throwable e){
         System.err.println(" \n Java error:");
         System.err.println("     Message: " + e.getMessage());
         System.err.println("     Cause: " + e.getCause());

@@ -6,6 +6,7 @@ __Strator__ is a programming language designed to assess and gain insights into 
 ## Language Features:
  * Paradigm selection (Functional) mode. Use the language in an experimental _functional_ mode, where you are restricted from using imperative constructs of the language
  * Runtime Errors, with some enhancements geared towards education
+ * Error Handling with Try / Catch / Finally blocks, along with _throw_ statement
  * Primitive types
     * Integer
     * Double
@@ -14,6 +15,8 @@ __Strator__ is a programming language designed to assess and gain insights into 
     * Boolean
  * Strong Typing
  * Type casting
+ * Check Type of Variables with _isType(TYPE)_
+ * Check length of string with _length()_
  * Block scoping
  * Basic Operations
     * Adding, Subtracting, Multiplying, Dividing, Exponentiation
@@ -26,11 +29,13 @@ __Strator__ is a programming language designed to assess and gain insights into 
  * Lists
    * Append
    * Remove at index
-   * Sizeof
+   * Replace item at index
+   * _isEmpty()_ function
+   * _size()_ function
    * _.with()_ and _.without()_ element expressions
  * Functions
    * First-class
-   * Closures
+   * Closures for inner functions
    * Lambdas
    * Map / Filter / Reduce functions
  * Object Orientation
@@ -46,7 +51,7 @@ __Strator__ is a programming language designed to assess and gain insights into 
    * _Repeat_ loop over a list
    * _Repeat in Range_ (Python _in range_ loop), with _start_, _stop_ and _end_ parameters
  * Continue, break, return statements
- * Random Integer generator function with _randomInt()_ function
+ * Random Integer generator with _randomInt()_ function
  * Comments with __## ##__ tags
 
 ## Installation, Syntax Highlighter and Instructions
@@ -93,6 +98,8 @@ List are specified in squared brackets. Some basic operation on lists include:
 * appending to a list variable
 * removing an item at an index of the variable list
 * get the size of the list 
+* replace item at index with another item 
+* get whether the list is empty
 * return a new list with the added item of a list 
 * return a new list with the removed item at an index of a list
 ### Input expression
@@ -103,11 +110,19 @@ The _input()_ expression interrupts the program and asks the user for an input.
 ![Cast](docs/examples/cast.png "Type casting")
 
 Type casting can be done using the 5 possible casting functions:
-* _toInt_
-* _toDouble_
-* _toString_
-* _toChar_
-* _toBool_
+* _toInt()_
+* _toDouble()_
+* _toString()_
+* _toChar()_
+* _toBool()_
+### Type check function
+![isType](docs/examples/checkType.png "Type check variable")
+
+You can check the type of variable with the _isType()_ function.
+### String length
+![String Length](docs/examples/stringLength.png "String Length")
+
+You can check the length of a string variable with the _length()_ function.
 ### Scoping
 ![Block](docs/examples/block.png "Block scoping")
 
@@ -128,7 +143,7 @@ Functions and Lambdas provide the following functionalities:
 #### Closure 
 ![Closure](docs/examples/closure.png "Closure")
 
-Using the closure, you can use and return inner functions and variables.
+Inner functions store outer function variables.
 ### Loops and iteration-specific statements
 #### While loop
 ![While](docs/examples/while.png "While")
@@ -142,7 +157,7 @@ Three steps are needed for the Repeat loop:
 2. Specify the condition to be checked before repeating the statements, for example (i < 10)
 3. Specify how the variable will change for each loop, for example (i++, i+=2)
 
-The loop construct will continue until the condition is true. You can bypass the first step and work with local variables, but at the moment, the initialiser needs to be specified for the Lexer.
+The loop construct will continue until the condition is true. You can bypass the first step and work with local variables, but at the moment, the initializer needs to be specified for the Lexer.
 #### Repeat in List
 ![RepeatInList](docs/examples/repeatList.png "RepeatInList")
 
@@ -178,7 +193,11 @@ You can create additional methods that are exclusive to the child class, and you
 
 Object variables are instantiated with the _object_ keyword and the _new_ keyword and object call on the right side.
 You can access methods and variables using the object name.
-### Functional constructs
+### Try / Catch / Finally
+![Try/Catch/Finally](docs/examples/try.png "Error Handling")
+
+For Error Handling, you can use the Try/Catch or Try/Catch/Finally blocks to catch runtime errors or _throw_ statements.
+### Map / Reduce / Filter functions
 #### Map
 ![Map](docs/examples/map.png "Map function")
 
