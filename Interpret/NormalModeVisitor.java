@@ -737,7 +737,6 @@ public class NormalModeVisitor {
                 env.emptyBlock();
                 return env;
             }
-            env.emptyBlock();
             return env;
         }
     }
