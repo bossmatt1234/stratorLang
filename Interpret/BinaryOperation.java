@@ -87,7 +87,12 @@ public class BinaryOperation implements Eval {
                 return new VInteger(x.val * y.val);
             }
             case DIVIDE -> {
-                return new VInteger(x.val / y.val);
+                if(x.val % y.val == 0){
+                    return new VInteger(x.val / y.val);
+                }else{
+                    double result = (double) x.val / y.val;
+                    return new VDouble(result);
+                }
             }
             case EXPONENT -> {
                 return new VInteger(IntMath.checkedPow(x.val,y.val));
