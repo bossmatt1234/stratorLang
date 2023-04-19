@@ -206,11 +206,6 @@ Functions need to have 1 single parameter specified for this construct.
 #### Filter
 ![Filter](docs/examples/filter.png "Filter function")
 
-The _filter_ function filters a given list based on the given function's return condition. 
-Functions need to have 1 single parameter specified for this construct.
-#### Filter
-![Filter](docs/examples/filter.png "Filter function")
-
 The _filter_ function filters a given list based on if the given function's boolean return value.
 Functions need to have 1 single parameter specified for this construct.
 #### Reduce
