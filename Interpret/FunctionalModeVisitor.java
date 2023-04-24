@@ -48,12 +48,12 @@ public class FunctionalModeVisitor {
         }
     }
 
-    public Val execObjectMethod(Val method, ObjectVar objectVar, Env env,
+    public Val execObjectMethod(Val method, ObjectVar objectVar,  ObjectDef def, Env env,
                                 ListExp listExp, int lineNum, int columnNum){
         //  Block 1 - object variables
         env.contexts.addLast(objectVar.objectVars);
         // Block 2 - class methods
-        env.newBlock();
+        env.contexts.addLast(def.defMethods);
 
         VFunc methodVal = (VFunc) method;
         Function funcToExec = methodVal.val;
@@ -301,7 +301,7 @@ public class FunctionalModeVisitor {
             newObject.ofClass = objectDef.className;
             newObject.objectVars.putAll(objectDef.defVals);
             if(objectDef.isConstructorSet){
-                execObjectMethod(objectDef.constructor,newObject,env, p.listexp_,p.line_num,p.col_num);
+                execObjectMethod(objectDef.constructor,newObject,objectDef,env, p.listexp_,p.line_num,p.col_num);
             }
             return env.extendEnvVar(p.ident_1, new VObject(newObject));
         }
@@ -846,7 +846,7 @@ public class FunctionalModeVisitor {
                 throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass,objectDef.defMethods);
             }
             return execObjectMethod(
-                    env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar,
+                    env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar, objectDef,
                     env, p.listexp_, p.line_num,p.col_num);
         }
         public Val visit(EPow p, Env env)
