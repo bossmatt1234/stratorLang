@@ -6,13 +6,11 @@ import lang.Interpret.Val;
 import java.util.HashMap;
 
 public class LookUpVarException extends CommonError{
-
     String ident;
     String similar;
     public LookUpVarException(int lineNum, int columnName, String ident, HashMap<String, Val> context) {
         super(lineNum, columnName);
         this.ident = ident;
-
         NormalizedLevenshtein l = new NormalizedLevenshtein();
         String similar = "";
         double distance = 1.0;
@@ -27,14 +25,12 @@ public class LookUpVarException extends CommonError{
         }else{
             this.similar = "Did you mean {" + similar + "}?";
         }
-
         getMessage();
     }
-
     @Override
     public String getMessage() {
         return trace + "Lookup error: Identifier {" + ident + "} has not been found in context. " + similar;
     }
-
-
 }
+
+

@@ -8,8 +8,6 @@ public class CommonError extends RuntimeException{
 
     public CommonError(int lineNum, int columnName){
         this.trace = "At line " + lineNum + ", column " + columnName + ": \n \t";
-
-        getMessage();
     }
 
 
@@ -19,3 +17,5 @@ public class CommonError extends RuntimeException{
 
 
 }
+
+

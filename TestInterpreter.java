@@ -18,7 +18,6 @@ public class TestInterpreter
 {
   Yylex l;
   parser p;
-
   public TestInterpreter(String[] args)
   {
     try

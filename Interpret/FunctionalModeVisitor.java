@@ -382,8 +382,7 @@ public class FunctionalModeVisitor {
         }
     }
     public static class Stm_AssignVisitor implements Stm_Assign.Visitor<Object,Env>
-    {
-        public Object visit(SAssign p, Env env)
+    { public Object visit(SAssign p, Env env)
         { /* Code for SAssign goes here */
             //p.ident_;
             throw new FuncModeAssignException(p.line_num,p.col_num, p.ident_);

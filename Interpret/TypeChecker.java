@@ -40,40 +40,26 @@ public class TypeChecker implements Checker{
     private boolean isType(Type type, VObject val) {
         return val.type == type;
     }
-
     private boolean isType(Type type, VFunc val) {
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VInteger val){
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VDouble val) {
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VBool val) {
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VString val) {
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VChar val) {
         return val.type == type;
     }
-
-    @Override
     public boolean isType(Type type, VList val) {
         if(val.listVal.isEmpty()) return true;
-
         if(val.listVal.get(0).type == Type.TAuto ){
             return true;
         }

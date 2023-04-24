@@ -47,13 +47,13 @@ public class NormalModeVisitor {
         }
     }
 
-    public Val execObjectMethod(Val method, ObjectVar objectVar, Env env,
+    public Val execObjectMethod(Val method, ObjectVar objectVar, ObjectDef def, Env env,
                                 ListExp listExp, int lineNum, int columnNum){
         //  Block 1 - object variables
         env.contexts.addLast(objectVar.objectVars);
         // Block 2 - class methods
-        env.newBlock();
-
+        env.contexts.addLast(def.defMethods);
+        
         VFunc methodVal = (VFunc) method;
         Function funcToExec = methodVal.val;
         HashMap<String,Val> args = new HashMap<>();
@@ -70,7 +70,6 @@ public class NormalModeVisitor {
             i++;
         }
         // Block 3 - object call parameters
-
         env.newBlock();
         for (HashMap.Entry<String, Val> entry: args.entrySet() ){
             env.extendEnvVar(entry.getKey(),entry.getValue());
@@ -170,10 +169,7 @@ public class NormalModeVisitor {
             return env.extendEnvVar("$constructor$", new VFunc(constructor, Type.TVoid));
         }
         public Object visit(lang.Absyn.DefClass p, Env env)
-        { /* Code for DefClass goes here */
-            //p.ident_;
-            ObjectDef objectDef = new ObjectDef(p.ident_);
-
+        {   ObjectDef objectDef = new ObjectDef(p.ident_);
             for (lang.Absyn.Stm x: p.liststm_) {
                 env.newBlock();
                 if(x instanceof SPrint)
@@ -294,18 +290,14 @@ public class NormalModeVisitor {
                 }
                 env.emptyBlock();
             }catch(Throw stm){
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyBlock();env.newBlock();
                 env.extendEnvVar(p.ident_,stm.returnVal);
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
                 env.emptyBlock();
             } catch (CommonError e) {
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyBlock();env.newBlock();
                 env.extendEnvVar(p.ident_, new VString(e.getMessage()));
                 for (Stm x : p.liststm_2) {
                     x.accept(new StmVisitor(), env);
@@ -383,8 +375,7 @@ public class NormalModeVisitor {
         }
 
         public Object visit(lang.Absyn.SReturn p, Env env)
-        { /* Code for SReturn goes here */
-
+        {
             throw new Return(p.exp_.accept(new ExpVisitor(), env), p.line_num, p.col_num);
         }
 
@@ -397,12 +388,12 @@ public class NormalModeVisitor {
             newObject.ofClass = objectDef.className;
             newObject.objectVars.putAll(objectDef.defVals);
             if(objectDef.isConstructorSet){
-                execObjectMethod(objectDef.constructor,newObject,env, p.listexp_,p.line_num,p.col_num);
+                execObjectMethod(objectDef.constructor,newObject, objectDef, env, p.listexp_,p.line_num,p.col_num);
             }
             return env.extendEnvVar(p.ident_1, new VObject(newObject));
         }
 
-
+        @Override
         public Object visit(lang.Absyn.SBreak p, Env env)
         { /* Code for SBreak goes here */
             throw new Break(p.line_num, p.col_num);
@@ -690,7 +681,6 @@ public class NormalModeVisitor {
 
         public Env visit(lang.Absyn.SCLoop p, Env env)
         { /* Code for SCLoop goes here */
-
             p.stm_initialise_.accept(new Stm_InitialiseVisitor(), env);
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             try{
@@ -1088,7 +1078,7 @@ public class NormalModeVisitor {
                     env, p.ident_2,
                     p.line_num, p.col_num);
         }
-        @Override
+
         public Val visit(ESelectListItem p, Env env) {
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
@@ -1109,7 +1099,7 @@ public class NormalModeVisitor {
                 throw new ArgNumError(p.line_num,p.col_num,funcToExec.args.size(),p.listexp_.size());
             }
 
-            // Block 1 - Function variables
+
             //Adding given arguments to list
             HashMap<String,Val> args = new HashMap<>();
             int i=0;
@@ -1122,6 +1112,7 @@ public class NormalModeVisitor {
                 args.put(funcToExec.args.get(i).ident, newval);
                 i++;
             }
+            // Block 1 - Function closure
             env.contexts.addLast(funcToExec.closure);
             // Block 2 - function call parameters
             env.newBlock();
@@ -1130,7 +1121,7 @@ public class NormalModeVisitor {
             for (HashMap.Entry<String, Val> entry: args.entrySet() ){
                 env.extendEnvVar(entry.getKey(),entry.getValue());
             }
-                //Execute function in block of parameters
+                //Execute function in block of parameters context
 
             execFunc(funcToExec.listStm, env, funcToExec, val.funcType);
             // Empty Block 2
@@ -1142,9 +1133,7 @@ public class NormalModeVisitor {
             return funcToExec.returnVal;
         }
         public Val visit(lang.Absyn.EObjCall p, Env env)
-        { /* Code for EObjCall goes here */
-            //p.ident_1;
-            //p.ident_2;
+        {
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
             ObjectDef objectDef = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num);
@@ -1153,7 +1142,7 @@ public class NormalModeVisitor {
                 throw new NullMethodException(p.line_num,p.col_num,p.ident_2,objectVar.ofClass,objectDef.defMethods);
             }
             return execObjectMethod(
-                    env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar,
+                    env.lookupDef(objectVar.ofClass,p.line_num, p.col_num).lookUpMethod(p.ident_2), objectVar, objectDef,
                     env, p.listexp_, p.line_num,p.col_num);
         }
         public Val visit(lang.Absyn.EPow p, Env env)
@@ -1175,7 +1164,6 @@ public class NormalModeVisitor {
             return doBinaryOperation(x, y, DIVIDE,p.line_num, p.col_num);
         }
 
-        @Override
         public Val visit(EMod p, Env env) {
             Val x = p.exp_1.accept(new ExpVisitor(), env);
             Val y = p.exp_2.accept(new ExpVisitor(), env);

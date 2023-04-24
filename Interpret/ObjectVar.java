@@ -9,3 +9,5 @@ public class ObjectVar {
     public HashMap<String, Val> objectVars = new HashMap<>();
     String ofClass;
 }
+
+

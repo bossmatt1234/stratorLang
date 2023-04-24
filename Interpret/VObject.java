@@ -8,9 +8,5 @@ public class VObject extends Val{
         this.val = val;
     }
 
-    public VObject updateObj(ObjectVar var){
-        this.type = Type.TObject;
-        this.val = var;
-        return this;
-    }
 }
+
