@@ -53,7 +53,7 @@ public class NormalModeVisitor {
         env.contexts.addLast(objectVar.objectVars);
         // Block 2 - class methods
         env.contexts.addLast(def.defMethods);
-        
+
         VFunc methodVal = (VFunc) method;
         Function funcToExec = methodVal.val;
         HashMap<String,Val> args = new HashMap<>();
