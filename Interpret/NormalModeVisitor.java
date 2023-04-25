@@ -28,6 +28,7 @@ public class NormalModeVisitor {
                 x.accept(new NormalModeVisitor.StmVisitor(), env);
             }
         }catch(Return val){
+
             if(new TypeChecker().check(type, val.returnVal, val.lineNum, val.colNum)){
                 function.returnVal = val.returnVal;
                 function.returnVal.type = type;
@@ -253,6 +254,7 @@ public class NormalModeVisitor {
 
         @Override
         public Object visit(STryCatch p, Env env) {
+            int envCurrentSize = env.contexts.size();
             try{
                 env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_1) {
@@ -260,18 +262,14 @@ public class NormalModeVisitor {
                 }
                 env.emptyBlock();
             }catch(Throw stm){
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_,stm.returnVal);
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
                 env.emptyBlock();
             } catch (CommonError e) {
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_, new VString(e.getMessage()));
                 for (Stm x : p.liststm_2) {
                     x.accept(new StmVisitor(), env);
@@ -283,6 +281,7 @@ public class NormalModeVisitor {
 
         @Override
         public Object visit(STryCatchFinally p, Env env) {
+            int envCurrentSize = env.contexts.size();
             try{
                 env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_1) {
@@ -290,14 +289,14 @@ public class NormalModeVisitor {
                 }
                 env.emptyBlock();
             }catch(Throw stm){
-                env.emptyBlock();env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_,stm.returnVal);
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
                 env.emptyBlock();
             } catch (CommonError e) {
-                env.emptyBlock();env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_, new VString(e.getMessage()));
                 for (Stm x : p.liststm_2) {
                     x.accept(new StmVisitor(), env);
@@ -358,8 +357,6 @@ public class NormalModeVisitor {
             VInteger val = (VInteger) p.exp_.accept(new ExpVisitor(), env);
             return ((VList) env.lookupVar(p.ident_,p.line_num, p.col_num)).listVal.remove(val.val);
         }
-
-
 
         @Override
         public Object visit(SSet p, Env env) {
@@ -766,17 +763,17 @@ public class NormalModeVisitor {
         { /* Code for SIfElse goes here */
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             if(condition.val){
-                env.newBlock();
+
                 for (lang.Absyn.Stm x: p.liststm_1) {
                     x.accept(new StmVisitor(), env);
                 }
-                env.emptyBlock();
+
             }else{
-                env.newBlock();
+
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
-                env.emptyBlock();
+
             }
             return env;
         }

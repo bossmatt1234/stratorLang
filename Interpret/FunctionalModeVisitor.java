@@ -172,6 +172,7 @@ public class FunctionalModeVisitor {
 
         @Override
         public Object visit(STryCatch p, Env env) {
+            int envCurrentSize = env.contexts.size();
             try{
                 env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_1) {
@@ -179,18 +180,14 @@ public class FunctionalModeVisitor {
                 }
                 env.emptyBlock();
             }catch(Throw stm){
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_,stm.returnVal);
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
                 env.emptyBlock();
             } catch (CommonError e) {
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_, new VString(e.getMessage()));
                 for (Stm x : p.liststm_2) {
                     x.accept(new StmVisitor(), env);
@@ -202,6 +199,7 @@ public class FunctionalModeVisitor {
 
         @Override
         public Object visit(STryCatchFinally p, Env env) {
+            int envCurrentSize = env.contexts.size();
             try{
                 env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_1) {
@@ -209,18 +207,14 @@ public class FunctionalModeVisitor {
                 }
                 env.emptyBlock();
             }catch(Throw stm){
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_,stm.returnVal);
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
                 env.emptyBlock();
             } catch (CommonError e) {
-                env.emptyBlock();
-
-                env.newBlock();
+                env.emptyToInitialBlock(envCurrentSize); env.newBlock();
                 env.extendEnvVar(p.ident_, new VString(e.getMessage()));
                 for (Stm x : p.liststm_2) {
                     x.accept(new StmVisitor(), env);
