@@ -750,11 +750,9 @@ public class NormalModeVisitor {
         { /* Code for SIf goes here */
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             if (condition.val){
-                env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_) {
                     x.accept(new StmVisitor(), env);
                 }
-                env.emptyBlock();
             }
 
             return env;
@@ -763,17 +761,13 @@ public class NormalModeVisitor {
         { /* Code for SIfElse goes here */
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             if(condition.val){
-
                 for (lang.Absyn.Stm x: p.liststm_1) {
                     x.accept(new StmVisitor(), env);
                 }
-
             }else{
-
                 for (lang.Absyn.Stm x: p.liststm_2) {
                     x.accept(new StmVisitor(), env);
                 }
-
             }
             return env;
         }
