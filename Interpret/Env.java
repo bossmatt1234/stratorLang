@@ -93,4 +93,10 @@ public class Env {
     public int getScopeType() {
         return scopeType;
     }
+
+    public void emptyToInitialBlock(int currentSize){
+        for (int i = contexts.size() - currentSize; i > 0; i--){
+            this.contexts.removeLast();
+        }
+    }
 }
