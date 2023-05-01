@@ -76,7 +76,7 @@ public class Env {
     }
 
     public void newBlock() {
-        this.contexts.add(ne
+        this.contexts.add(new HashMap<>());
     }
 
     public void emptyBlock() {
