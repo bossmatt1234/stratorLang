@@ -1157,7 +1157,6 @@ public class NormalModeVisitor {
         }
         public Val visit(lang.Absyn.EObjCall p, Env env)
         {
-            int envCurrentSize = env.contexts.size();
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
             ObjectDef objectDef = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num);
