@@ -5,6 +5,7 @@ import lang.Absyn.*;
 import lang.Interpret.Exceptions.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static lang.Interpret.Operator.*;
 import static lang.Interpret.Operator.DECREMENT;
@@ -12,6 +13,7 @@ import static lang.Interpret.Operator.DECREMENT;
 public class NormalModeVisitor {
     BinaryOperation BinaryOperation = new BinaryOperation();
     UnaryOperation UnaryOperation = new UnaryOperation();
+
 
     public Val executeReduce(Val x, Val y, Env env, VFunc func){
         env.newBlock();
@@ -84,6 +86,7 @@ public class NormalModeVisitor {
         objectVar.objectVars = env.contexts.getLast();
         //Empty Block 1
         env.emptyBlock();
+
         return funcToExec.returnVal;
     }
 
@@ -253,6 +256,7 @@ public class NormalModeVisitor {
         }
 
         @Override
+
         public Object visit(STryCatch p, Env env) {
             int envCurrentSize = env.contexts.size();
             try{
@@ -280,6 +284,7 @@ public class NormalModeVisitor {
         }
 
         @Override
+
         public Object visit(STryCatchFinally p, Env env) {
             int envCurrentSize = env.contexts.size();
             try{
@@ -376,13 +381,17 @@ public class NormalModeVisitor {
         }
 
         public Object visit(lang.Absyn.SObjInit p, Env env)
-        { /* Code for SObjInit goes here */
-            //p.ident_1;
-            //p.ident_2;
+        {
             ObjectVar newObject = new ObjectVar();
             ObjectDef objectDef = env.lookupDef(p.ident_2, p.line_num, p.col_num);
             newObject.ofClass = objectDef.className;
-            newObject.objectVars.putAll(objectDef.defVals);
+            newObject.objectVars = new HashMap<>(objectDef.defVals);
+            for(Map.Entry<String, Val> entry: newObject.objectVars.entrySet()){
+                if(entry.getValue() instanceof VList val){
+                    newObject.objectVars.put(entry.getKey(), new VList(new ArrayList<>(val.listVal),val.itemType));
+                }
+                newObject.objectVars.put(entry.getKey(), entry.getValue());
+            }
             if(objectDef.isConstructorSet){
                 execObjectMethod(objectDef.constructor,newObject, objectDef, env, p.listexp_,p.line_num,p.col_num);
             }
@@ -488,8 +497,7 @@ public class NormalModeVisitor {
     public class Stm_LoopVisitor implements lang.Absyn.Stm_Loop.Visitor<Env,Env>
     {
         public Env visit(lang.Absyn.SWhile p, Env env)
-        { /* Code for SWhile goes here */
-
+        {
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             int envCurrentSize = env.contexts.size();
             try{
@@ -504,7 +512,7 @@ public class NormalModeVisitor {
                         }
                     }
                     condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
 
                 }
 
@@ -516,9 +524,8 @@ public class NormalModeVisitor {
         }
 
         @Override
+
         public Env visit(SPLoopIdent p, Env env) {
-            //p.ident_1;
-            //p.ident_2;
             VList list = (VList) env.lookupVar(p.ident_2,p.line_num, p.col_num);
             int envCurrentSize = env.contexts.size();
             try{
@@ -536,7 +543,7 @@ public class NormalModeVisitor {
                             break;
                         }
                     }
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                 }
             }catch (Break stm){
                 env.emptyToInitialBlock(envCurrentSize);
@@ -572,7 +579,7 @@ public class NormalModeVisitor {
                             break;
                         }
                     }
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                 }
             }catch (Break stm){
                 env.emptyToInitialBlock(envCurrentSize);
@@ -582,9 +589,8 @@ public class NormalModeVisitor {
         }
 
         @Override
-        public Env visit(SPLoopRangeStart p, Env env) {
-            //p.ident_;
 
+        public Env visit(SPLoopRangeStart p, Env env) {
             VInteger start = (VInteger) p.exp_.accept(new ExpVisitor(), env);
             VInteger iter = new VInteger(0);
             int envCurrentSize = env.contexts.size();
@@ -602,7 +608,7 @@ public class NormalModeVisitor {
                         }
                     }
                     iter.val++;
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                 }
             }catch (Break stm){
                 env.emptyToInitialBlock(envCurrentSize);
@@ -631,7 +637,7 @@ public class NormalModeVisitor {
                         }
                     }
                     iter.val++;
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                 }
             }catch (Break stm){
                 env.emptyToInitialBlock(envCurrentSize);
@@ -661,7 +667,7 @@ public class NormalModeVisitor {
                                 break;
                             }
                         }
-                        env.emptyBlock();
+                        env.emptyToInitialBlock(envCurrentSize);
                         iter.val+= incr.val;
                     }
                 }else{
@@ -677,7 +683,7 @@ public class NormalModeVisitor {
                                 break;
                             }
                         }
-                        env.emptyBlock();
+                        env.emptyToInitialBlock(envCurrentSize);
                         iter.val+= incr.val;
                     }
                 }
@@ -689,7 +695,7 @@ public class NormalModeVisitor {
         }
 
         public Env visit(lang.Absyn.SCLoop p, Env env)
-        { /* Code for SCLoop goes here */
+        {
             p.stm_initialise_.accept(new Stm_InitialiseVisitor(), env);
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             int envCurrentSize = env.contexts.size();
@@ -704,7 +710,7 @@ public class NormalModeVisitor {
                             break;
                         }
                     }
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                     p.stm_incrmdecrm_.accept(new Stm_IncrmDecrmVisitor(), env);
                     condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
 
@@ -717,6 +723,7 @@ public class NormalModeVisitor {
         }
 
         @Override
+
         public Env visit(SCLoopAssign p, Env env) {
             p.stm_initialise_.accept(new Stm_InitialiseVisitor(), env);
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
@@ -732,7 +739,7 @@ public class NormalModeVisitor {
                             break;
                         }
                     }
-                    env.emptyBlock();
+                    env.emptyToInitialBlock(envCurrentSize);
                     p.stm_assign_.accept(new Stm_AssignVisitor(), env);
                     condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
                 }
@@ -775,11 +782,9 @@ public class NormalModeVisitor {
         { /* Code for SIfElseIf goes here */
             VBool condition = (VBool) p.exp_.accept(new ExpVisitor(), env);
             if (condition.val){
-                env.newBlock();
                 for (lang.Absyn.Stm x: p.liststm_) {
                     x.accept(new StmVisitor(), env);
                 }
-                env.emptyBlock();
             }else{
                 p.if_stm_.accept(new If_StmVisitor(), env);
             }
@@ -1109,6 +1114,7 @@ public class NormalModeVisitor {
         public Val visit(lang.Absyn.ECall p, Env env)
         { /* Code for ECall goes here */
             //p.ident_;
+
             env.setScopeTypeToFunc();
             VFunc val = (VFunc) env.lookupVar(p.ident_,p.line_num, p.col_num);
             Function funcToExec = val.val;
@@ -1151,6 +1157,7 @@ public class NormalModeVisitor {
         }
         public Val visit(lang.Absyn.EObjCall p, Env env)
         {
+            int envCurrentSize = env.contexts.size();
             VObject val = (VObject) env.lookupVar(p.ident_1,p.line_num, p.col_num);
             ObjectVar objectVar = val.val;
             ObjectDef objectDef = env.lookupDef(objectVar.ofClass,p.line_num, p.col_num);
